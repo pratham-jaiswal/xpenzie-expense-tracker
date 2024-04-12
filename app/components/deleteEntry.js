@@ -7,9 +7,12 @@ const DeleteEntry = ({
   setEntries,
   totalIncome,
   totalExpenditure,
+  setTotalIncome,
+  setTotalExpenditure,
   showDeletePrompt,
   setShowDeletePrompt,
-  selectedEntryId
+  selectedEntryId,
+  setSelectedEntryId
 }) => {
 
   const deleteEntry = () => {
@@ -21,14 +24,13 @@ const DeleteEntry = ({
           if(resultSet.rowsAffected > 0) {
             let entry = entries.find((entry) => entry.id === selectedEntryId);
             let entryAmount = entry.amount;
-            console.log(entry)
             let entryType = entry.type;
             let existingEntries = [...entries].filter((entry) => entry.id !== selectedEntryId);
             if(entryType === "Expenditure") {
-              setTotalExpenditure(totalExpenditure - entryAmount);
+              setTotalExpenditure(totalExpenditure - parseFloat(entryAmount));
             }
             else{
-              setTotalIncome(totalIncome - entryAmount);
+              setTotalIncome(totalIncome -  parseFloat(entryAmount));
             }
             setEntries(existingEntries);
           }
