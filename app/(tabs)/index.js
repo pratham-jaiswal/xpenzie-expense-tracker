@@ -7,6 +7,7 @@ import EntrySummary from "../components/entrySummary";
 import DeleteEntry from "../components/deleteEntry";
 
 const HomePage = () => {
+  const [showForm, setShowForm] = useState(false);
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalIncome, setTotalIncome] = useState(0);
@@ -64,6 +65,11 @@ const HomePage = () => {
     setSelectedEntryId(id);
   };
 
+  const handleEditClick = (id) => {
+    setSelectedEntryId(id);
+    setShowForm(true);
+  };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -84,6 +90,7 @@ const HomePage = () => {
             <EntryList
               entries={entries}
               handleDeleteClick={handleDeleteClick}
+              handleEditClick={handleEditClick}
             />
           </View>
           <View>
@@ -98,6 +105,7 @@ const HomePage = () => {
               showDeletePrompt={showDeletePrompt}
               setShowDeletePrompt={setShowDeletePrompt}
               selectedEntryId={selectedEntryId}
+              setSelectedEntryId={setSelectedEntryId}
             />
           </View>
         </>
@@ -111,6 +119,10 @@ const HomePage = () => {
           totalExpenditure={totalExpenditure}
           setTotalIncome={setTotalIncome}
           setTotalExpenditure={setTotalExpenditure}
+          selectedEntryId={selectedEntryId}
+          setSelectedEntryId={setSelectedEntryId}
+          showForm={showForm}
+          setShowForm={setShowForm}
         />
       </View>
     </View>
