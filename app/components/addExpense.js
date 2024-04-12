@@ -158,7 +158,6 @@ const AddExpense = ({
             let income = totalIncome;
 
             if (entry.type === "Expenditure") {
-              console.log("first - "+parseFloat(entry.amount))
               expenditure = expenditure - parseFloat(entry.amount);
             } else {
               income = income - parseFloat(entry.amount);
@@ -171,10 +170,11 @@ const AddExpense = ({
               currentEntryDate.toLocaleDateString();
             existingEntries[entryIndex].category = currentCategory;
             if (currentEntryType === "Expenditure") {
-              console.log("sec - "+entry.amount)
               setTotalExpenditure(expenditure + parseFloat(currentEntryAmount));
+              setTotalIncome(income);
             } else {
               setTotalIncome(income + parseFloat(currentEntryAmount));
+              setTotalExpenditure(expenditure);
             }
             setEntries(existingEntries);
           }
@@ -197,6 +197,7 @@ const AddExpense = ({
     setCurrentEntryDate(new Date());
     setCurrentCategory(null);
     setCurrentCategoryValue(null);
+    setSelectedEntryId(null);
   };
 
   const handleShowDatepicker = () => {
