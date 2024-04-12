@@ -37,15 +37,11 @@ const DeleteEntry = ({
         (txObj, error) => console.log(error)
       );
     });
-
-    // let entry = entries.find((entry) => entry.id === entryIdToDelete);
-    // console.log(entry)
-    // setShowDeletePrompt(false);
-    // setEntryIdToDelete(null);
   };
 
   const handleCancelClick = () => {
     setShowDeletePrompt(false);
+    setEntryIdToDelete(null);
   };
 
   return (
