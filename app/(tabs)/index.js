@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
 import EntrySummary from "../components/entrySummary";
+import DeleteEntry from "../components/deleteEntry";
 
 const HomePage = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [entryIdToDelete, setEntryIdToDelete] = useState(null);
+
   const db = SQLite.openDatabase("expenses.db");
 
   useEffect(() => {
@@ -55,6 +59,11 @@ const HomePage = () => {
     });
   }, [setEntries, setTotalIncome, setTotalExpenditure, setLoading]);
 
+  const handleDeleteClick = (id) => {
+    setShowDeletePrompt(true);
+    setEntryIdToDelete(id);
+  };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -72,7 +81,24 @@ const HomePage = () => {
             />
           </View>
           <View style={styles.entryList}>
-            <EntryList entries={entries} />
+            <EntryList
+              entries={entries}
+              handleDeleteClick={handleDeleteClick}
+            />
+          </View>
+          <View>
+            <DeleteEntry
+              db={db}
+              entries={entries}
+              setEntries={setEntries}
+              totalIncome={totalIncome}
+              totalExpenditure={totalExpenditure}
+              setTotalIncome={setTotalIncome}
+              setTotalExpenditure={setTotalExpenditure}
+              showDeletePrompt={showDeletePrompt}
+              setShowDeletePrompt={setShowDeletePrompt}
+              entryIdToDelete={entryIdToDelete}
+            />
           </View>
         </>
       )}
