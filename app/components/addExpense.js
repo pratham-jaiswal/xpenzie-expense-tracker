@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -20,8 +20,11 @@ const AddExpense = ({
   totalExpenditure,
   setTotalIncome,
   setTotalExpenditure,
+  selectedEntryId,
+  setSelectedEntryId,
+  showForm,
+  setShowForm,
 }) => {
-  const [showForm, setShowForm] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentEntryType, setCurrentEntryType] = useState("Expenditure");
   const [currentEntryName, setCurrentEntryName] = useState("");
@@ -59,6 +62,34 @@ const AddExpense = ({
     { label: "Miscellaneous", value: "10" },
   ];
 
+  useEffect(() => {
+    if (selectedEntryId) {
+      let existingEntries = [...entries];
+      let entry = existingEntries.find((entry) => entry.id === selectedEntryId);
+
+      let [day, month, year] = entry.date.split("/");
+      let date = new Date(year, month - 1, day);
+
+      let selectedCategory = null;
+      if (entry.type === "Expenditure") {
+        selectedCategory = expenditureCategories.find(
+          (category) => category.label === entry.category
+        );
+      } else {
+        selectedCategory = incomeCategories.find(
+          (category) => category.label === entry.category
+        );
+      }
+
+      setCurrentEntryType(entry.type);
+      setCurrentEntryName(entry.name);
+      setCurrentEntryAmount(String(entry.amount));
+      setCurrentEntryDate(date);
+      setCurrentCategory(entry.category);
+      setCurrentCategoryValue(selectedCategory ? selectedCategory.value : null);
+    }
+  }, [selectedEntryId]);
+
   const renderItem = (item) => {
     return (
       <View style={styles.item}>
@@ -90,11 +121,62 @@ const AddExpense = ({
           });
           setEntries(existingEntries);
           if (currentEntryType === "Expenditure") {
-            setTotalExpenditure(
-              totalExpenditure + parseInt(currentEntryAmount)
-            );
+            setTotalExpenditure(totalExpenditure + parseFloat(currentEntryAmount));
           } else {
-            setTotalIncome(totalIncome + parseInt(currentEntryAmount));
+            setTotalIncome(totalIncome + parseFloat(currentEntryAmount));
+          }
+          handleCloseClick();
+        },
+        (txObj, error) => console.log(error)
+      );
+    });
+  };
+
+  const editEntry = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "UPDATE transaction_entries SET type = ?, name = ?, amount = ?, date = ?, category = ? WHERE id = ?;",
+        [
+          currentEntryType,
+          currentEntryName,
+          currentEntryAmount,
+          currentEntryDate.toLocaleDateString(),
+          currentCategory,
+          selectedEntryId,
+        ],
+        (txObj, resultSet) => {
+          if (resultSet.rowsAffected > 0) {
+            let existingEntries = [...entries];
+            let entry = existingEntries.find(
+              (entry) => entry.id === selectedEntryId
+            );
+            let entryIndex = existingEntries.findIndex(
+              (entry) => entry.id === selectedEntryId
+            );
+
+            let expenditure = totalExpenditure;
+            let income = totalIncome;
+
+            if (entry.type === "Expenditure") {
+              console.log("first - "+parseFloat(entry.amount))
+              expenditure = expenditure - parseFloat(entry.amount);
+            } else {
+              income = income - parseFloat(entry.amount);
+            }
+
+            existingEntries[entryIndex].type = currentEntryType;
+            existingEntries[entryIndex].name = currentEntryName;
+            existingEntries[entryIndex].amount = currentEntryAmount;
+            existingEntries[entryIndex].date =
+              currentEntryDate.toLocaleDateString();
+            existingEntries[entryIndex].category = currentCategory;
+            if (currentEntryType === "Expenditure") {
+              console.log("sec - "+entry.amount)
+              setTotalExpenditure(expenditure + parseFloat(currentEntryAmount));
+            } else {
+              setTotalIncome(income + parseFloat(currentEntryAmount));
+            }
+            setEntries(existingEntries);
           }
           handleCloseClick();
         },
@@ -246,7 +328,11 @@ const AddExpense = ({
                 borderRadius: 7,
                 elevation: 3,
               }}
-              data={currentEntryType === "Expenditure" ? expenditureCategories : incomeCategories}
+              data={
+                currentEntryType === "Expenditure"
+                  ? expenditureCategories
+                  : incomeCategories
+              }
               search
               maxHeight={300}
               labelField="label"
@@ -281,7 +367,7 @@ const AddExpense = ({
                 },
                 styles.confirmButton,
               ]}
-              onPress={addEntry}
+              onPress={selectedEntryId ? editEntry : addEntry}
               disabled={
                 currentEntryType &&
                 currentEntryName &&
