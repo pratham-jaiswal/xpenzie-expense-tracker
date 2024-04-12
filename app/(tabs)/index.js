@@ -12,7 +12,7 @@ const HomePage = () => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
-  const [entryIdToDelete, setEntryIdToDelete] = useState(null);
+  const [selectedEntryId, setSelectedEntryId] = useState(null);
 
   const db = SQLite.openDatabase("expenses.db");
 
@@ -61,7 +61,7 @@ const HomePage = () => {
 
   const handleDeleteClick = (id) => {
     setShowDeletePrompt(true);
-    setEntryIdToDelete(id);
+    setSelectedEntryId(id);
   };
 
   return (
@@ -97,7 +97,7 @@ const HomePage = () => {
               setTotalExpenditure={setTotalExpenditure}
               showDeletePrompt={showDeletePrompt}
               setShowDeletePrompt={setShowDeletePrompt}
-              entryIdToDelete={entryIdToDelete}
+              selectedEntryId={selectedEntryId}
             />
           </View>
         </>
