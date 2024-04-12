@@ -9,21 +9,21 @@ const DeleteEntry = ({
   totalExpenditure,
   showDeletePrompt,
   setShowDeletePrompt,
-  entryIdToDelete
+  selectedEntryId
 }) => {
 
   const deleteEntry = () => {
     db.transaction((tx) => {
       tx.executeSql(
         "DELETE FROM transaction_entries WHERE id = ?",
-        [entryIdToDelete],
+        [selectedEntryId],
         (txObj, resultSet) => {
           if(resultSet.rowsAffected > 0) {
-            let entry = entries.find((entry) => entry.id === entryIdToDelete);
+            let entry = entries.find((entry) => entry.id === selectedEntryId);
             let entryAmount = entry.amount;
             console.log(entry)
             let entryType = entry.type;
-            let existingEntries = [...entries].filter((entry) => entry.id !== entryIdToDelete);
+            let existingEntries = [...entries].filter((entry) => entry.id !== selectedEntryId);
             if(entryType === "Expenditure") {
               setTotalExpenditure(totalExpenditure - entryAmount);
             }
@@ -41,7 +41,7 @@ const DeleteEntry = ({
 
   const handleCancelClick = () => {
     setShowDeletePrompt(false);
-    setEntryIdToDelete(null);
+    setSelectedEntryId(null);
   };
 
   return (
