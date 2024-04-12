@@ -7,8 +7,6 @@ const DeleteEntry = ({
   setEntries,
   totalIncome,
   totalExpenditure,
-  setTotalIncome,
-  setTotalExpenditure,
   showDeletePrompt,
   setShowDeletePrompt,
   entryIdToDelete
