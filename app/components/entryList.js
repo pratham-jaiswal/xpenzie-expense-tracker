@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome6 } from "@expo/vector-icons";
 
-const Item = ({ item }) => (
+const Item = ({ item, handleDeleteClick }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
@@ -23,7 +23,9 @@ const Item = ({ item }) => (
       </View>
     </View>
     <View style={styles.icons}>
-      <Pressable onPress={() => console.log("first")}>
+      <Pressable
+        onPress={() => handleDeleteClick(item.id) }
+      >
         {({ pressed }) => (
           <Ionicons
             name="trash-sharp"
@@ -35,7 +37,7 @@ const Item = ({ item }) => (
           />
         )}
       </Pressable>
-      
+
       <Pressable onPress={() => console.log("first")}>
         {({ pressed }) => (
           <FontAwesome6
@@ -52,11 +54,13 @@ const Item = ({ item }) => (
   </View>
 );
 
-const EntryList = ({ entries }) => {
+const EntryList = ({ entries, handleDeleteClick }) => {
   return (
     <FlashList
       data={entries}
-      renderItem={({ item }) => <Item item={item} />}
+      renderItem={({ item }) => (
+        <Item item={item} handleDeleteClick={handleDeleteClick} />
+      )}
       keyExtractor={(item) => item.id}
       estimatedItemSize={200}
     />
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     height: "50%",
-  }
+  },
 });
 
 export default EntryList;
