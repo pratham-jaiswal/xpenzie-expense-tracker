@@ -246,7 +246,7 @@ const AddExpense = ({
                 borderRadius: 7,
                 elevation: 3,
               }}
-              data={expenditureCategories}
+              data={currentEntryType === "Expenditure" ? expenditureCategories : incomeCategories}
               search
               maxHeight={300}
               labelField="label"
