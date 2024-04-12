@@ -3,7 +3,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-const Item = ({ item, handleDeleteClick }) => (
+const Item = ({ item, handleDeleteClick, handleEditClick }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
@@ -38,7 +38,7 @@ const Item = ({ item, handleDeleteClick }) => (
         )}
       </Pressable>
 
-      <Pressable onPress={() => console.log("first")}>
+      <Pressable onPress={() => handleEditClick(item.id)}>
         {({ pressed }) => (
           <FontAwesome6
             name="pen"
@@ -54,12 +54,12 @@ const Item = ({ item, handleDeleteClick }) => (
   </View>
 );
 
-const EntryList = ({ entries, handleDeleteClick }) => {
+const EntryList = ({ entries, handleDeleteClick, handleEditClick }) => {
   return (
     <FlashList
       data={entries}
       renderItem={({ item }) => (
-        <Item item={item} handleDeleteClick={handleDeleteClick} />
+        <Item item={item} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
       )}
       keyExtractor={(item) => item.id}
       estimatedItemSize={200}
