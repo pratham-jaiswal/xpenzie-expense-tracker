@@ -1,10 +1,19 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import * as SQLite from "expo-sqlite";
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import MonthlyEntryList from "../components/monthlyEntryList";
 import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
+import DownloadPDF from "../components/downloadPDF";
+import * as Print from "expo-print";
+import { shareAsync } from "expo-sharing";
 
 const MonthlyEntries = () => {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -212,6 +221,14 @@ const MonthlyEntries = () => {
           <View style={styles.entryList}>
             <MonthlyEntryList monthlyEntries={monthlyEntries} />
           </View>
+          <View style={styles.pdfBtnContainer}>
+            <DownloadPDF
+              entries={monthlyEntries}
+              totalIncome={totalIncome}
+              totalExpenditure={totalExpenditure}
+              title={`Monthly Transactions Summary - ${months[month]} ${year}`}
+            />
+          </View>
         </>
       )}
     </View>
@@ -221,7 +238,6 @@ const MonthlyEntries = () => {
   // Priority 3 - Category pie chart/bar graph - expenditure
   // Priority 3 - Category pie chart/bar graph - income
   // Priority 2 - Income Expenditure Line graph
-  // Priority 2 - Bottom Right: PDF statement of transactions for that month
 };
 
 const styles = StyleSheet.create({
@@ -230,6 +246,12 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     alignItems: "center",
+  },
+  pdfBtnContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 16,
   },
   dateSelector: {
     width: "90%",

@@ -12,6 +12,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
 import MonthSummary from "../components/yearlyMonthSummary";
 import YearlyEntryList from "../components/yearlyEntryList";
+import DownloadPDF from "../components/downloadPDF";
 
 const YearlyEntries = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -150,6 +151,14 @@ const YearlyEntries = () => {
           <View style={styles.entryList}>
             <YearlyEntryList yearlyEntries={yearlyEntries} />
           </View>
+          <View style={styles.pdfBtnContainer}>
+            <DownloadPDF
+              entries={yearlyEntries}
+              totalIncome={totalIncome}
+              totalExpenditure={totalExpenditure}
+              title={`Yearly Transactions Summary - ${year}`}
+            />
+          </View>
         </>
       )}
     </View>
@@ -159,7 +168,6 @@ const YearlyEntries = () => {
   // Priority 3 - Category pie chart/bar graph - expenditure
   // Priority 3 - Category pie chart/bar graph - income
   // Priority 2 - Income Expenditure Line graph
-  // Priority 2 - Bottom Right: PDF statement of transactions for that month
 };
 
 const styles = StyleSheet.create({
@@ -172,6 +180,12 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     alignItems: "center",
+  },
+  pdfBtnContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 16,
   },
   dateSelector: {
     width: "90%",

@@ -6,6 +6,7 @@ import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
 import EntrySummary from "../components/entrySummary";
 import DeleteEntry from "../components/deleteEntry";
+import DownloadPDF from "../components/downloadPDF";
 
 const HomePage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -113,6 +114,12 @@ const HomePage = () => {
         </>
       )}
       <View style={styles.entryField}>
+        <DownloadPDF
+          entries={entries}
+          totalIncome={totalIncome}
+          totalExpenditure={totalExpenditure}
+          title={`Complete Transactions Summary`}
+        />
         <AddExpense
           db={db}
           entries={entries}
@@ -146,6 +153,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   entryField: {
+    flexDirection: "row",
+    width: "30%",
+    justifyContent: "space-between",
+    alignItems: "space-between",
     position: "absolute",
     bottom: 0,
     right: 0,
