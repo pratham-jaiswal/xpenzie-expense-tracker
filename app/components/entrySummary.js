@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFE6E6",
     marginVertical: "3%",
     padding: "5%",
-    borderRadius: 7,
+    borderRadius: 15,
+    elevation: 7,
   },
   summaryText: {
     flexDirection: "row",
