@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import * as SQLite from "expo-sqlite";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
 import EntrySummary from "../components/entrySummary";
@@ -17,48 +18,50 @@ const HomePage = () => {
 
   const db = SQLite.openDatabase("expenses.db");
 
-  useEffect(() => {
-    setLoading(true);
-    db.transaction((tx) => {
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);"
-      );
-    });
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      db.transaction((tx) => {
+        tx.executeSql(
+          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);"
+        );
+      });
 
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM transaction_entries",
-        null,
-        (txObj, resultSet) => {
-          setEntries(resultSet.rows._array);
-        },
-        (txObj, error) => console.error(error)
-      );
-    });
+      db.transaction((tx) => {
+        tx.executeSql(
+          "SELECT * FROM transaction_entries",
+          null,
+          (txObj, resultSet) => {
+            setEntries(resultSet.rows._array);
+          },
+          (txObj, error) => console.error(error)
+        );
+      });
 
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE type = 'Expenditure'",
-        null,
-        (txObj, resultSet) => {
-          setTotalExpenditure(resultSet.rows.item(0).totalExpenditure || 0);
-        },
-        (txObj, error) => console.error(error)
-      );
-    });
+      db.transaction((tx) => {
+        tx.executeSql(
+          "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE type = 'Expenditure'",
+          null,
+          (txObj, resultSet) => {
+            setTotalExpenditure(resultSet.rows.item(0).totalExpenditure || 0);
+          },
+          (txObj, error) => console.error(error)
+        );
+      });
 
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE type = 'Income'",
-        null,
-        (txObj, resultSet) => {
-          setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
-          setLoading(false);
-        },
-        (txObj, error) => console.error(error)
-      );
-    });
-  }, [setEntries, setTotalIncome, setTotalExpenditure, setLoading]);
+      db.transaction((tx) => {
+        tx.executeSql(
+          "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE type = 'Income'",
+          null,
+          (txObj, resultSet) => {
+            setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
+            setLoading(false);
+          },
+          (txObj, error) => console.error(error)
+        );
+      });
+    }, [setEntries, setTotalIncome, setTotalExpenditure])
+  );
 
   const handleDeleteClick = (id) => {
     setShowDeletePrompt(true);
@@ -72,20 +75,19 @@ const HomePage = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.entrySummary}>
+        <EntrySummary
+          totalIncome={totalIncome}
+          totalExpenditure={totalExpenditure}
+          savings={totalIncome - totalExpenditure}
+        />
+      </View>
       {loading ? (
         <>
           <Text>Loading...</Text>
         </>
       ) : (
         <>
-          <View style={styles.entrySummary}>
-            <EntrySummary
-              entries={entries}
-              totalIncome={totalIncome}
-              totalExpenditure={totalExpenditure}
-              savings={totalIncome - totalExpenditure}
-            />
-          </View>
           <View style={styles.entryList}>
             <EntryList
               entries={entries}
