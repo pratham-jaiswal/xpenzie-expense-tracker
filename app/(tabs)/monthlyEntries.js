@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native";
 import * as SQLite from "expo-sqlite";
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
@@ -204,9 +204,9 @@ const MonthlyEntries = () => {
         />
       </View>
       {loading ? (
-        <>
-          <Text>Loading...</Text>
-        </>
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#FFE6E6" />
+        </View>
       ) : (
         <>
           <View style={styles.entryList}>
@@ -216,10 +216,12 @@ const MonthlyEntries = () => {
       )}
     </View>
   );
-  
-  // TO-DO
-  // Priority 2 - Bottom Right: PDF statement of transactions for that month
 
+  // TO-DO
+  // Priority 3 - Category pie chart/bar graph - expenditure
+  // Priority 3 - Category pie chart/bar graph - income
+  // Priority 2 - Income Expenditure Line graph
+  // Priority 2 - Bottom Right: PDF statement of transactions for that month
 };
 
 const styles = StyleSheet.create({

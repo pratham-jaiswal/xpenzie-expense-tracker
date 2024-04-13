@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import * as SQLite from "expo-sqlite";
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
@@ -83,9 +83,9 @@ const HomePage = () => {
         />
       </View>
       {loading ? (
-        <>
-          <Text>Loading...</Text>
-        </>
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#FFE6E6" />
+        </View>
       ) : (
         <>
           <View style={styles.entryList}>
