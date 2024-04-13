@@ -57,7 +57,7 @@ const Item = ({ item, handleDeleteClick, handleEditClick }) => (
 const EntryList = ({ entries, handleDeleteClick, handleEditClick }) => {
   return (
     <FlashList
-      data={entries}
+      data={entries.slice().reverse()}
       renderItem={({ item }) => (
         <Item item={item} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
       )}
