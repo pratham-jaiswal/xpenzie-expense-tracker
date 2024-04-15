@@ -3,18 +3,21 @@
     "name": "expense-tracker",
     "slug": "expense-tracker",
     "scheme": "expense-tracker",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "image": "./assets/splash.png"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.prathamjaiswal.expensetracker"
     },
     "android": {
       "adaptiveIcon": {
