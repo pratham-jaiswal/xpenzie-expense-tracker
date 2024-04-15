@@ -1,6 +1,6 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
@@ -20,7 +20,7 @@ const HomePage = () => {
   const db = SQLite.openDatabase("expenses.db");
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       setLoading(true);
       db.transaction((tx) => {
         tx.executeSql(
@@ -75,7 +75,7 @@ const HomePage = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.entrySummary}>
         <EntrySummary
           totalIncome={totalIncome}
@@ -134,7 +134,7 @@ const HomePage = () => {
           setShowForm={setShowForm}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
