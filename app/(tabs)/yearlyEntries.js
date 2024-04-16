@@ -6,13 +6,26 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
-import MonthSummary from "../components/yearlyMonthSummary";
 import YearlyEntryList from "../components/yearlyEntryList";
 import DownloadPDF from "../components/downloadPDF";
+import * as SecureStore from "expo-secure-store";
+
+async function save(key, value, reqAuth) {
+  await SecureStore.setItemAsync(key, value, {
+    requireAuthentication: reqAuth,
+  });
+}
+
+async function getValueFor(key, reqAuth) {
+  let result = await SecureStore.getItemAsync(key, {
+    requireAuthentication: reqAuth,
+  });
+  return result;
+}
 
 const YearlyEntries = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -22,10 +35,58 @@ const YearlyEntries = () => {
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const [currencyValue, setCurrencyValue] = useState(null);
+  const [currencySymbol, setCurrencySymbol] = useState(null);
+  const [languageValue, setLanguageValue] = useState(null);
+  const [languageCode, setLanguageCode] = useState(null);
+
   const db = SQLite.openDatabase("expenses.db");
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
+      const fetchData = async () => {
+        let currVal = await getValueFor("currencyValue", false);
+        if (!currVal) {
+          await save("currencyValue", "65", false);
+          currVal = "65";
+          setCurrencyValue(currVal);
+        } else if (currVal !== currencyValue) {
+          setCurrencyValue(currVal);
+        }
+
+        let currSymbol = await getValueFor("currencySymbol", false);
+        if (!currSymbol) {
+          await save("currencySymbol", "₹", false);
+          currSymbol = "₹";
+          setCurrencySymbol(currSymbol);
+        } else if (currSymbol !== currencySymbol) {
+          setCurrencySymbol(currSymbol);
+        }
+
+        let langVal = await getValueFor("languageValue", false);
+        if (!langVal) {
+          await save("languageValue", "1", false);
+          langVal = "1";
+          setLanguageValue(langVal);
+        } else if (langVal !== languageValue) {
+          setLanguageValue(langVal);
+        }
+
+        let langCode = await getValueFor("languageCode", false);
+        if (!langCode) {
+          await save("languageCode", "en", false);
+          langCode = "en";
+          setLanguageCode(langCode);
+        } else if (langCode !== languageCode) {
+          setLanguageCode(langCode);
+        }
+      };
+      fetchData();
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
       setLoading(true);
       db.transaction((tx) => {
         tx.executeSql(
@@ -107,12 +168,10 @@ const YearlyEntries = () => {
               <FontAwesome6
                 name="less-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "5%",
                   paddingHorizontal: "6%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -123,12 +182,10 @@ const YearlyEntries = () => {
               <FontAwesome6
                 name="greater-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "5%",
                   paddingHorizontal: "6%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -137,6 +194,9 @@ const YearlyEntries = () => {
       </View>
       <View style={styles.entrySummary}>
         <EntrySummary
+          // entries={yearlyEntries}
+          currencySymbol={currencySymbol}
+          languageCode={languageCode}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
@@ -149,11 +209,17 @@ const YearlyEntries = () => {
       ) : (
         <>
           <View style={styles.entryList}>
-            <YearlyEntryList yearlyEntries={yearlyEntries} />
+            <YearlyEntryList
+              yearlyEntries={yearlyEntries}
+              currencySymbol={currencySymbol}
+              languageCode={languageCode}
+            />
           </View>
           <View style={styles.pdfBtnContainer}>
             <DownloadPDF
               entries={yearlyEntries}
+              currencySymbol={currencySymbol}
+              languageCode={languageCode}
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
               title={`Yearly Transactions Summary - ${year}`}

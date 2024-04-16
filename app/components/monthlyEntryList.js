@@ -1,19 +1,30 @@
 import { StyleSheet, View, Text, Pressable, Dimensions } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
-const Item = ({ item }) => (
+const Item = ({ item, currencySymbol, languageCode }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
         <Text style={styles.entryName}>{item.name}</Text>
-        <Text
-          style={[
-            { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
-            styles.entryAmount,
-          ]}
-        >
-          {item.type === "Expenditure" ? "-" : "+"} ₹{item.amount}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={[
+              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              styles.entryAmount,
+            ]}
+          >
+            {item.type === "Expenditure" ? "- " : "+"}
+          </Text>
+          <Text
+            style={[
+              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              styles.entryAmount,
+            ]}
+          >
+            {currencySymbol}
+            {item.amount}
+          </Text>
+        </View>
       </View>
       <View style={styles.entryLine2}>
         <Text style={styles.entryCategory}>{item.category}</Text>
@@ -22,18 +33,24 @@ const Item = ({ item }) => (
   </View>
 );
 
-const EntryList = ({ entries }) => {
+const EntryList = ({ entries, currencySymbol, languageCode }) => {
   return (
     <FlashList
       data={entries}
-      renderItem={({ item }) => <Item item={item} />}
+      renderItem={({ item }) => (
+        <Item
+          item={item}
+          currencySymbol={currencySymbol}
+          languageCode={languageCode}
+        />
+      )}
       keyExtractor={(item) => item.id}
       estimatedItemSize={200}
     />
   );
 };
 
-const MonthlyEntryList = ({ monthlyEntries }) => {
+const MonthlyEntryList = ({ monthlyEntries, currencySymbol, languageCode }) => {
   let dates = {};
 
   monthlyEntries.forEach((entry) => {
@@ -84,25 +101,46 @@ const MonthlyEntryList = ({ monthlyEntries }) => {
               <Text style={styles.entryDate}>{item[0]}</Text>
               <View style={styles.savingsContainer}>
                 <Text style={styles.entrySavingsLabel}>Savings: </Text>
-                <Text
-                  style={[
-                    {
-                      color:
-                        savings < 0
-                          ? "#E10000"
-                          : savings > 0
-                          ? "#00B900"
-                          : "#8953b1",
-                    },
-                    styles.entrySavingsAmount,
-                  ]}
-                >
-                  {(savings < 0 ? "-" : "") + " ₹" + String(Math.abs(savings))}
-                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={[
+                      {
+                        color:
+                          savings < 0
+                            ? "#E10000"
+                            : savings > 0
+                            ? "#00B900"
+                            : "#8953b1",
+                      },
+                      styles.entrySavingsAmount,
+                    ]}
+                  >
+                    {(savings < 0 ? "- " : "")}
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        color:
+                          savings < 0
+                            ? "#E10000"
+                            : savings > 0
+                            ? "#00B900"
+                            : "#8953b1",
+                      },
+                      styles.entrySavingsAmount,
+                    ]}
+                  >
+                    {currencySymbol}{String(Math.abs(savings))}
+                  </Text>
+                </View>
               </View>
             </View>
             <View style={styles.entryListContainer}>
-              {EntryList({ entries: item[1].slice().reverse() })}
+              {EntryList({
+                entries: item[1].slice().reverse(),
+                currencySymbol: currencySymbol,
+                languageCode: languageCode,
+              })}
             </View>
           </View>
         );

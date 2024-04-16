@@ -1,6 +1,13 @@
 import { Text, View, StyleSheet } from "react-native";
 
-const MonthSummary = ({ month, totalIncome, totalExpenditure, savings }) => {
+const MonthSummary = ({
+  month,
+  currencySymbol,
+  languageCode,
+  totalIncome,
+  totalExpenditure,
+  savings,
+}) => {
   return (
     <View style={styles.summary}>
       <View>
@@ -8,25 +15,45 @@ const MonthSummary = ({ month, totalIncome, totalExpenditure, savings }) => {
       </View>
       <View style={styles.summaryText}>
         <Text style={styles.summaryTextDescription}>Income: </Text>
-        <Text style={styles.summaryAmount}>₹{totalIncome}</Text>
+        <Text style={styles.summaryAmount}>
+          {currencySymbol}
+          {totalIncome}
+        </Text>
       </View>
       <View style={styles.summaryText}>
         <Text style={styles.summaryTextDescription}>Expenditure: </Text>
-        <Text style={styles.summaryAmount}>₹{totalExpenditure}</Text>
+        <Text style={styles.summaryAmount}>
+          {currencySymbol}
+          {totalExpenditure}
+        </Text>
       </View>
       <View style={styles.summaryText}>
         <Text style={styles.summaryTextDescription}>Savings: </Text>
-        <Text
-          style={[
-            styles.summaryAmount,
-            {
-              color:
-                savings < 0 ? "#E10000" : savings > 0 ? "#00B900" : "#8953b1",
-            },
-          ]}
-        >
-          {savings < 0 ? "- " : ""}₹{Math.abs(savings)}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={[
+              styles.summaryAmount,
+              {
+                color:
+                  savings < 0 ? "#E10000" : savings > 0 ? "#00B900" : "#8953b1",
+              },
+            ]}
+          >
+            {savings < 0 ? "- " : ""}
+          </Text>
+          <Text
+            style={[
+              styles.summaryAmount,
+              {
+                color:
+                  savings < 0 ? "#E10000" : savings > 0 ? "#00B900" : "#8953b1",
+              },
+            ]}
+          >
+            {currencySymbol}
+            {Math.abs(savings)}
+          </Text>
+        </View>
       </View>
     </View>
   );

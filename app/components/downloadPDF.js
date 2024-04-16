@@ -1,9 +1,24 @@
 import * as React from "react";
-import { View, StyleSheet, Button, Platform, Text, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Button,
+  Platform,
+  Text,
+  Pressable,
+  TouchableHighlight,
+} from "react-native";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 
-const DownloadPDF = ({ entries, title, totalIncome, totalExpenditure }) => {
+const DownloadPDF = ({
+  entries,
+  title,
+  totalIncome,
+  totalExpenditure,
+  currencySymbol,
+  languageCode,
+}) => {
   var income = entries.filter((entry) => entry.type === "Income");
   var expenditure = entries.filter((entry) => entry.type === "Expenditure");
 
@@ -28,7 +43,7 @@ const DownloadPDF = ({ entries, title, totalIncome, totalExpenditure }) => {
 <body>
 
 <h2>${title}</h2>
-<div id="summaryTable"></div><table><tr><th>Expenditure</th><th>Amount (₹)</th><th>Income</th><th>Amount (₹)</th></tr>`;
+<div id="summaryTable"></div><table><tr><th>Expenditure</th><th>Amount (${currencySymbol})</th><th>Income</th><th>Amount (${currencySymbol})</th></tr>`;
   var maxLength = Math.max(income.length, expenditure.length);
 
   for (var i = 0; i < maxLength; i++) {
@@ -54,16 +69,14 @@ const DownloadPDF = ({ entries, title, totalIncome, totalExpenditure }) => {
   }
 
   var savings = totalIncome - totalExpenditure;
+  var savingsText = (savings < 0 ? "- " : "") + currencySymbol + Math.abs(savings);
 
   tableHtml +=
-    "<tr><td>Total Expenditure</td><td><b>₹" +
-    totalExpenditure +
-    "</b></td><td>Total Income</td><td><b>₹" +
-    totalIncome +
-    "</b></td></tr>" +
-    '<tr><td colspan="2">Savings</td><td colspan="2"><b>₹' +
-    savings +
-    "</b></td></tr></table></body></html>";
+    `<tr><td>Total Expenditure</td><td><b>${currencySymbol}${totalExpenditure}
+    </b></td><td>Total Income</td><td><b>${currencySymbol}${totalIncome}
+    </b></td></tr>"
+    <tr><td colspan="2">Savings</td><td colspan="2"><b>${savingsText}
+    </b></td></tr></table></body></html>`;
 
   const html = tableHtml;
 
@@ -74,17 +87,20 @@ const DownloadPDF = ({ entries, title, totalIncome, totalExpenditure }) => {
   };
 
   return (
-    <Pressable style={styles.addButton} onPress={print}>
+    <TouchableHighlight
+      underlayColor="#5f52aa"
+      style={styles.addButton}
+      onPress={print}
+    >
       <Text style={styles.addButtonText}>PDF</Text>
-    </Pressable>
+    </TouchableHighlight>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#ecf0f1",
     flexDirection: "column",
     padding: 8,
   },

@@ -6,14 +6,26 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import MonthlyEntryList from "../components/monthlyEntryList";
 import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
 import DownloadPDF from "../components/downloadPDF";
-import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
+import * as SecureStore from "expo-secure-store";
+
+async function save(key, value, reqAuth) {
+  await SecureStore.setItemAsync(key, value, {
+    requireAuthentication: reqAuth,
+  });
+}
+
+async function getValueFor(key, reqAuth) {
+  let result = await SecureStore.getItemAsync(key, {
+    requireAuthentication: reqAuth,
+  });
+  return result;
+}
 
 const MonthlyEntries = () => {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -26,6 +38,11 @@ const MonthlyEntries = () => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const [currencyValue, setCurrencyValue] = useState(null);
+  const [currencySymbol, setCurrencySymbol] = useState(null);
+  const [languageValue, setLanguageValue] = useState(null);
+  const [languageCode, setLanguageCode] = useState(null);
 
   const db = SQLite.openDatabase("expenses.db");
 
@@ -45,7 +62,50 @@ const MonthlyEntries = () => {
   };
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
+      const fetchData = async () => {
+        let currVal = await getValueFor("currencyValue", false);
+        if (!currVal) {
+          await save("currencyValue", "65", false);
+          currVal = "65";
+          setCurrencyValue(currVal);
+        } else if (currVal !== currencyValue) {
+          setCurrencyValue(currVal);
+        }
+
+        let currSymbol = await getValueFor("currencySymbol", false);
+        if (!currSymbol) {
+          await save("currencySymbol", "₹", false);
+          currSymbol = "₹";
+          setCurrencySymbol(currSymbol);
+        } else if (currSymbol !== currencySymbol) {
+          setCurrencySymbol(currSymbol);
+        }
+
+        let langVal = await getValueFor("languageValue", false);
+        if (!langVal) {
+          await save("languageValue", "1", false);
+          langVal = "1";
+          setLanguageValue(langVal);
+        } else if (langVal !== languageValue) {
+          setLanguageValue(langVal);
+        }
+
+        let langCode = await getValueFor("languageCode", false);
+        if (!langCode) {
+          await save("languageCode", "en", false);
+          langCode = "en";
+          setLanguageCode(langCode);
+        } else if (langCode !== languageCode) {
+          setLanguageCode(langCode);
+        }
+      };
+      fetchData();
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
       setLoading(true);
       db.transaction((tx) => {
         tx.executeSql(
@@ -144,12 +204,10 @@ const MonthlyEntries = () => {
               <FontAwesome6
                 name="less-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -160,12 +218,10 @@ const MonthlyEntries = () => {
               <FontAwesome6
                 name="greater-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -177,12 +233,10 @@ const MonthlyEntries = () => {
               <FontAwesome6
                 name="less-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -193,12 +247,10 @@ const MonthlyEntries = () => {
               <FontAwesome6
                 name="greater-than"
                 size={16}
-                color="#8953b1"
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  borderRadius: 100,
-                  backgroundColor: pressed ? "#00000033" : "transparent",
+                  color: pressed ? "#2b1938" : "#8953b1",
                 }}
               />
             )}
@@ -207,6 +259,9 @@ const MonthlyEntries = () => {
       </View>
       <View style={styles.entrySummary}>
         <EntrySummary
+          // entries={monthlyEntries}
+          currencySymbol={currencySymbol}
+          languageCode={languageCode}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
@@ -219,11 +274,17 @@ const MonthlyEntries = () => {
       ) : (
         <>
           <View style={styles.entryList}>
-            <MonthlyEntryList monthlyEntries={monthlyEntries} />
+            <MonthlyEntryList
+              monthlyEntries={monthlyEntries}
+              currencySymbol={currencySymbol}
+              languageCode={languageCode}
+            />
           </View>
           <View style={styles.pdfBtnContainer}>
             <DownloadPDF
               entries={monthlyEntries}
+              currencySymbol={currencySymbol}
+              languageCode={languageCode}
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
               title={`Monthly Transactions Summary - ${months[month]} ${year}`}
@@ -235,9 +296,10 @@ const MonthlyEntries = () => {
   );
 
   // TO-DO
+  // Show hide charts
   // Priority 3 - Category pie chart/bar graph - expenditure
   // Priority 3 - Category pie chart/bar graph - income
-  // Priority 2 - Income Expenditure Line graph
+  // Priority 3 - Income Expenditure Line graph
 };
 
 const styles = StyleSheet.create({

@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   Modal,
+  TouchableHighlight,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { getCalendars } from "expo-localization";
@@ -15,6 +16,8 @@ import { Dropdown } from "react-native-element-dropdown";
 const AddExpense = ({
   db,
   entries,
+  currencySymbol,
+  languageCode,
   setEntries,
   totalIncome,
   totalExpenditure,
@@ -121,7 +124,9 @@ const AddExpense = ({
           });
           setEntries(existingEntries);
           if (currentEntryType === "Expenditure") {
-            setTotalExpenditure(totalExpenditure + parseFloat(currentEntryAmount));
+            setTotalExpenditure(
+              totalExpenditure + parseFloat(currentEntryAmount)
+            );
           } else {
             setTotalIncome(totalIncome + parseFloat(currentEntryAmount));
           }
@@ -214,11 +219,13 @@ const AddExpense = ({
 
   return (
     <View>
-      <View>
-        <Pressable style={styles.addButton} onPress={handleAddClick}>
-          <Text style={styles.addButtonText}>+</Text>
-        </Pressable>
-      </View>
+      <TouchableHighlight
+        underlayColor="#5f52aa"
+        style={styles.addButton}
+        onPress={handleAddClick}
+      >
+        <Text style={styles.addButtonText}>+</Text>
+      </TouchableHighlight>
       <Modal
         animationType="slide"
         transparent={true}
@@ -273,7 +280,7 @@ const AddExpense = ({
               onChangeText={(text) => setCurrentEntryName(text)}
             />
             <View style={styles.amountContainer}>
-              <Text style={styles.amountPrefix}>₹</Text>
+              <Text style={styles.amountPrefix}>{currencySymbol}</Text>
               <TextInput
                 style={styles.amountInput}
                 value={currentEntryAmount}
@@ -451,7 +458,6 @@ const styles = StyleSheet.create({
   },
   amountPrefix: {
     color: "#FFE6E6",
-    width: "10%",
     lineHeight: 30,
     fontSize: 16,
   },
