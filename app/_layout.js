@@ -27,7 +27,11 @@ const RootLayout = () => {
                   name="settings-sharp"
                   size={20}
                   style={{
-                    color: pressed ? "#f5d7d7" : "#FFE6E6",
+                    color: pressed ? "#f2cece" : "#FFE6E6",
+                    paddingVertical: 5,
+                    paddingHorizontal: 5,
+                    textAlign: "center",
+                    borderRadius: 25,
                     marginLeft: "5%",
                   }}
                 />
