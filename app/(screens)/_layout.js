@@ -20,6 +20,9 @@ const RootLayout = () => {
         options={{
           headerShown: true,
           headerTitle: "Settings",
+          contentStyle: {
+            backgroundColor: "#AD88C6",
+          },
         }}
       />
     </Stack>
