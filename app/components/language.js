@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Pressable, Text, View, Modal } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
-const Language = ({ showForm, setShowForm }) => {
-  const [currentLanguage, setCurrentLanguage] = useState(null);
+const Language = ({
+  showForm,
+  setShowForm,
+  save,
+  languageCode,
+  languageValue,
+  setLanguageCode,
+  setLanguageValue,
+  i18nLang,
+}) => {
+  const [currentLanguageCode, setCurrentLanguageCode] = useState(null);
   const [currentLanguageValue, setCurrentLanguageValue] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const languageList = [
-    { label: "English", value: "1", code: "en" },
-    { label: "हिन्दी", value: "2", code: "hi" },
-    { label: "বাংলা", value: "3", code: "bn" },
-    { label: "Español", value: "4", code: "es" },
-    { label: "Français", value: "5", code: "fr" },
-    { label: "Русский", value: "6", code: "ru" },
-    { label: "日本語", value: "7", code: "ja" },
+    { label: "English", enLabel: "English", value: "1", code: "en" },
+    { label: "हिंदी", enLabel: "Hindi", value: "2", code: "hi" },
+    { label: "বাংলা", enLabel: "Bengali", value: "3", code: "bn" },
+    { label: "Español", enLabel: "Spanish", value: "4", code: "es" },
+    { label: "Français", enLabel: "French", value: "5", code: "fr" },
+    { label: "Русский", enLabel: "Russian", value: "6", code: "ru" },
+    { label: "日本語", enLabel: "Japanese", value: "7", code: "ja" },
   ];
 
   const renderItem = (item) => {
@@ -24,11 +35,32 @@ const Language = ({ showForm, setShowForm }) => {
     );
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setCurrentLanguageValue(languageValue);
+      setCurrentLanguageCode(languageCode);
+    }, [languageValue, languageCode])
+  );
+
+  const saveLanguage = async () => {
+    setLanguageCode(currentLanguageValue);
+    setLanguageValue(currentLanguageCode);
+    await save("languageValue", currentLanguageValue, false);
+    await save("languageCode", currentLanguageCode, false);
+    setShowForm(false);
+  };
+
   const handleCloseClick = () => {
     setShowForm(false);
-    setCurrentLanguage(null);
+    setCurrentLanguageValue(null);
     setCurrentLanguageValue(null);
   };
+
+  const handleSelectLanguage = useCallback((item) => {
+    setCurrentLanguageValue(item.value);
+    setCurrentLanguageCode(item.code);
+    setSearchQuery("");
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -54,17 +86,30 @@ const Language = ({ showForm, setShowForm }) => {
                 borderRadius: 7,
                 elevation: 3,
               }}
-              data={languageList}
+              data={
+                searchQuery
+                  ? languageList.filter(
+                      (item) =>
+                        item.label
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase()) ||
+                        item.enLabel
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())
+                    )
+                  : languageList
+              }
+              dropdownPosition="top"
               search
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder="Language..."
-              searchPlaceholder="Search..."
+              placeholder={i18nLang.t("language")+"..."}
+              searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={currentLanguageValue}
-              onChange={(item) => {
-                setCurrentLanguageValue(item.value);
-                setCurrentLanguage(item.label);
+              onChange={handleSelectLanguage}
+              onChangeText={(query) => {
+                setSearchQuery(query);
               }}
               renderItem={renderItem}
             />
@@ -78,7 +123,7 @@ const Language = ({ showForm, setShowForm }) => {
                     styles.closeButtonText,
                   ]}
                 >
-                  Close
+                  {i18nLang.t("closeBtn")}
                 </Text>
               )}
             </Pressable>
@@ -89,9 +134,11 @@ const Language = ({ showForm, setShowForm }) => {
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => console.log("Confirm")}
+              onPress={() => saveLanguage()}
             >
-              <Text style={styles.confirmButtonText}>Save</Text>
+              <Text style={styles.confirmButtonText}>
+                {i18nLang.t("saveBtn")}
+              </Text>
             </Pressable>
           </View>
         </View>
