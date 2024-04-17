@@ -10,6 +10,8 @@ This is an application designed to help you track your daily expenses. It provid
 ## Planned To-Dos:
 - Feature to Change Language
 - Feature to Add Custom Categories
+- App icon
+- Splash screen
 
 ## Built With
 - [Expo React-Native](https://expo.dev/accounts/pratham-jaiswal)
