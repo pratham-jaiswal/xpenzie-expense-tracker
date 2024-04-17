@@ -6,28 +6,17 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
 import YearlyEntryList from "../components/yearlyEntryList";
 import DownloadPDF from "../components/downloadPDF";
-import * as SecureStore from "expo-secure-store";
-
-async function save(key, value, reqAuth) {
-  await SecureStore.setItemAsync(key, value, {
-    requireAuthentication: reqAuth,
-  });
-}
-
-async function getValueFor(key, reqAuth) {
-  let result = await SecureStore.getItemAsync(key, {
-    requireAuthentication: reqAuth,
-  });
-  return result;
-}
+import { SettingsContext } from "../_layout";
 
 const YearlyEntries = () => {
+  const { currencySymbol, i18nLang } =
+    useContext(SettingsContext);
   const [year, setYear] = useState(new Date().getFullYear());
   const [yearList, setYearList] = useState([]);
   const [yearlyEntries, setYearlyEntries] = useState([]);
@@ -35,55 +24,7 @@ const YearlyEntries = () => {
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const [currencyValue, setCurrencyValue] = useState(null);
-  const [currencySymbol, setCurrencySymbol] = useState(null);
-  const [languageValue, setLanguageValue] = useState(null);
-  const [languageCode, setLanguageCode] = useState(null);
-
   const db = SQLite.openDatabase("expenses.db");
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        let currVal = await getValueFor("currencyValue", false);
-        if (!currVal) {
-          await save("currencyValue", "65", false);
-          currVal = "65";
-          setCurrencyValue(currVal);
-        } else if (currVal !== currencyValue) {
-          setCurrencyValue(currVal);
-        }
-
-        let currSymbol = await getValueFor("currencySymbol", false);
-        if (!currSymbol) {
-          await save("currencySymbol", "₹", false);
-          currSymbol = "₹";
-          setCurrencySymbol(currSymbol);
-        } else if (currSymbol !== currencySymbol) {
-          setCurrencySymbol(currSymbol);
-        }
-
-        let langVal = await getValueFor("languageValue", false);
-        if (!langVal) {
-          await save("languageValue", "1", false);
-          langVal = "1";
-          setLanguageValue(langVal);
-        } else if (langVal !== languageValue) {
-          setLanguageValue(langVal);
-        }
-
-        let langCode = await getValueFor("languageCode", false);
-        if (!langCode) {
-          await save("languageCode", "en", false);
-          langCode = "en";
-          setLanguageCode(langCode);
-        } else if (langCode !== languageCode) {
-          setLanguageCode(langCode);
-        }
-      };
-      fetchData();
-    }, [])
-  );
 
   useFocusEffect(
     useCallback(() => {
@@ -159,6 +100,10 @@ const YearlyEntries = () => {
     handleYearChange(newYear);
   };
 
+  if (!i18nLang) {
+    return <ActivityIndicator size="large" color="#FFE6E6" />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.dateSelector}>
@@ -196,7 +141,7 @@ const YearlyEntries = () => {
         <EntrySummary
           // entries={yearlyEntries}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
+          i18nLang={i18nLang}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
@@ -212,17 +157,17 @@ const YearlyEntries = () => {
             <YearlyEntryList
               yearlyEntries={yearlyEntries}
               currencySymbol={currencySymbol}
-              languageCode={languageCode}
+              i18nLang={i18nLang}
             />
           </View>
           <View style={styles.pdfBtnContainer}>
             <DownloadPDF
               entries={yearlyEntries}
               currencySymbol={currencySymbol}
-              languageCode={languageCode}
+              i18nLang={i18nLang}
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
-              title={`Yearly Transactions Summary - ${year}`}
+              title={`${i18nLang.t("pdfYearlyTitle")} - ${year}`}
             />
           </View>
         </>

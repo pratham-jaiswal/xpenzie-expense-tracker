@@ -1,6 +1,4 @@
-import { Stack, router } from "expo-router";
-import { Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Stack } from "expo-router";
 
 const RootLayout = () => {
   return (
@@ -19,7 +17,7 @@ const RootLayout = () => {
         name="settings"
         options={{
           headerShown: true,
-          headerTitle: "Settings",
+          headerTitle: `Settings`,
           contentStyle: {
             backgroundColor: "#AD88C6",
           },

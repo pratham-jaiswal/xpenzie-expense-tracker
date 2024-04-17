@@ -17,7 +17,7 @@ const AddExpense = ({
   db,
   entries,
   currencySymbol,
-  languageCode,
+  // i18nLang,
   setEntries,
   totalIncome,
   totalExpenditure,
@@ -100,6 +100,13 @@ const AddExpense = ({
       </View>
     );
   };
+
+  useEffect(() => {
+    if (currentCategory) {
+      setCurrentCategory(null);
+      setCurrentCategoryValue(null);
+    }
+  }, [setCurrentEntryType, currentEntryType]);
 
   const addEntry = () => {
     db.transaction((tx) => {
@@ -250,7 +257,9 @@ const AddExpense = ({
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: "#FFE6E6" }}>Expenditure</Text>
+              <Text style={{ color: "#FFE6E6" }}>
+                {/* {i18nLang.t("expenditure")} */}
+              </Text>
             </Pressable>
             <Pressable
               onPress={() => setCurrentEntryType("Income")}
@@ -264,7 +273,9 @@ const AddExpense = ({
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: "#FFE6E6" }}>Income</Text>
+              <Text style={{ color: "#FFE6E6" }}>
+                {/* {i18nLang.t("income")} */}
+              </Text>
             </Pressable>
           </View>
           <View style={styles.inputContainer}>
@@ -273,8 +284,8 @@ const AddExpense = ({
               value={currentEntryName}
               placeholder={
                 currentEntryType === "Expenditure"
-                  ? "Enter expense name"
-                  : "Enter income source"
+                  ? ""
+                  : ""
               }
               placeholderTextColor="rgba(255, 230, 230, 0.7)"
               onChangeText={(text) => setCurrentEntryName(text)}
@@ -284,7 +295,7 @@ const AddExpense = ({
               <TextInput
                 style={styles.amountInput}
                 value={currentEntryAmount}
-                placeholder="Amount"
+                placeholder={""}
                 placeholderTextColor="rgba(255, 230, 230, 0.7)"
                 keyboardType="numeric"
                 onChangeText={(text) => setCurrentEntryAmount(text)}
@@ -345,8 +356,8 @@ const AddExpense = ({
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder="Category..."
-              searchPlaceholder="Search..."
+              placeholder={""}
+              searchPlaceholder={""}
               value={currentCategoryValue}
               onChange={(item) => {
                 setCurrentCategoryValue(item.value);
@@ -364,7 +375,7 @@ const AddExpense = ({
                     styles.closeButtonText,
                   ]}
                 >
-                  Close
+                  {"cls"}
                 </Text>
               )}
             </Pressable>
@@ -386,7 +397,9 @@ const AddExpense = ({
                   : true
               }
             >
-              <Text style={styles.confirmButtonText}>Confirm</Text>
+              <Text style={styles.confirmButtonText}>
+                {"Cnf"}
+              </Text>
             </Pressable>
           </View>
         </View>
