@@ -17,7 +17,7 @@ const AddExpense = ({
   db,
   entries,
   currencySymbol,
-  // i18nLang,
+  i18nLang,
   setEntries,
   totalIncome,
   totalExpenditure,
@@ -258,7 +258,7 @@ const AddExpense = ({
               ]}
             >
               <Text style={{ color: "#FFE6E6" }}>
-                {/* {i18nLang.t("expenditure")} */}
+                {i18nLang.t("expenditure")}
               </Text>
             </Pressable>
             <Pressable
@@ -273,9 +273,7 @@ const AddExpense = ({
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: "#FFE6E6" }}>
-                {/* {i18nLang.t("income")} */}
-              </Text>
+              <Text style={{ color: "#FFE6E6" }}>{i18nLang.t("income")}</Text>
             </Pressable>
           </View>
           <View style={styles.inputContainer}>
@@ -284,8 +282,8 @@ const AddExpense = ({
               value={currentEntryName}
               placeholder={
                 currentEntryType === "Expenditure"
-                  ? ""
-                  : ""
+                  ? i18nLang.t("expName")
+                  : i18nLang.t("incName")
               }
               placeholderTextColor="rgba(255, 230, 230, 0.7)"
               onChangeText={(text) => setCurrentEntryName(text)}
@@ -295,7 +293,7 @@ const AddExpense = ({
               <TextInput
                 style={styles.amountInput}
                 value={currentEntryAmount}
-                placeholder={""}
+                placeholder={i18nLang.t("amount")}
                 placeholderTextColor="rgba(255, 230, 230, 0.7)"
                 keyboardType="numeric"
                 onChangeText={(text) => setCurrentEntryAmount(text)}
@@ -356,8 +354,8 @@ const AddExpense = ({
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder={""}
-              searchPlaceholder={""}
+              placeholder={i18nLang.t("categoryPlaceholder")}
+              searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={currentCategoryValue}
               onChange={(item) => {
                 setCurrentCategoryValue(item.value);
@@ -375,7 +373,7 @@ const AddExpense = ({
                     styles.closeButtonText,
                   ]}
                 >
-                  {"cls"}
+                  {i18nLang.t("closeBtn")}
                 </Text>
               )}
             </Pressable>
@@ -398,7 +396,7 @@ const AddExpense = ({
               }
             >
               <Text style={styles.confirmButtonText}>
-                {"Cnf"}
+                {i18nLang.t("confirmBtn")}
               </Text>
             </Pressable>
           </View>
