@@ -3,7 +3,7 @@
     "name": "expense-tracker",
     "slug": "expense-tracker",
     "scheme": "expense-tracker",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "splash": {
