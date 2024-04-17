@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import MonthlyEntryList from "../components/monthlyEntryList";
 import { FontAwesome6 } from "@expo/vector-icons";
@@ -103,6 +103,9 @@ const MonthlyEntries = () => {
       year,
     ])
   );
+
+  useEffect(() => {
+  }, [i18nLang]);
 
   const handleMonthChange = (newMonth) => {
     setMonth(newMonth);

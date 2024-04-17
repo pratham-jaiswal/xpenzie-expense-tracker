@@ -5,7 +5,7 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
@@ -26,6 +26,9 @@ const HomePage = () => {
   const [selectedEntryId, setSelectedEntryId] = useState(null);
 
   const db = SQLite.openDatabase("expenses.db");
+
+  useEffect(() => {
+  }, [i18nLang]);
 
   useFocusEffect(
     useCallback(() => {

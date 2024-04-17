@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/entrySummary";
@@ -24,6 +24,9 @@ const YearlyEntries = () => {
   const [loading, setLoading] = useState(true);
 
   const db = SQLite.openDatabase("expenses.db");
+
+  useEffect(() => {
+  }, [i18nLang]);
 
   useFocusEffect(
     useCallback(() => {
