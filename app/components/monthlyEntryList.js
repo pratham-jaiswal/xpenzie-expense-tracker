@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable, Dimensions } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
-const Item = ({ item, currencySymbol, languageCode }) => (
+const Item = ({ item, currencySymbol }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
@@ -33,7 +33,7 @@ const Item = ({ item, currencySymbol, languageCode }) => (
   </View>
 );
 
-const EntryList = ({ entries, currencySymbol, languageCode }) => {
+const EntryList = ({ entries, currencySymbol }) => {
   return (
     <FlashList
       data={entries}
@@ -41,7 +41,6 @@ const EntryList = ({ entries, currencySymbol, languageCode }) => {
         <Item
           item={item}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
         />
       )}
       keyExtractor={(item) => item.id}
@@ -50,7 +49,7 @@ const EntryList = ({ entries, currencySymbol, languageCode }) => {
   );
 };
 
-const MonthlyEntryList = ({ monthlyEntries, currencySymbol, languageCode }) => {
+const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
   let dates = {};
 
   monthlyEntries.forEach((entry) => {
@@ -100,7 +99,7 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, languageCode }) => {
             <View style={styles.dateContainer}>
               <Text style={styles.entryDate}>{item[0]}</Text>
               <View style={styles.savingsContainer}>
-                <Text style={styles.entrySavingsLabel}>Savings: </Text>
+                <Text style={styles.entrySavingsLabel}>{i18nLang.t("savings")}</Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text
                     style={[
@@ -139,7 +138,6 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, languageCode }) => {
               {EntryList({
                 entries: item[1].slice().reverse(),
                 currencySymbol: currencySymbol,
-                languageCode: languageCode,
               })}
             </View>
           </View>

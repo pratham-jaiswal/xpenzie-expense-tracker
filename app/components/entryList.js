@@ -6,7 +6,6 @@ import { FontAwesome6 } from "@expo/vector-icons";
 const Item = ({
   item,
   currencySymbol,
-  languageCode,
   handleDeleteClick,
   handleEditClick,
 }) => (

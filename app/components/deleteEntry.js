@@ -5,6 +5,7 @@ const DeleteEntry = ({
   db,
   entries,
   setEntries,
+  i18nLang,
   totalIncome,
   totalExpenditure,
   setTotalIncome,
@@ -12,25 +13,25 @@ const DeleteEntry = ({
   showDeletePrompt,
   setShowDeletePrompt,
   selectedEntryId,
-  setSelectedEntryId
+  setSelectedEntryId,
 }) => {
-
   const deleteEntry = () => {
     db.transaction((tx) => {
       tx.executeSql(
         "DELETE FROM transaction_entries WHERE id = ?",
         [selectedEntryId],
         (txObj, resultSet) => {
-          if(resultSet.rowsAffected > 0) {
+          if (resultSet.rowsAffected > 0) {
             let entry = entries.find((entry) => entry.id === selectedEntryId);
             let entryAmount = entry.amount;
             let entryType = entry.type;
-            let existingEntries = [...entries].filter((entry) => entry.id !== selectedEntryId);
-            if(entryType === "Expenditure") {
+            let existingEntries = [...entries].filter(
+              (entry) => entry.id !== selectedEntryId
+            );
+            if (entryType === "Expenditure") {
               setTotalExpenditure(totalExpenditure - parseFloat(entryAmount));
-            }
-            else{
-              setTotalIncome(totalIncome -  parseFloat(entryAmount));
+            } else {
+              setTotalIncome(totalIncome - parseFloat(entryAmount));
             }
             setEntries(existingEntries);
           }
@@ -58,9 +59,7 @@ const DeleteEntry = ({
       >
         <View style={styles.modalContainer}>
           <View style={styles.line1Container}>
-            <Text style={styles.line1text}>
-              Are you sure you want to delete the entry?
-            </Text>
+            <Text style={styles.line1text}>{i18nLang.t("deletePrompt")}</Text>
           </View>
           <View style={styles.formButtonsContainer}>
             <Pressable
@@ -72,7 +71,9 @@ const DeleteEntry = ({
               ]}
               onPress={deleteEntry}
             >
-              <Text style={styles.deleteButtonText}>Delete</Text>
+              <Text style={styles.deleteButtonText}>
+                {i18nLang.t("deleteBtn")}
+              </Text>
             </Pressable>
             <Pressable style={styles.cancelButton} onPress={handleCancelClick}>
               {({ pressed }) => (
@@ -82,7 +83,7 @@ const DeleteEntry = ({
                     styles.cancelButtonText,
                   ]}
                 >
-                  Cancel
+                  {i18nLang.t("cancelBtn")}
                 </Text>
               )}
             </Pressable>

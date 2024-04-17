@@ -2,33 +2,22 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
 import EntryList from "../components/entryList";
 import EntrySummary from "../components/entrySummary";
 import DeleteEntry from "../components/deleteEntry";
 import DownloadPDF from "../components/downloadPDF";
-import * as SecureStore from "expo-secure-store";
-
-async function save(key, value, reqAuth) {
-  await SecureStore.setItemAsync(key, value, {
-    requireAuthentication: reqAuth,
-  });
-}
-
-async function getValueFor(key, reqAuth) {
-  let result = await SecureStore.getItemAsync(key, {
-    requireAuthentication: reqAuth,
-  });
-  return result;
-}
+import { SettingsContext } from "../_layout";
 
 const HomePage = () => {
+  const { currencySymbol, i18nLang } =
+    useContext(SettingsContext);
+
   const [showForm, setShowForm] = useState(false);
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,55 +26,7 @@ const HomePage = () => {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [selectedEntryId, setSelectedEntryId] = useState(null);
 
-  const [currencyValue, setCurrencyValue] = useState(null);
-  const [currencySymbol, setCurrencySymbol] = useState(null);
-  const [languageValue, setLanguageValue] = useState(null);
-  const [languageCode, setLanguageCode] = useState(null);
-
   const db = SQLite.openDatabase("expenses.db");
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        let currVal = await getValueFor("currencyValue", false);
-        if (!currVal) {
-          await save("currencyValue", "65", false);
-          currVal = "65";
-          setCurrencyValue(currVal);
-        } else if (currVal !== currencyValue) {
-          setCurrencyValue(currVal);
-        }
-
-        let currSymbol = await getValueFor("currencySymbol", false);
-        if (!currSymbol) {
-          await save("currencySymbol", "₹", false);
-          currSymbol = "₹";
-          setCurrencySymbol(currSymbol);
-        } else if (currSymbol !== currencySymbol) {
-          setCurrencySymbol(currSymbol);
-        }
-
-        let langVal = await getValueFor("languageValue", false);
-        if (!langVal) {
-          await save("languageValue", "1", false);
-          langVal = "1";
-          setLanguageValue(langVal);
-        } else if (langVal !== languageValue) {
-          setLanguageValue(langVal);
-        }
-
-        let langCode = await getValueFor("languageCode", false);
-        if (!langCode) {
-          await save("languageCode", "en", false);
-          langCode = "en";
-          setLanguageCode(langCode);
-        } else if (langCode !== languageCode) {
-          setLanguageCode(langCode);
-        }
-      };
-      fetchData();
-    }, [])
-  );
 
   useFocusEffect(
     useCallback(() => {
@@ -132,6 +73,10 @@ const HomePage = () => {
     }, [setEntries, setTotalIncome, setTotalExpenditure])
   );
 
+  if (!i18nLang) {
+    return <ActivityIndicator size="large" color="#FFE6E6" />;
+  }
+
   const handleDeleteClick = (id) => {
     setShowDeletePrompt(true);
     setSelectedEntryId(id);
@@ -148,7 +93,7 @@ const HomePage = () => {
         <EntrySummary
           // entries={entries}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
+          i18nLang={i18nLang}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
@@ -164,7 +109,6 @@ const HomePage = () => {
             <EntryList
               entries={entries}
               currencySymbol={currencySymbol}
-              languageCode={languageCode}
               handleDeleteClick={handleDeleteClick}
               handleEditClick={handleEditClick}
             />
@@ -174,6 +118,7 @@ const HomePage = () => {
               db={db}
               entries={entries}
               setEntries={setEntries}
+              i18nLang={i18nLang}
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
               setTotalIncome={setTotalIncome}
@@ -190,16 +135,16 @@ const HomePage = () => {
         <DownloadPDF
           entries={entries}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
+          i18nLang={i18nLang}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
-          title={`Complete Transactions Summary`}
+          title={i18nLang.t("pdfAllTitle")}
         />
         <AddExpense
           db={db}
           entries={entries}
+          i18nLang={i18nLang}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
           setEntries={setEntries}
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}

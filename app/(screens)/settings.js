@@ -159,12 +159,11 @@ const Settings = () => {
     </View>
 
     // TO-DO
-    // Priority 1 - Currency Symbols
-    // Priority 4 - Language
+    // Priority 2 - Language
     // Priority 2 - Customed Categories
     // Priority 3 - Notification settings - Daily reminder to log transactions, daily recap, weekly recap, monthly recap, yearly recap, financial insights
-    // Priority 2 - Backup to gdrive
-    // Priority 1 - Restore from gdrive
+    // Priority 3 - Backup to gdrive
+    // Priority 3 - Restore from gdrive
     // Priority 4 - Passcode or biometric authentication to access the app
     // Priority 5 - Feedback and support
   );

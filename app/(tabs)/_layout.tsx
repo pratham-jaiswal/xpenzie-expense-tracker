@@ -5,7 +5,9 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
-import { Dimensions, StatusBar, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
+import { useContext } from "react";
+import { SettingsContext } from "../_layout";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -17,6 +19,12 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator);
 
 const TabsLayout = () => {
+  const { i18nLang } = useContext(SettingsContext);
+
+  if (!i18nLang) {
+    return null;
+  }
+
   return (
     <MaterialTopTabs
       style={styles.topTabs}
@@ -33,19 +41,19 @@ const TabsLayout = () => {
       <MaterialTopTabs.Screen
         name="index"
         options={{
-          tabBarLabel: "Entries",
+          tabBarLabel: i18nLang.t("tabAll"),
         }}
       />
       <MaterialTopTabs.Screen
         name="monthlyEntries"
         options={{
-          tabBarLabel: "Monthly",
+          tabBarLabel: i18nLang.t("tabMonthly"),
         }}
       />
       <MaterialTopTabs.Screen
         name="yearlyEntries"
         options={{
-          tabBarLabel: "Yearly",
+          tabBarLabel: i18nLang.t("tabYearly"),
         }}
       />
     </MaterialTopTabs>
