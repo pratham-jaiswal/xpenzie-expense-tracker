@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "react-native";
-import PieChart from "../components/pieChart";
+// import PieChart from "../components/pieChart";
 
 const EntrySummary = ({
   entries,

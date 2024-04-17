@@ -7,8 +7,6 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Currency from "../components/currency";
-import Language from "../components/language";
-import Account from "../components/account";
 import { useFocusEffect } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
@@ -84,13 +82,13 @@ const Settings = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => setShowAccountForm(true)}
       >
         <Text style={styles.optionText}>Account</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
@@ -112,13 +110,13 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>Notification</Text>
       </TouchableHighlight>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => setShowLanguageForm(true)}
       >
         <Text style={styles.optionText}>Language</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
