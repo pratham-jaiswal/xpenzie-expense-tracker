@@ -15,8 +15,7 @@ import DownloadPDF from "../components/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const HomePage = () => {
-  const { currencySymbol, i18nLang } =
-    useContext(SettingsContext);
+  const { currencySymbol, i18nLang } = useContext(SettingsContext);
 
   const [showForm, setShowForm] = useState(false);
   const [entries, setEntries] = useState([]);

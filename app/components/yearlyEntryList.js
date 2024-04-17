@@ -61,11 +61,7 @@ const YearlyEntryList = ({ yearlyEntries, currencySymbol, i18nLang }) => {
     <FlashList
       data={monthStats}
       renderItem={({ item }) => (
-        <Item
-          item={item}
-          currencySymbol={currencySymbol}
-          i18nLang={i18nLang}
-        />
+        <Item item={item} currencySymbol={currencySymbol} i18nLang={i18nLang} />
       )}
       keyExtractor={(item) => item.month}
       estimatedItemSize={200}

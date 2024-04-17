@@ -3,12 +3,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-const Item = ({
-  item,
-  currencySymbol,
-  handleDeleteClick,
-  handleEditClick,
-}) => (
+const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
@@ -71,7 +66,6 @@ const Item = ({
 const EntryList = ({
   entries,
   currencySymbol,
-  languageCode,
   handleDeleteClick,
   handleEditClick,
 }) => {
@@ -82,7 +76,6 @@ const EntryList = ({
         <Item
           item={item}
           currencySymbol={currencySymbol}
-          languageCode={languageCode}
           handleDeleteClick={handleDeleteClick}
           handleEditClick={handleEditClick}
         />

@@ -17,7 +17,7 @@ const DownloadPDF = ({
   totalIncome,
   totalExpenditure,
   currencySymbol,
-  i18nLang
+  i18nLang,
 }) => {
   var income = entries.filter((entry) => entry.type === "Income");
   var expenditure = entries.filter((entry) => entry.type === "Expenditure");
@@ -43,7 +43,11 @@ const DownloadPDF = ({
 <body>
 
 <h2>${title}</h2>
-<div id="summaryTable"></div><table><tr><th>${i18nLang.t("expenditure")}</th><th>${i18nLang.t("income")} (${currencySymbol})</th><th>${i18nLang.t("income")}</th><th>${i18nLang.t("amount")} (${currencySymbol})</th></tr>`;
+<div id="summaryTable"></div><table><tr><th>${i18nLang.t(
+    "expenditure"
+  )}</th><th>${i18nLang.t("income")} (${currencySymbol})</th><th>${i18nLang.t(
+    "income"
+  )}</th><th>${i18nLang.t("amount")} (${currencySymbol})</th></tr>`;
   var maxLength = Math.max(income.length, expenditure.length);
 
   for (var i = 0; i < maxLength; i++) {
@@ -69,13 +73,19 @@ const DownloadPDF = ({
   }
 
   var savings = totalIncome - totalExpenditure;
-  var savingsText = (savings < 0 ? "- " : "") + currencySymbol + Math.abs(savings);
+  var savingsText =
+    (savings < 0 ? "- " : "") + currencySymbol + Math.abs(savings);
 
-  tableHtml +=
-    `<tr><td>${i18nLang.t("totIncome").replace(/: /g, "")}</td><td><b>${currencySymbol}${totalExpenditure}
-    </b></td><td>${i18nLang.t("totExpenditure").replace(/: /g, "")}</td><td><b>${currencySymbol}${totalIncome}
+  tableHtml += `<tr><td>${i18nLang
+    .t("totIncome")
+    .replace(/: /g, "")}</td><td><b>${currencySymbol}${totalExpenditure}
+    </b></td><td>${i18nLang
+      .t("totExpenditure")
+      .replace(/: /g, "")}</td><td><b>${currencySymbol}${totalIncome}
     </b></td></tr>"
-    <tr><td colspan="2">${i18nLang.t("savings").replace(/: /g, "")}</td><td colspan="2"><b>${savingsText}
+    <tr><td colspan="2">${i18nLang
+      .t("savings")
+      .replace(/: /g, "")}</td><td colspan="2"><b>${savingsText}
     </b></td></tr></table></body></html>`;
 
   const html = tableHtml;

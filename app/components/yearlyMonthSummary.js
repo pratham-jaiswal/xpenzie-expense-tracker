@@ -14,21 +14,27 @@ const MonthSummary = ({
         <Text style={styles.monthName}>{month}</Text>
       </View>
       <View style={styles.summaryText}>
-        <Text style={styles.summaryTextDescription}>{i18nLang.t("monthIncome")}</Text>
+        <Text style={styles.summaryTextDescription}>
+          {i18nLang.t("monthIncome")}
+        </Text>
         <Text style={styles.summaryAmount}>
           {currencySymbol}
           {totalIncome}
         </Text>
       </View>
       <View style={styles.summaryText}>
-        <Text style={styles.summaryTextDescription}>{i18nLang.t("monthExpenditure")}</Text>
+        <Text style={styles.summaryTextDescription}>
+          {i18nLang.t("monthExpenditure")}
+        </Text>
         <Text style={styles.summaryAmount}>
           {currencySymbol}
           {totalExpenditure}
         </Text>
       </View>
       <View style={styles.summaryText}>
-        <Text style={styles.summaryTextDescription}>{i18nLang.t("savings")}</Text>
+        <Text style={styles.summaryTextDescription}>
+          {i18nLang.t("savings")}
+        </Text>
         <View style={{ flexDirection: "row" }}>
           <Text
             style={[

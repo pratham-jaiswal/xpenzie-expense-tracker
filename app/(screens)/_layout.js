@@ -1,6 +1,13 @@
 import { Stack } from "expo-router";
+import { useContext, useEffect } from "react";
+import { SettingsContext } from "../_layout";
 
 const RootLayout = () => {
+  const { i18nLang } = useContext(SettingsContext);
+
+  useEffect(() => {
+  }, [i18nLang]);
+
   return (
     <Stack
       screenOptions={{
@@ -17,7 +24,7 @@ const RootLayout = () => {
         name="settings"
         options={{
           headerShown: true,
-          headerTitle: `Settings`,
+          headerTitle: i18nLang.t("tabSettings"),
           contentStyle: {
             backgroundColor: "#AD88C6",
           },

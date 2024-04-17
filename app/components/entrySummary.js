@@ -1,17 +1,14 @@
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import PieChart from "../components/pieChart";
 
 const EntrySummary = ({
-  entries,
   currencySymbol,
   i18nLang,
-  languageCode,
   totalIncome,
   totalExpenditure,
   savings,
 }) => {
   if (!i18nLang) {
-    return (<ActivityIndicator size="large" color="#FFE6E6" />);
+    return <ActivityIndicator size="large" color="#FFE6E6" />;
   }
   return (
     <View style={styles.summary}>
@@ -20,22 +17,28 @@ const EntrySummary = ({
       </View> */}
       <View style={styles.summaryContainer}>
         <View style={styles.summaryText}>
-          <Text style={styles.summaryTextDescription}>{i18nLang.t("totIncome")}</Text>
+          <Text style={styles.summaryTextDescription}>
+            {i18nLang.t("totIncome")}
+          </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
             {totalIncome}
           </Text>
         </View>
         <View style={styles.summaryText}>
-          <Text style={styles.summaryTextDescription}>{i18nLang.t("totExpenditure")}</Text>
+          <Text style={styles.summaryTextDescription}>
+            {i18nLang.t("totExpenditure")}
+          </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
             {totalExpenditure}
           </Text>
         </View>
         <View style={styles.summaryText}>
-          <Text style={styles.summaryTextDescription}>{i18nLang.t("savings")}</Text>
-          <View style={{flexDirection: "row"}}>
+          <Text style={styles.summaryTextDescription}>
+            {i18nLang.t("savings")}
+          </Text>
+          <View style={{ flexDirection: "row" }}>
             <Text
               style={[
                 styles.summaryAmount,

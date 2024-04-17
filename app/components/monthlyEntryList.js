@@ -38,10 +38,7 @@ const EntryList = ({ entries, currencySymbol }) => {
     <FlashList
       data={entries}
       renderItem={({ item }) => (
-        <Item
-          item={item}
-          currencySymbol={currencySymbol}
-        />
+        <Item item={item} currencySymbol={currencySymbol} />
       )}
       keyExtractor={(item) => item.id}
       estimatedItemSize={200}
@@ -99,7 +96,9 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
             <View style={styles.dateContainer}>
               <Text style={styles.entryDate}>{item[0]}</Text>
               <View style={styles.savingsContainer}>
-                <Text style={styles.entrySavingsLabel}>{i18nLang.t("savings")}</Text>
+                <Text style={styles.entrySavingsLabel}>
+                  {i18nLang.t("savings")}
+                </Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text
                     style={[
@@ -114,7 +113,7 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       styles.entrySavingsAmount,
                     ]}
                   >
-                    {(savings < 0 ? "- " : "")}
+                    {savings < 0 ? "- " : ""}
                   </Text>
                   <Text
                     style={[
@@ -129,7 +128,8 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       styles.entrySavingsAmount,
                     ]}
                   >
-                    {currencySymbol}{String(Math.abs(savings))}
+                    {currencySymbol}
+                    {String(Math.abs(savings))}
                   </Text>
                 </View>
               </View>

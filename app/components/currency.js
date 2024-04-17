@@ -7,15 +7,18 @@ const Currency = ({
   showForm,
   setShowForm,
   save,
-  getValueFor,
   currencySymbol,
   currencyValue,
   setCurrencySymbol,
   setCurrencyValue,
+  i18nLang,
 }) => {
-  const [currentCurrencyValue, setCurrentCurrencyValue] = useState(currencyValue);
-  const [currentCurrencySymbol, setCurrentCurrencySymbol] = useState(currencySymbol);
-  
+  const [currentCurrencyValue, setCurrentCurrencyValue] =
+    useState(currencyValue);
+  const [currentCurrencySymbol, setCurrentCurrencySymbol] =
+    useState(currencySymbol);
+  const [searchQuery, setSearchQuery] = useState("");
+
   useFocusEffect(
     useCallback(() => {
       setCurrentCurrencyValue(currencyValue);
@@ -209,6 +212,12 @@ const Currency = ({
     setCurrentCurrencyValue(currencyValue);
   };
 
+  const handleSelectCurrency = useCallback((item) => {
+    setCurrentCurrencyValue(item.value);
+    setCurrentCurrencySymbol(item.symbol);
+    setSearchQuery("");
+  }, []);
+
   return (
     <View style={styles.container}>
       <Modal
@@ -222,7 +231,9 @@ const Currency = ({
       >
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.selectCurrency}>Select Currency:</Text>
+            <Text style={styles.selectCurrency}>
+              {i18nLang.t("selectCurrency")}
+            </Text>
             <Dropdown
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
@@ -233,19 +244,26 @@ const Currency = ({
                 borderRadius: 7,
                 elevation: 3,
               }}
-              data={currencyList}
+              data={
+                searchQuery
+                  ? currencyList.filter((item) =>
+                      item.label
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )
+                  : currencyList
+              }
+              dropdownPosition="top"
               search
               autoScroll={false}
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder="Currency..."
-              searchPlaceholder="Search..."
+              placeholder={i18nLang.t("currency")+"..."}
+              searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={String(currentCurrencyValue)}
-              onChange={(item) => {
-                setCurrentCurrencyValue(item.value);
-                setCurrentCurrencySymbol(item.symbol);
-              }}
+              onChange={handleSelectCurrency}
+              onChangeText={(query) => setSearchQuery(query)}
               renderItem={renderItem}
             />
           </View>
@@ -258,7 +276,7 @@ const Currency = ({
                     styles.closeButtonText,
                   ]}
                 >
-                  Close
+                  {i18nLang.t("closeBtn")}
                 </Text>
               )}
             </Pressable>
@@ -271,7 +289,9 @@ const Currency = ({
               ]}
               onPress={() => saveCurrency()}
             >
-              <Text style={styles.confirmButtonText}>Save</Text>
+              <Text style={styles.confirmButtonText}>
+                {i18nLang.t("saveBtn")}
+              </Text>
             </Pressable>
           </View>
         </View>

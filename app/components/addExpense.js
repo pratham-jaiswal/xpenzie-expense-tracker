@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -216,11 +216,16 @@ const AddExpense = ({
     setShowDatePicker(true);
   };
 
-  const handleSelectDate = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setShowDatePicker(false);
-    setCurrentEntryDate(currentDate);
-  };
+  const handleSelectDate = useCallback(
+    (event, selectedDate) => {
+      if (selectedDate !== currentEntryDate) {
+        const currentDate = selectedDate || currentEntryDate;
+        setShowDatePicker(false);
+        setCurrentEntryDate(currentDate);
+      }
+    },
+    [currentEntryDate]
+  );
 
   const { timeZone } = getCalendars()[0];
 

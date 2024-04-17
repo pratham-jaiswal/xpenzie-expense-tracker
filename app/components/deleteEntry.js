@@ -43,7 +43,14 @@ const DeleteEntry = ({
   };
 
   const handleCancelClick = () => {
+    setSelectedEntryId(null);
     setShowDeletePrompt(false);
+    setCurrentEntryType("Expenditure");
+    setCurrentEntryName("");
+    setCurrentEntryAmount();
+    setCurrentEntryDate(new Date());
+    setCurrentCategory(null);
+    setCurrentCategoryValue(null);
     setSelectedEntryId(null);
   };
 

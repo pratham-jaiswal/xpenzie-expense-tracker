@@ -1,14 +1,15 @@
-import { useCallback, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
-  Pressable,
   Text,
   View,
   TouchableHighlight,
 } from "react-native";
 import Currency from "../components/currency";
-import { useFocusEffect } from "expo-router";
+// import Account from "../components/account";
+import Language from "../components/language";
 import * as SecureStore from "expo-secure-store";
+import { SettingsContext } from "../_layout";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -16,65 +17,25 @@ async function save(key, value, reqAuth) {
   });
 }
 
-async function getValueFor(key, reqAuth) {
-  let result = await SecureStore.getItemAsync(key, {
-    requireAuthentication: reqAuth,
-  });
-  return result;
-}
-
 const Settings = () => {
+  const {
+    currencyValue,
+    currencySymbol,
+    languageValue,
+    languageCode,
+    i18nLang,
+    setCurrencySymbol,
+    setCurrencyValue,
+    setLanguageCode,
+    setLanguageValue,
+  } = useContext(SettingsContext);
+
   const [showCurrencyForm, setShowCurrencyForm] = useState(false);
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [showLanguageForm, setShowLanguageForm] = useState(false);
 
-  const [currencyValue, setCurrencyValue] = useState(null);
-  const [currencySymbol, setCurrencySymbol] = useState(null);
-  const [languageValue, setLanguageValue] = useState(null);
-  const [languageCode, setLanguageCode] = useState(null);
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        let currVal = await getValueFor("currencyValue", false);
-        if (!currVal) {
-          await save("currencyValue", "65", false);
-          currVal = "65";
-          setCurrencyValue(currVal);
-        } else if (currVal !== currencyValue) {
-          setCurrencyValue(currVal);
-        }
-
-        let currSymbol = await getValueFor("currencySymbol", false);
-        if (!currSymbol) {
-          await save("currencySymbol", "₹", false);
-          currSymbol = "₹";
-          setCurrencySymbol(currSymbol);
-        } else if (currSymbol !== currencySymbol) {
-          setCurrencySymbol(currSymbol);
-        }
-
-        let langVal = await getValueFor("languageValue", false);
-        if (!langVal) {
-          await save("languageValue", "1", false);
-          langVal = "1";
-          setLanguageValue(langVal);
-        } else if (langVal !== languageValue) {
-          setLanguageValue(langVal);
-        }
-
-        let langCode = await getValueFor("languageCode", false);
-        if (!langCode) {
-          await save("languageCode", "en", false);
-          langCode = "en";
-          setLanguageCode(langCode);
-        } else if (langCode !== languageCode) {
-          setLanguageCode(langCode);
-        }
-      };
-      fetchData();
-    }, [])
-  );
+  useEffect(() => {
+  }, [i18nLang]);
 
   const handlePress = (option) => {
     console.log(option);
@@ -82,79 +43,80 @@ const Settings = () => {
 
   return (
     <View style={styles.container}>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
-        onPress={() => setShowAccountForm(true)}
+        // onPress={() => setShowAccountForm(true)}
+        onPress={() => handlePress("A")}
       >
-        <Text style={styles.optionText}>Account</Text>
-      </TouchableHighlight> */}
+        <Text style={styles.optionText}>{i18nLang.t("account")}</Text>
+      </TouchableHighlight>
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => setShowCurrencyForm(true)}
       >
-        <Text style={styles.optionText}>Currency</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        underlayColor="#0000000d"
-        style={styles.option}
-        onPress={() => handlePress("D")}
-      >
-        <Text style={styles.optionText}>Backup & Restore</Text>
+        <Text style={styles.optionText}>{i18nLang.t("currency")}</Text>
       </TouchableHighlight>
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => handlePress("C")}
       >
-        <Text style={styles.optionText}>Notification</Text>
+        <Text style={styles.optionText}>{i18nLang.t("bkpnrstr")}</Text>
       </TouchableHighlight>
-      {/* <TouchableHighlight
+      <TouchableHighlight
+        underlayColor="#0000000d"
+        style={styles.option}
+        onPress={() => handlePress("D")}
+      >
+        <Text style={styles.optionText}>{i18nLang.t("notification")}</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => setShowLanguageForm(true)}
       >
-        <Text style={styles.optionText}>Language</Text>
-      </TouchableHighlight> */}
-      <TouchableHighlight
-        underlayColor="#0000000d"
-        style={styles.option}
-        onPress={() => handlePress("D")}
-      >
-        <Text style={styles.optionText}>Security</Text>
+        <Text style={styles.optionText}>{i18nLang.t("language")}</Text>
       </TouchableHighlight>
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
-        onPress={() => handlePress("D")}
+        onPress={() => handlePress("F")}
       >
-        <Text style={styles.optionText}>Feedback</Text>
+        <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        underlayColor="#0000000d"
+        style={styles.option}
+        onPress={() => handlePress("G")}
+      >
+        <Text style={styles.optionText}>{i18nLang.t("feedback")}</Text>
       </TouchableHighlight>
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Expense Tracker App v0.7.0</Text>
+        <Text style={styles.footerText}>{i18nLang.t("appFooter")}</Text>
       </View>
 
-      <Account showForm={showAccountForm} setShowForm={setShowAccountForm} />
+      {/* <Account showForm={showAccountForm} setShowForm={setShowAccountForm} /> */}
       <Currency
         showForm={showCurrencyForm}
         setShowForm={setShowCurrencyForm}
         save={save}
-        getValueFor={getValueFor}
         currencySymbol={currencySymbol}
         currencyValue={currencyValue}
         setCurrencySymbol={setCurrencySymbol}
         setCurrencyValue={setCurrencyValue}
+        i18nLang={i18nLang}
       />
       <Language
         showForm={showLanguageForm}
         setShowForm={setShowLanguageForm}
         save={save}
-        getValueFor={getValueFor}
         languageCode={languageCode}
         languageValue={languageValue}
         setLanguageCode={setLanguageCode}
         setLanguageValue={setLanguageValue}
+        i18nLang={i18nLang}
       />
     </View>
 

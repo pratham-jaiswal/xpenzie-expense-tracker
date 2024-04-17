@@ -6,7 +6,7 @@ import {
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SettingsContext } from "../_layout";
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -20,6 +20,8 @@ export const MaterialTopTabs = withLayoutContext<
 
 const TabsLayout = () => {
   const { i18nLang } = useContext(SettingsContext);
+
+  useEffect(() => {}, [i18nLang]);
 
   if (!i18nLang) {
     return null;

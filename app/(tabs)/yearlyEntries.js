@@ -15,8 +15,7 @@ import DownloadPDF from "../components/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const YearlyEntries = () => {
-  const { currencySymbol, i18nLang } =
-    useContext(SettingsContext);
+  const { currencySymbol, i18nLang } = useContext(SettingsContext);
   const [year, setYear] = useState(new Date().getFullYear());
   const [yearList, setYearList] = useState([]);
   const [yearlyEntries, setYearlyEntries] = useState([]);

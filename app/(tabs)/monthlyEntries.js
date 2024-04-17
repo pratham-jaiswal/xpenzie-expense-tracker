@@ -15,9 +15,8 @@ import DownloadPDF from "../components/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const MonthlyEntries = () => {
-  const { currencySymbol, i18nLang } =
-    useContext(SettingsContext);
-    
+  const { currencySymbol, i18nLang } = useContext(SettingsContext);
+
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [monthString, setMonthString] = useState(
     month < 9 ? `0${month}` : String(month)
@@ -233,7 +232,9 @@ const MonthlyEntries = () => {
               i18nLang={i18nLang}
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
-              title={`${i18nLang.t("pdfMonthlyTitle")} - ${months[month]} ${year}`}
+              title={`${i18nLang.t("pdfMonthlyTitle")} - ${
+                months[month]
+              } ${year}`}
             />
           </View>
         </>

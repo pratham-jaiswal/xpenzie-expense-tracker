@@ -1,5 +1,5 @@
 import { Stack, router } from "expo-router";
-import { ActivityIndicator, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import { I18n } from "i18n-js";
@@ -89,6 +89,10 @@ const RootLayout = () => {
         languageValue,
         languageCode,
         i18nLang,
+        setCurrencySymbol,
+        setCurrencyValue,
+        setLanguageCode,
+        setLanguageValue
       }}
     >
       <Stack
@@ -141,5 +145,5 @@ const RootLayout = () => {
   );
 };
 
-export { SettingsContext} ;
+export { SettingsContext };
 export default RootLayout;
