@@ -37,7 +37,7 @@ const en = {
   pdfAllTitle: "Complete Transactions Summary",
   pdfMonthlyTitle: "Monthly Transactions Summary",
   pdfYearlyTitle: "Yearly Transactions Summary",
-  appFooter: "Expense Tracker App v0.7.0",
+  appFooter: "Expense Tracker App v0.8.0",
 };
 
 const hi = {
