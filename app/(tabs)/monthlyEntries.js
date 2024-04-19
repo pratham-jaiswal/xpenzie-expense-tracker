@@ -28,7 +28,7 @@ const MonthlyEntries = () => {
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const db = SQLite.openDatabase("expenses.db");
+  const db = SQLite.openDatabase("xpenzie-transactions.db");
 
   const months = {
     1: "January",

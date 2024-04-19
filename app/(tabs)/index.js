@@ -25,7 +25,7 @@ const HomePage = () => {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [selectedEntryId, setSelectedEntryId] = useState(null);
 
-  const db = SQLite.openDatabase("expenses.db");
+  const db = SQLite.openDatabase("xpenzie-transactions.db");
 
   useEffect(() => {
   }, [i18nLang]);
