@@ -110,7 +110,7 @@ const RootLayout = () => {
           name="(tabs)"
           options={{
             headerShown: true,
-            headerTitle: "Expense Tracker",
+            headerTitle: "Xpenzie",
             headerRight: () => (
               <Pressable
                 onPress={() => router.push({ pathname: "/(screens)/settings" })}
