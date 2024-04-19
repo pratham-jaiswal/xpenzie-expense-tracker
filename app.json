@@ -1,27 +1,29 @@
 {
   "expo": {
-    "name": "expense-tracker",
-    "slug": "expense-tracker",
-    "scheme": "expense-tracker",
+    "name": "Xpenzie - The Expense Tracker",
+    "slug": "xpenzie-expense-tracker",
+    "scheme": "xpenzie-expense-tracker",
+    "description": "Easily track daily expenses in multiple languages and currencies.",
     "version": "0.8.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.prathamjaiswal.expensetracker"
+      "bundleIdentifier": "com.maxxdevs.xpenzie",
+      "image": "./assets/splash.png"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
       },
-      "package": "com.prathamjaiswal.expensetracker"
+      "package": "com.maxxdevs.xpenzie"
     },
     "plugins": [
       "expo-router",
