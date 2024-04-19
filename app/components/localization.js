@@ -1,5 +1,5 @@
 const en = {
-  appName: "Expense Tracker",
+  appName: "Xpenzie",
   tabAll: "All",
   tabMonthly: "Monthly",
   tabYearly: "Yearly",
@@ -37,7 +37,7 @@ const en = {
   pdfAllTitle: "Complete Transactions Summary",
   pdfMonthlyTitle: "Monthly Transactions Summary",
   pdfYearlyTitle: "Yearly Transactions Summary",
-  appFooter: "Expense Tracker App v0.8.0",
+  appFooter: "Xpenzie v0.8.0",
 };
 
 const hi = {
