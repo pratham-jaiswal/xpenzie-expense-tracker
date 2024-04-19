@@ -1,9 +1,9 @@
-# Contributing to Expense Tracker
-First off, thank you for considering contributing to Expense Tracker.
+# Contributing to Xpenzie - The Expense Tracker
+First off, thank you for considering contributing to Xpenzie - The Expense Tracker.
 
 
 ## Where do I go from here?
-If you've noticed a bug or have a feature request, make sure to check our [issues](https://github.com/pratham-jaiswal/expense-tracker/issues) if there's something similar to what you've observed or want to suggest. If there isn't, feel free to open a new issue!
+If you've noticed a bug or have a feature request, make sure to check our [issues](https://github.com/pratham-jaiswal/xpenzie-expense-tracker/issues) if there's something similar to what you've observed or want to suggest. If there isn't, feel free to open a new issue!
 
 
 ## Fork & create a branch
