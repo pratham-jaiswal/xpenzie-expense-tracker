@@ -1,6 +1,6 @@
-# Expense Tracker
+# Xpenzie - The Expense Tracker
 
-This is an intuitive application built to streamline your daily expense tracking. With its user-friendly interface, you can effortlessly input and categorize expenses. It offers a wide selection of approximately 162 currencies and supports 7 languages, ensuring flexibility and convenience for users worldwide.
+***Xpenzie*** an intuitive application built to streamline your daily expense tracking. With its user-friendly interface, you can effortlessly input and categorize expenses. It offers a wide selection of approximately *162 currencies* and supports *7 languages*, ensuring flexibility and convenience for users worldwide.
 
 > **Note:** Translations in different languages were AI-generated and may contain inaccuracies.
 
@@ -208,11 +208,11 @@ This is an intuitive application built to streamline your daily expense tracking
 
 ## Demo
 
-![](https://i.imgur.com/m1b1DqWl.jpg)
-![](https://i.imgur.com/xLgOvEgl.jpg)
-![](https://i.imgur.com/Crv8BLKl.jpg)
-![](https://i.imgur.com/EAMQYX0l.jpg)
-![](https://i.imgur.com/znWg9qJl.jpg)
+![](https://i.imgur.com/XBZXEsrl.jpg)
+![](https://i.imgur.com/l7O37xfl.jpg)
+![](https://i.imgur.com/EPUdQ37l.jpg)
+![](https://i.imgur.com/JrxdrLkl.jpg)
+![](https://i.imgur.com/kd7LjxTl.jpg)
 
 ## Planned To-Dos:
 
@@ -242,7 +242,7 @@ This is an intuitive application built to streamline your daily expense tracking
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/pratham-jaiswal/expense-tracker/blob/main/CONTRIBUTING.md) for the process of submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/CONTRIBUTING.md) for the process of submitting pull requests to us.
 
 ## License
 
