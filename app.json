@@ -13,7 +13,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.maxxdevs.xpenzie",
@@ -41,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "5e45f82b-8f82-4b9b-b729-30a4492b8688"
+        "projectId": "e7fa90ac-3bba-42a0-b4ea-8d824853bf0c"
       }
-    }
+    },
+    "owner": "pratham-jaiswal"
   }
 }
