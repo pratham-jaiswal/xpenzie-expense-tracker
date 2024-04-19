@@ -75,7 +75,9 @@ const Language = ({
       >
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.selectLanguage}>Select Language:</Text>
+            <Text style={styles.selectLanguage}>
+              {i18nLang.t("selectLanguage")}
+            </Text>
             <Dropdown
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
@@ -86,25 +88,13 @@ const Language = ({
                 borderRadius: 7,
                 elevation: 3,
               }}
-              data={
-                searchQuery
-                  ? languageList.filter(
-                      (item) =>
-                        item.label
-                          .toLowerCase()
-                          .includes(searchQuery.toLowerCase()) ||
-                        item.enLabel
-                          .toLowerCase()
-                          .includes(searchQuery.toLowerCase())
-                    )
-                  : languageList
-              }
+              data={languageList}
               dropdownPosition="top"
-              search
+              search={false}
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder={i18nLang.t("language")+"..."}
+              placeholder={i18nLang.t("language") + "..."}
               searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={currentLanguageValue}
               onChange={handleSelectLanguage}
