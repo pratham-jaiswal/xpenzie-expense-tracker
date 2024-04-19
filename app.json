@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Xpenzie - The Expense Tracker",
+    "shortName": "Xpenzie",
     "slug": "xpenzie-expense-tracker",
     "scheme": "xpenzie-expense-tracker",
     "description": "Easily track daily expenses in multiple languages and currencies.",
