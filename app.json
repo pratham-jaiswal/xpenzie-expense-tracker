@@ -5,7 +5,7 @@
     "slug": "xpenzie-expense-tracker",
     "scheme": "xpenzie-expense-tracker",
     "description": "Easily track daily expenses in multiple languages and currencies.",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
       "resizeMode": "contain",
       "image": "./assets/splash.png"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.maxxdevs.xpenzie"
@@ -34,6 +32,12 @@
         "expo-secure-store",
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
       ]
     ],
