@@ -11,7 +11,6 @@
     "icon": "./assets/icon.png",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
       "image": "./assets/splash.png"
     },
     "assetBundlePatterns": [
@@ -24,7 +23,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#5E4780"
       },
       "package": "com.maxxdevs.xpenzie"
     },
