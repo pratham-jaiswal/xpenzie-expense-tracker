@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import * as SQLite from "expo-sqlite";
+import * as SQLite from "expo-sqlite/legacy";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
@@ -27,47 +27,44 @@ const HomePage = () => {
 
   const db = SQLite.openDatabase("xpenzie-transactions.db");
 
-  useEffect(() => {
-  }, [i18nLang]);
+  useEffect(() => {}, [i18nLang]);
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      db.transaction((tx) => {
-        tx.executeSql(
-          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);"
-        );
-      });
 
       db.transaction((tx) => {
         tx.executeSql(
-          "SELECT * FROM transaction_entries",
-          null,
-          (txObj, resultSet) => {
-            setEntries(resultSet.rows._array);
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE type = 'Expenditure'",
-          null,
-          (txObj, resultSet) => {
-            setTotalExpenditure(resultSet.rows.item(0).totalExpenditure || 0);
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE type = 'Income'",
-          null,
-          (txObj, resultSet) => {
-            setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
-            setLoading(false);
+          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);",
+          [],
+          () => {
+            tx.executeSql(
+              "SELECT * FROM transaction_entries",
+              [],
+              (txObj, resultSet) => {
+                setEntries(resultSet.rows._array);
+              },
+              (txObj, error) => console.error(error)
+            );
+            tx.executeSql(
+              "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE type = 'Expenditure'",
+              [],
+              (txObj, resultSet) => {
+                setTotalExpenditure(
+                  resultSet.rows.item(0).totalExpenditure || 0
+                );
+              },
+              (txObj, error) => console.error(error)
+            );
+            tx.executeSql(
+              "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE type = 'Income'",
+              [],
+              (txObj, resultSet) => {
+                setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
+                setLoading(false);
+              },
+              (txObj, error) => console.error(error)
+            );
           },
           (txObj, error) => console.error(error)
         );
@@ -93,7 +90,6 @@ const HomePage = () => {
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.entrySummary}>
         <EntrySummary
-          // entries={entries}
           currencySymbol={currencySymbol}
           i18nLang={i18nLang}
           totalIncome={totalIncome}

@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import * as SQLite from "expo-sqlite";
+import * as SQLite from "expo-sqlite/legacy";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
@@ -25,51 +25,11 @@ const YearlyEntries = () => {
 
   const db = SQLite.openDatabase("xpenzie-transactions.db");
 
-  useEffect(() => {
-  }, [i18nLang]);
+  useEffect(() => {}, [i18nLang]);
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      db.transaction((tx) => {
-        tx.executeSql(
-          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);"
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          `SELECT * FROM transaction_entries WHERE date LIKE '%/%/${year}'`,
-          null,
-          (txObj, resultSet) => {
-            setYearlyEntries(resultSet.rows._array);
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          `SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE date LIKE '%/%/${year}' AND type = 'Expenditure'`,
-          null,
-          (txObj, resultSet) => {
-            setTotalExpenditure(resultSet.rows.item(0).totalExpenditure || 0);
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          `SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE date LIKE '%/%/${year}' AND type = 'Income'`,
-          null,
-          (txObj, resultSet) => {
-            setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
-            setLoading(false);
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
 
       const currentYear = new Date().getFullYear();
       const years = [];
@@ -77,6 +37,43 @@ const YearlyEntries = () => {
         years.push(y);
       }
       setYearList(years);
+
+      db.transaction((tx) => {
+        tx.executeSql(
+          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);",
+          [],
+          () => {
+            tx.executeSql(
+              `SELECT * FROM transaction_entries WHERE date LIKE '%/%/${year}'`,
+              null,
+              (txObj, resultSet) => {
+                setYearlyEntries(resultSet.rows._array);
+              },
+              (txObj, error) => console.error(error)
+            );
+            tx.executeSql(
+              `SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE date LIKE '%/%/${year}' AND type = 'Expenditure'`,
+              null,
+              (txObj, resultSet) => {
+                setTotalExpenditure(
+                  resultSet.rows.item(0).totalExpenditure || 0
+                );
+              },
+              (txObj, error) => console.error(error)
+            );
+            tx.executeSql(
+              `SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE date LIKE '%/%/${year}' AND type = 'Income'`,
+              null,
+              (txObj, resultSet) => {
+                setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
+                setLoading(false);
+              },
+              (txObj, error) => console.error(error)
+            );
+          },
+          (txObj, error) => console.error(error)
+        );
+      });
     }, [
       setYearlyEntries,
       setLoading,
