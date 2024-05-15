@@ -1,3 +1,8 @@
+import Constants from 'expo-constants';
+
+const appVersion = Constants.expoConfig.version;
+console.log(appVersion);
+
 const en = {
   appName: "Xpenzie",
   tabAll: "All",
@@ -37,7 +42,7 @@ const en = {
   pdfAllTitle: "Complete Transactions Summary",
   pdfMonthlyTitle: "Monthly Transactions Summary",
   pdfYearlyTitle: "Yearly Transactions Summary",
-  appFooter: "Xpenzie v0.8.0",
+  appFooter: `Xpenzie ${appVersion}`,
 };
 
 const hi = {
