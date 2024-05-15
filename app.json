@@ -11,15 +11,15 @@
     "icon": "./assets/icon.png",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "image": "./assets/splash.png"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.maxxdevs.xpenzie",
-      "image": "./assets/splash.png"
+      "bundleIdentifier": "com.maxxdevs.xpenzie"
     },
     "android": {
       "adaptiveIcon": {
