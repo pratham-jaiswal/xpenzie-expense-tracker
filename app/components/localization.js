@@ -1,7 +1,6 @@
 import Constants from 'expo-constants';
 
 const appVersion = Constants.expoConfig.version;
-console.log(appVersion);
 
 const en = {
   appName: "Xpenzie",
