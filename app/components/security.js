@@ -1,6 +1,7 @@
 import { useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Pressable, Text, View, Modal, Switch } from "react-native";
+import { useCallback, useState } from "react";
+import { StyleSheet, Pressable, Text, View, Modal, Switch, Alert } from "react-native";
+import * as LocalAuthentication from "expo-local-authentication";
 
 const Security = ({
   showForm,
@@ -10,6 +11,7 @@ const Security = ({
   i18nLang,
   save,
 }) => {
+  const [error, setError] = useState(null);
   const [isAuthEnabled, setIsAuthEnabled] = useState(false);
 
   const handleCloseClick = () => {
@@ -25,11 +27,52 @@ const Security = ({
 
   useFocusEffect(
     useCallback(() => {
+      async function checkDevice() {
+        const hasHardware = await LocalAuthentication.hasHardwareAsync();
+        if (!hasHardware) {
+          return 1;
+        }
+
+        const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+        if (!isEnrolled) {
+          console.log("No biometrics enrolled");
+          setIsAuthenticated(true);
+          return 2;
+        }
+
+        return 0;
+      }
+
+      checkDevice().then((result) => {
+        if(result == 1){
+          setError(i18nLang.t("noBiometricSupported"));
+        }
+        else if(result == 2){
+          setError(i18nLang.t("noBiometricEnrolled"));
+        }
+        else{
+          setError(null);
+        }
+      });
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
       setIsAuthEnabled(needsAuth);
     }, [needsAuth])
   );
 
-  const toggleSwitch = () => setIsAuthEnabled((previousState) => !previousState);
+  const handleSwitchToggle = () => {
+    if (error) {
+      Alert.alert(i18nLang.t("alert"), error);
+    } else {
+      toggleSwitch();
+    }
+  };
+
+  const toggleSwitch = () =>
+    setIsAuthEnabled((previousState) => !previousState);
 
   return (
     <View style={styles.container}>
@@ -49,9 +92,9 @@ const Security = ({
             </Text>
             <Switch
               trackColor={{ false: "#767577", true: "#FFE6E6" }}
-              thumbColor={isAuthEnabled ? '#f4f3f4' : '#eeeeee'}
+              thumbColor={isAuthEnabled ? "#f4f3f4" : "#eeeeee"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
+              onValueChange={handleSwitchToggle}
               value={isAuthEnabled}
             />
           </View>

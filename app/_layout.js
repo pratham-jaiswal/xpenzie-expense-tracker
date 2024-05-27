@@ -1,8 +1,6 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import {
-  TouchableHighlight,
   View,
-  Text,
   AppState,
   Pressable,
 } from "react-native";
