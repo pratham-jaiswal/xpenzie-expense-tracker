@@ -8,24 +8,20 @@ import {
   TextInput,
 } from "react-native";
 
-const Account = ({ showForm, setShowForm }) => {
-  const { i18nLang } = useContext(SettingsContext);
-
+const Account = ({ showForm, setShowForm, i18nLang }) => {
   const [currentFN, setcurrentFN] = useState(null);
   const [currentLN, setCurrentLN] = useState(null);
-
-  const renderItem = (item) => {
-    return (
-      <View style={styles.item}>
-        <Text style={styles.textItem}>{item.label}</Text>
-      </View>
-    );
-  };
 
   const handleCloseClick = () => {
     setShowForm(false);
     setcurrentFN(null);
     setCurrentLN(null);
+  };
+
+  const saveAccount = async () => {
+    await save("firstName", currentFN, false);
+    await save("lastName", currentLN, false);
+    setShowForm(false);
   };
 
   return (
@@ -46,14 +42,14 @@ const Account = ({ showForm, setShowForm }) => {
               value={currentFN}
               placeholder={i18nLang.t("firstName")}
               placeholderTextColor="rgba(255, 230, 230, 0.7)"
-              onChangeText={(text) => setCurrentEntryName(text)}
+              onChangeText={(text) => setcurrentFN(text)}
             />
             <TextInput
               style={styles.nameInput}
               value={currentLN}
               placeholder={i18nLang.t("lastName")}
               placeholderTextColor="rgba(255, 230, 230, 0.7)"
-              onChangeText={(text) => setCurrentEntryName(text)}
+              onChangeText={(text) => setCurrentLN(text)}
             />
           </View>
           <View style={styles.formButtonsContainer}>
@@ -76,7 +72,7 @@ const Account = ({ showForm, setShowForm }) => {
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => console.log("Confirm")}
+              onPress={() => saveAccount()}
             >
               <Text style={styles.confirmButtonText}>Save</Text>
             </Pressable>

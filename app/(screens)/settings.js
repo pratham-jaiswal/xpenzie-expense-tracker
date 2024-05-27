@@ -1,15 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import Currency from "../components/currency";
 // import Account from "../components/account";
 import Language from "../components/language";
 import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
+import Account from "../components/account";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -34,8 +30,7 @@ const Settings = () => {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [showLanguageForm, setShowLanguageForm] = useState(false);
 
-  useEffect(() => {
-  }, [i18nLang]);
+  useEffect(() => {}, [i18nLang]);
 
   const handlePress = (option) => {
     console.log(option);
@@ -46,8 +41,7 @@ const Settings = () => {
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
-        // onPress={() => setShowAccountForm(true)}
-        onPress={() => handlePress("A")}
+        onPress={() => setShowAccountForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("account")}</Text>
       </TouchableHighlight>
@@ -58,20 +52,20 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>{i18nLang.t("currency")}</Text>
       </TouchableHighlight>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => handlePress("C")}
       >
         <Text style={styles.optionText}>{i18nLang.t("bkpnrstr")}</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
+      </TouchableHighlight> */}
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => handlePress("D")}
       >
         <Text style={styles.optionText}>{i18nLang.t("notification")}</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
@@ -79,25 +73,29 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>{i18nLang.t("language")}</Text>
       </TouchableHighlight>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => handlePress("F")}
       >
         <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
+      </TouchableHighlight> */}
+      {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
         onPress={() => handlePress("G")}
       >
         <Text style={styles.optionText}>{i18nLang.t("feedback")}</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>{i18nLang.t("appFooter")}</Text>
       </View>
 
-      {/* <Account showForm={showAccountForm} setShowForm={setShowAccountForm} /> */}
+      <Account
+        showForm={showAccountForm}
+        setShowForm={setShowAccountForm}
+        i18nLang={i18nLang}
+      />
       <Currency
         showForm={showCurrencyForm}
         setShowForm={setShowCurrencyForm}
