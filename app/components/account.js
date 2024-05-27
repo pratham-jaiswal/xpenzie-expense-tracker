@@ -15,8 +15,8 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
 
   const handleCloseClick = () => {
     setShowForm(false);
-    setcurrentFN(null);
-    setCurrentLN(null);
+    setcurrentFN(firstName);
+    setCurrentLN(lastName);
   };
 
   const saveAccount = async () => {
