@@ -217,10 +217,8 @@
 
 ## Just an idea, for now:
 
-- Account Section: Save user's first and last names
 - Backup & Restore: Enable transaction backup to the cloud and restoration
 - Notification: Implement notifications for various events
-- Security: Introduce biometric/PIN app lock for enhanced security
 - Feedback: Provide a channel for users to offer feedback
 - FAQs: Include frequently asked questions for app usage
 - Graphs & Charts: Incorporate graphical representations of transactions
