@@ -41,6 +41,7 @@ const en = {
   pdfAllTitle: "Complete Transactions Summary",
   pdfMonthlyTitle: "Monthly Transactions Summary",
   pdfYearlyTitle: "Yearly Transactions Summary",
+  enableBiometric: "Enable Biometric Authentication:",
   appFooter: `Xpenzie ${appVersion}`,
 };
 
@@ -81,6 +82,7 @@ const hi = {
   pdfAllTitle: "संपूर्ण लेन-देन सारांश",
   pdfMonthlyTitle: "मासिक लेन-देन सारांश",
   pdfYearlyTitle: "वार्षिक लेन-देन सारांश",
+  enableBiometric: "बायोमेट्रिक प्रमाणीकरण सक्षम करें:",
 };
 
 const bn = {
@@ -120,6 +122,7 @@ const bn = {
   pdfAllTitle: "সম্পূর্ণ লেনদেন সংক্ষেপ",
   pdfMonthlyTitle: "মাসিক লেনদেন সংক্ষেপ",
   pdfYearlyTitle: "বার্ষিক লেনদেন সংক্ষেপ",
+  enableBiometric: "বায়োমেট্রিক প্রমাণীকরণ সক্ষম করুন:",
 };
 
 const es = {
@@ -159,6 +162,7 @@ const es = {
   pdfAllTitle: "Resumen completo de transacciones",
   pdfMonthlyTitle: "Resumen mensual de transacciones",
   pdfYearlyTitle: "Resumen anual de transacciones",
+  enableBiometric: "Habilitar Autenticación Biométrica:",
 };
 
 const fr = {
@@ -198,6 +202,7 @@ const fr = {
   pdfAllTitle: "Résumé complet des transactions",
   pdfMonthlyTitle: "Résumé mensuel des transactions",
   pdfYearlyTitle: "Résumé annuel des transactions",
+  enableBiometric: "Activer l'authentification biométrique:",
 };
 
 const ru = {
@@ -237,6 +242,7 @@ const ru = {
   pdfAllTitle: "Полный обзор транзакций",
   pdfMonthlyTitle: "Ежемесячный обзор транзакций",
   pdfYearlyTitle: "Ежегодный обзор транзакций",
+  enableBiometric: "Включить биометрическую аутентификацию:",
 };
 
 const ja = {
@@ -276,6 +282,7 @@ const ja = {
   pdfAllTitle: "全取引の概要",
   pdfMonthlyTitle: "月次取引の概要",
   pdfYearlyTitle: "年次取引の概要",
+  enableBiometric: "生体認証を有効にする:",
 };
 
 export { en, hi, bn, es, fr, ru, ja };
