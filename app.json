@@ -16,6 +16,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "$(PRODUCT_NAME) uses Face ID and touch Id to authenticate user."
+      },
       "bundleIdentifier": "com.maxxdevs.xpenzie"
     },
     "android": {
@@ -37,7 +40,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID and Touch ID."
         }
       ]
     ],

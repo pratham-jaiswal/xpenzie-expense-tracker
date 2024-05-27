@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 import { I18n } from "i18n-js";
 import { en, hi, bn, es, fr, ru, ja } from "./components/localization";
 import { createContext, useEffect, useState } from "react";
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const SettingsContext = createContext();
 
@@ -28,6 +29,8 @@ const RootLayout = () => {
   const [currencySymbol, setCurrencySymbol] = useState();
   const [languageValue, setLanguageValue] = useState();
   const [languageCode, setLanguageCode] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
   const [i18nLang, setI18nLang] = useState();
 
   useEffect(() => {
@@ -68,6 +71,12 @@ const RootLayout = () => {
         setLanguageCode(langCode);
       }
 
+      let firstName = await getValueFor("firstName", false);
+      setFirstName(firstName || null);
+
+      let lastName = await getValueFor("lastName", false);
+      setLastName(lastName || null);
+
       if (languageCode) {
         i18n.locale = languageCode;
         i18n.enableFallback = true;
@@ -88,11 +97,15 @@ const RootLayout = () => {
         currencySymbol,
         languageValue,
         languageCode,
+        firstName,
+        lastName,
         i18nLang,
         setCurrencySymbol,
         setCurrencyValue,
         setLanguageCode,
-        setLanguageValue
+        setLanguageValue,
+        setFirstName,
+        setLastName,
       }}
     >
       <Stack

@@ -19,11 +19,15 @@ const Settings = () => {
     currencySymbol,
     languageValue,
     languageCode,
+    firstName,
+    lastName,
     i18nLang,
     setCurrencySymbol,
     setCurrencyValue,
     setLanguageCode,
     setLanguageValue,
+    setFirstName,
+    setLastName,
   } = useContext(SettingsContext);
 
   const [showCurrencyForm, setShowCurrencyForm] = useState(false);
@@ -96,6 +100,10 @@ const Settings = () => {
         setShowForm={setShowAccountForm}
         i18nLang={i18nLang}
         save={save}
+        firstName={firstName}
+        lastName={lastName}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
       />
       <Currency
         showForm={showCurrencyForm}

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -8,7 +9,7 @@ import {
   TextInput,
 } from "react-native";
 
-const Account = ({ showForm, setShowForm, i18nLang, save }) => {
+const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, setLastName, i18nLang, save }) => {
   const [currentFN, setcurrentFN] = useState(null);
   const [currentLN, setCurrentLN] = useState(null);
 
@@ -19,10 +20,19 @@ const Account = ({ showForm, setShowForm, i18nLang, save }) => {
   };
 
   const saveAccount = async () => {
+    setFirstName(currentFN);
+    setLastName(currentLN);
     await save("firstName", currentFN, false);
     await save("lastName", currentLN, false);
     setShowForm(false);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      setcurrentFN(firstName);
+      setCurrentLN(lastName);
+    }, [firstName, lastName])
+  );
 
   return (
     <View style={styles.container}>
