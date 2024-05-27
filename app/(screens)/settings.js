@@ -95,6 +95,7 @@ const Settings = () => {
         showForm={showAccountForm}
         setShowForm={setShowAccountForm}
         i18nLang={i18nLang}
+        save={save}
       />
       <Currency
         showForm={showCurrencyForm}

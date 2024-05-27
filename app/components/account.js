@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 
-const Account = ({ showForm, setShowForm, i18nLang }) => {
+const Account = ({ showForm, setShowForm, i18nLang, save }) => {
   const [currentFN, setcurrentFN] = useState(null);
   const [currentLN, setCurrentLN] = useState(null);
 
