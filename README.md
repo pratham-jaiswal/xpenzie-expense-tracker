@@ -12,6 +12,7 @@
 - **Flexible Date Selection:** Add transactions dated from 2023 to the current date.
 - **Multi-Currency Support:** Select from 162 different currencies.
 - **Multi-Language Support:** Access the application in 7 different languages.
+- **App Lock:** Secure your transactions by enabling the biometric app lock.
 - **View All Transactions:** Easily access a list of all transactions.
 - **View Monthly Transactions:** Filter transactions by month for better organization.
 - **View Yearly Transactions:** Review transactions grouped by year for a broader perspective.
@@ -213,17 +214,6 @@
 ![](https://i.imgur.com/EPUdQ37l.jpg)
 ![](https://i.imgur.com/JrxdrLkl.jpg)
 ![](https://i.imgur.com/kd7LjxTl.jpg)
-
-## Planned To-Dos:
-
-- Design an app icon
-- Implement a splash screen
-- Expand language support to include more languages
-
-## To-Fix:
-
-- Issue: Endless loading after quickly switching between tabs
-  - **Possible Reason:** Incomplete Database Transactions
 
 ## Just an idea, for now:
 
