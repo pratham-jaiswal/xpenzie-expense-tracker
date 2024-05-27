@@ -108,45 +108,45 @@ const AddExpense = ({
     }
   }, [setCurrentEntryType, currentEntryType]);
 
-  const addEntry = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "INSERT INTO transaction_entries (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?);",
+  async function addEntry() {
+    await db.withTransactionAsync(async () => {
+      resultSet = await db.runAsync(
+        "INSERT INTO transaction_entries (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?)",
         [
           currentEntryType,
           currentEntryName,
           currentEntryAmount,
           currentEntryDate.toLocaleDateString(),
           currentCategory,
-        ],
-        (txObj, resultSet) => {
-          let existingEntries = [...entries];
-          existingEntries.push({
-            id: resultSet.insertId,
-            type: currentEntryType,
-            name: currentEntryName,
-            amount: currentEntryAmount,
-            date: currentEntryDate.toLocaleDateString(),
-            category: currentCategory,
-          });
-          setEntries(existingEntries);
-          if (currentEntryType === "Expenditure") {
-            setTotalExpenditure(
-              totalExpenditure + parseFloat(currentEntryAmount)
-            );
-          } else {
-            setTotalIncome(totalIncome + parseFloat(currentEntryAmount));
-          }
-          handleCloseClick();
-        },
-        (txObj, error) => console.log(error)
+        ]
       );
-    });
-  };
 
-  const editEntry = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
+      if (resultSet.changes > 0) {
+        let existingEntries = [...entries];
+        existingEntries.push({
+          id: resultSet.lastInsertRowId,
+          type: currentEntryType,
+          name: currentEntryName,
+          amount: currentEntryAmount,
+          date: currentEntryDate.toLocaleDateString(),
+          category: currentCategory,
+        });
+        setEntries(existingEntries);
+        if (currentEntryType === "Expenditure") {
+          setTotalExpenditure(
+            totalExpenditure + parseFloat(currentEntryAmount)
+          );
+        } else {
+          setTotalIncome(totalIncome + parseFloat(currentEntryAmount));
+        }
+      }
+      handleCloseClick();
+    });
+  }
+
+  async function editEntry() {
+    await db.withTransactionAsync(async () => {
+      resultSet = await db.runAsync(
         "UPDATE transaction_entries SET type = ?, name = ?, amount = ?, date = ?, category = ? WHERE id = ?;",
         [
           currentEntryType,
@@ -155,49 +155,55 @@ const AddExpense = ({
           currentEntryDate.toLocaleDateString(),
           currentCategory,
           selectedEntryId,
-        ],
-        (txObj, resultSet) => {
-          if (resultSet.rowsAffected > 0) {
-            let existingEntries = [...entries];
-            let entry = existingEntries.find(
-              (entry) => entry.id === selectedEntryId
-            );
-            let entryIndex = existingEntries.findIndex(
-              (entry) => entry.id === selectedEntryId
-            );
-
-            let expenditure = totalExpenditure;
-            let income = totalIncome;
-
-            if (entry.type === "Expenditure") {
-              expenditure = expenditure - parseFloat(entry.amount);
-            } else {
-              income = income - parseFloat(entry.amount);
-            }
-
-            existingEntries[entryIndex].type = currentEntryType;
-            existingEntries[entryIndex].name = currentEntryName;
-            existingEntries[entryIndex].amount = currentEntryAmount;
-            existingEntries[entryIndex].date =
-              currentEntryDate.toLocaleDateString();
-            existingEntries[entryIndex].category = currentCategory;
-            if (currentEntryType === "Expenditure") {
-              setTotalExpenditure(expenditure + parseFloat(currentEntryAmount));
-              setTotalIncome(income);
-            } else {
-              setTotalIncome(income + parseFloat(currentEntryAmount));
-              setTotalExpenditure(expenditure);
-            }
-            setEntries(existingEntries);
-          }
-          handleCloseClick();
-        },
-        (txObj, error) => console.log(error)
+        ]
       );
+      console.log(resultSet);
+
+      if (resultSet.changes > 0) {
+        let existingEntries = [...entries];
+        let entry = existingEntries.find(
+          (entry) => entry.id === selectedEntryId
+        );
+        let entryIndex = existingEntries.findIndex(
+          (entry) => entry.id === selectedEntryId
+        );
+
+        let expenditure = totalExpenditure;
+        let income = totalIncome;
+
+        if (entry.type === "Expenditure") {
+          expenditure = expenditure - parseFloat(entry.amount);
+        } else {
+          income = income - parseFloat(entry.amount);
+        }
+
+        existingEntries[entryIndex].type = currentEntryType;
+        existingEntries[entryIndex].name = currentEntryName;
+        existingEntries[entryIndex].amount = currentEntryAmount;
+        existingEntries[entryIndex].date =
+          currentEntryDate.toLocaleDateString();
+        existingEntries[entryIndex].category = currentCategory;
+        if (currentEntryType === "Expenditure") {
+          setTotalExpenditure(expenditure + parseFloat(currentEntryAmount));
+          setTotalIncome(income);
+        } else {
+          setTotalIncome(income + parseFloat(currentEntryAmount));
+          setTotalExpenditure(expenditure);
+        }
+        setEntries(existingEntries);
+      }
+      handleCloseClick();
     });
-  };
+  }
 
   const handleAddClick = () => {
+    setCurrentEntryType("Expenditure");
+    setCurrentEntryName("");
+    setCurrentEntryAmount();
+    setCurrentEntryDate(new Date());
+    setCurrentCategory(null);
+    setCurrentCategoryValue(null);
+    setSelectedEntryId(null);
     setShowForm(true);
   };
 
@@ -355,12 +361,13 @@ const AddExpense = ({
                   ? expenditureCategories
                   : incomeCategories
               }
-              search
+              // search
+              dropdownPosition="top"
               maxHeight={300}
               labelField="label"
               valueField="value"
               placeholder={i18nLang.t("categoryPlaceholder")}
-              searchPlaceholder={i18nLang.t("searchPlaceholder")}
+              // searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={currentCategoryValue}
               onChange={(item) => {
                 setCurrentCategoryValue(item.value);

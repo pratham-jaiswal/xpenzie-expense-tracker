@@ -15,42 +15,35 @@ const DeleteEntry = ({
   selectedEntryId,
   setSelectedEntryId,
 }) => {
-  const deleteEntry = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
+  async function deleteEntry() {
+    await db.withTransactionAsync(async () => {
+      resultSet = await db.runAsync(
         "DELETE FROM transaction_entries WHERE id = ?",
-        [selectedEntryId],
-        (txObj, resultSet) => {
-          if (resultSet.rowsAffected > 0) {
-            let entry = entries.find((entry) => entry.id === selectedEntryId);
-            let entryAmount = entry.amount;
-            let entryType = entry.type;
-            let existingEntries = [...entries].filter(
-              (entry) => entry.id !== selectedEntryId
-            );
-            if (entryType === "Expenditure") {
-              setTotalExpenditure(totalExpenditure - parseFloat(entryAmount));
-            } else {
-              setTotalIncome(totalIncome - parseFloat(entryAmount));
-            }
-            setEntries(existingEntries);
-          }
-          handleCancelClick();
-        },
-        (txObj, error) => console.log(error)
+        [selectedEntryId]
       );
-    });
-  };
+      console.log(resultSet);
 
-  const handleCancelClick = () => {
+      if (resultSet.changes > 0) {
+        let entry = entries.find((entry) => entry.id === selectedEntryId);
+        let entryAmount = entry.amount;
+        let entryType = entry.type;
+        let existingEntries = [...entries].filter(
+          (entry) => entry.id !== selectedEntryId
+        );
+        if (entryType === "Expenditure") {
+          setTotalExpenditure(totalExpenditure - parseFloat(entryAmount));
+        } else {
+          setTotalIncome(totalIncome - parseFloat(entryAmount));
+        }
+        setEntries(existingEntries);
+      }
+      handleCancelClick();
+    });
+  }
+
+  function handleCancelClick () {
     setSelectedEntryId(null);
     setShowDeletePrompt(false);
-    setCurrentEntryType("Expenditure");
-    setCurrentEntryName("");
-    setCurrentEntryAmount();
-    setCurrentEntryDate(new Date());
-    setCurrentCategory(null);
-    setCurrentCategoryValue(null);
     setSelectedEntryId(null);
   };
 

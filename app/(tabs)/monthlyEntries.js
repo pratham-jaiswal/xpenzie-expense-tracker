@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import * as SQLite from "expo-sqlite/legacy";
+import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import MonthlyEntryList from "../components/monthlyEntryList";
@@ -28,7 +28,7 @@ const MonthlyEntries = () => {
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const db = SQLite.openDatabase("xpenzie-transactions.db");
+  const db = useSQLiteContext();
 
   const months = {
     1: "January",
@@ -45,46 +45,40 @@ const MonthlyEntries = () => {
     12: "December",
   };
 
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let i = 2023; i <= currentYear; i++) {
+      years.push(i);
+    }
+    setYearList(years);
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      
-      db.transaction((tx) => {
-        tx.executeSql(
-          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);",
-          [],
-          () => {
-            tx.executeSql(
-              `SELECT * FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}'`,
-              [],
-              (txObj, resultSet) => {
-                setMonthlyEntries(resultSet.rows._array);
-              },
-              (txObj, error) => console.error(error)
-            );
-            tx.executeSql(
-              `SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}' AND type = 'Expenditure'`,
-              [],
-              (txObj, resultSet) => {
-                setTotalExpenditure(
-                  resultSet.rows.item(0).totalExpenditure || 0
-                );
-              },
-              (txObj, error) => console.error(error)
-            );
-            tx.executeSql(
-              `SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}' AND type = 'Income'`,
-              [],
-              (txObj, resultSet) => {
-                setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
-                setLoading(false);
-              },
-              (txObj, error) => console.error(error)
-            );
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
+
+      async function setup() {
+        await db.withTransactionAsync(async () => {
+          resultSet = await db.getAllAsync(
+            `SELECT * FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}'`
+          );
+          setMonthlyEntries(resultSet);
+
+          resultSet = await db.getFirstAsync(
+            `SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}' AND LOWER(type) = 'expenditure'`
+          );
+          setTotalExpenditure(resultSet.totalExpenditure || 0);
+
+          resultSet = await db.getFirstAsync(
+            `SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE date LIKE '%/${monthString}/${year}' AND LOWER(type) = 'income'`
+          );
+          setTotalIncome(resultSet.totalIncome || 0);
+          setLoading(false);
+        });
+      }
+
+      setup();
     }, [
       setMonthlyEntries,
       setLoading,

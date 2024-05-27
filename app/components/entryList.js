@@ -11,15 +11,15 @@ const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
         <View style={{ flexDirection: "row" }}>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type.toLowerCase() === "expenditure" ? "#E10000" : "#00B900" },
               styles.entryAmount,
             ]}
           >
-            {item.type === "Expenditure" ? "- " : "+ "}
+            {item.type.toLowerCase() === "expenditure" ? "- " : "+ "}
           </Text>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type.toLowerCase() === "expenditure" ? "#E10000" : "#00B900" },
               styles.entryAmount,
             ]}
           >

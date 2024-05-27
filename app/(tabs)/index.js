@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import * as SQLite from "expo-sqlite/legacy";
+import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import AddExpense from "../components/addExpense";
@@ -25,7 +25,7 @@ const HomePage = () => {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [selectedEntryId, setSelectedEntryId] = useState(null);
 
-  const db = SQLite.openDatabase("xpenzie-transactions.db");
+  const db = useSQLiteContext();
 
   useEffect(() => {}, [i18nLang]);
 
@@ -33,42 +33,35 @@ const HomePage = () => {
     useCallback(() => {
       setLoading(true);
 
-      db.transaction((tx) => {
-        tx.executeSql(
-          "CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);",
-          [],
-          () => {
-            tx.executeSql(
-              "SELECT * FROM transaction_entries",
-              [],
-              (txObj, resultSet) => {
-                setEntries(resultSet.rows._array);
-              },
-              (txObj, error) => console.error(error)
-            );
-            tx.executeSql(
-              "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE type = 'Expenditure'",
-              [],
-              (txObj, resultSet) => {
-                setTotalExpenditure(
-                  resultSet.rows.item(0).totalExpenditure || 0
-                );
-              },
-              (txObj, error) => console.error(error)
-            );
-            tx.executeSql(
-              "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE type = 'Income'",
-              [],
-              (txObj, resultSet) => {
-                setTotalIncome(resultSet.rows.item(0).totalIncome || 0);
-                setLoading(false);
-              },
-              (txObj, error) => console.error(error)
-            );
-          },
-          (txObj, error) => console.error(error)
-        );
-      });
+      async function setup() {
+        await db.withTransactionAsync(async () => {
+          // await db.runAsync(
+          //   "INSERT INTO transaction_entries (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?)",
+          //   "income",
+          //   "Salary",
+          //   1000,
+          //   "2024-08-01",
+          //   "Salary"
+          // );
+
+          resultSet = await db.getAllAsync("SELECT * FROM transaction_entries");
+          setEntries(resultSet);
+
+          resultSet = await db.getFirstAsync(
+            "SELECT SUM(amount) AS totalExpenditure FROM transaction_entries WHERE LOWER(type) = 'expenditure'"
+          );
+          setTotalExpenditure(resultSet.totalExpenditure || 0);
+
+          resultSet = await db.getFirstAsync(
+            "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE LOWER(type) = 'income'"
+          );
+          // console.log(resultSet.totalIncome);
+          setTotalIncome(resultSet.totalIncome || 0);
+          setLoading(false);
+        });
+      }
+
+      setup();
     }, [setEntries, setTotalIncome, setTotalExpenditure])
   );
 
