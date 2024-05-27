@@ -114,10 +114,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "7%",
   },
-  selectLanguage: {
-    fontSize: 16,
-    color: "#FFE6E6",
-  },
   inputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
