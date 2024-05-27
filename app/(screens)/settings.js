@@ -6,6 +6,7 @@ import Language from "../components/language";
 import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
 import Account from "../components/account";
+import Security from "../components/security";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -22,17 +23,20 @@ const Settings = () => {
     firstName,
     lastName,
     i18nLang,
+    needsAuth,
     setCurrencySymbol,
     setCurrencyValue,
     setLanguageCode,
     setLanguageValue,
     setFirstName,
     setLastName,
+    setNeedsAuth,
   } = useContext(SettingsContext);
 
   const [showCurrencyForm, setShowCurrencyForm] = useState(false);
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [showLanguageForm, setShowLanguageForm] = useState(false);
+  const [showSecurityForm, setShowSecurityForm] = useState(false);
 
   useEffect(() => {}, [i18nLang]);
 
@@ -77,13 +81,13 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>{i18nLang.t("language")}</Text>
       </TouchableHighlight>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
-        onPress={() => handlePress("F")}
+        onPress={() => setShowSecurityForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
       {/* <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
@@ -95,6 +99,14 @@ const Settings = () => {
         <Text style={styles.footerText}>{i18nLang.t("appFooter")}</Text>
       </View>
 
+      <Security
+        showForm={showSecurityForm}
+        setShowForm={setShowSecurityForm}
+        i18nLang={i18nLang}
+        save={save}
+        needsAuth={needsAuth}
+        setNeedsAuth={setNeedsAuth}
+      />
       <Account
         showForm={showAccountForm}
         setShowForm={setShowAccountForm}

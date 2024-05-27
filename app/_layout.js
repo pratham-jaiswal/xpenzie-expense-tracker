@@ -1,11 +1,17 @@
-import { Stack, router } from "expo-router";
-import { Pressable } from "react-native";
+import { Stack } from "expo-router";
+import {
+  TouchableHighlight,
+  View,
+  Text,
+  AppState,
+  Pressable,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import { I18n } from "i18n-js";
 import { en, hi, bn, es, fr, ru, ja } from "./components/localization";
-import { createContext, useEffect, useState } from "react";
-import * as LocalAuthentication from 'expo-local-authentication';
+import { createContext, useEffect, useRef, useState } from "react";
+import * as LocalAuthentication from "expo-local-authentication";
 
 const SettingsContext = createContext();
 
@@ -32,8 +38,80 @@ const RootLayout = () => {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [i18nLang, setI18nLang] = useState();
+  const [needsAuth, setNeedsAuth] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const currentAppState = useRef(AppState.currentState);
+
+  const authenticate = async () => {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    if (!hasHardware) {
+      console.log("No biometric supported");
+      setIsAuthenticated(true);
+      return;
+    }
+
+    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    if (!isEnrolled) {
+      console.log("No biometrics enrolled");
+      setIsAuthenticated(true);
+      return;
+    }
+
+    const result = await LocalAuthentication.authenticateAsync();
+    if (result.success) {
+      console.log("Biometric authentication successful");
+      setIsAuthenticated(true);
+    } else {
+      console.log("Biometric authentication failed");
+    }
+  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      let authReq = await getValueFor("needsAuthentication", false);
+      setNeedsAuth(authReq === "true");
+    };
+
+    fetchData();
+    if (needsAuth) {
+      setLoading(true);
+      authenticate();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (
+        currentAppState.current.match(/inactive|background/) &&
+        nextAppState === "active"
+      ) {
+        setIsAuthenticated(false);
+        authenticate();
+      }
+      currentAppState.current = nextAppState;
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (needsAuth) {
+      authenticate();
+    }
+  }, [needsAuth]);
+
+  useEffect(() => {
+    if (needsAuth && !isAuthenticated) return;
+
     const fetchData = async () => {
       let currVal = await getValueFor("currencyValue", false);
       if (!currVal) {
@@ -83,78 +161,134 @@ const RootLayout = () => {
         setI18nLang(i18n);
       }
     };
+
     fetchData();
-  }, [currencyValue, currencySymbol, languageValue, languageCode, i18nLang]);
+    setLoading(false);
+  }, [
+    isAuthenticated,
+    currencyValue,
+    currencySymbol,
+    languageValue,
+    languageCode,
+    i18nLang,
+  ]);
 
-  if (!i18nLang) {
-    return null;
-  }
-
-  return (
-    <SettingsContext.Provider
-      value={{
-        currencyValue,
-        currencySymbol,
-        languageValue,
-        languageCode,
-        firstName,
-        lastName,
-        i18nLang,
-        setCurrencySymbol,
-        setCurrencyValue,
-        setLanguageCode,
-        setLanguageValue,
-        setFirstName,
-        setLastName,
+  return needsAuth && !isAuthenticated ? (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#AD88C6",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Stack
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#7469B6",
-          },
-          headerTintColor: "#FFE6E6",
-          headerTitleStyle: {
-            fontSize: 20,
-          },
+      <Pressable
+        onPress={authenticate}
+        underlayColor="#5f52aa"
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 25,
+          elevation: 3,
+          backgroundColor: "#7469B6",
+          width: 50,
+          height: 50,
         }}
       >
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: true,
-            headerTitle: "Xpenzie",
-            headerRight: () => (
-              <Pressable
-                onPress={() => router.push({ pathname: "/(screens)/settings" })}
-              >
-                {({ pressed }) => (
-                  <Ionicons
-                    name="settings-sharp"
-                    size={20}
-                    style={{
-                      color: pressed ? "#f2cece" : "#FFE6E6",
-                      paddingVertical: 5,
-                      paddingHorizontal: 5,
-                      textAlign: "center",
-                      borderRadius: 25,
-                      marginLeft: "5%",
-                    }}
-                  />
-                )}
-              </Pressable>
-            ),
-            headerShadowVisible: false,
+        {({ pressed }) => (
+          <Ionicons
+            name={pressed ? "lock-open" : "lock-closed"}
+            size={20}
+            style={{
+              fontSize: 24,
+              lineHeight: 34,
+              color: "#FFE6E6",
+            }}
+          />
+        )}
+      </Pressable>
+    </View>
+  ) : AppState.currentState.toLowerCase() == "background" ? (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#AD88C6",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    />
+  ) : (
+    !loading &&
+    i18nLang && (
+      <SettingsContext.Provider
+        value={{
+          currencyValue,
+          currencySymbol,
+          languageValue,
+          languageCode,
+          firstName,
+          lastName,
+          i18nLang,
+          needsAuth,
+          setCurrencySymbol,
+          setCurrencyValue,
+          setLanguageCode,
+          setLanguageValue,
+          setFirstName,
+          setLastName,
+          setNeedsAuth,
+        }}
+      >
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "#7469B6",
+            },
+            headerTintColor: "#FFE6E6",
+            headerTitleStyle: {
+              fontSize: 20,
+            },
           }}
-        />
-        <Stack.Screen
-          name="(screens)"
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
-    </SettingsContext.Provider>
+        >
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerShown: true,
+              headerTitle: "Xpenzie",
+              headerRight: () => (
+                <Pressable
+                  onPress={() =>
+                    router.push({ pathname: "/(screens)/settings" })
+                  }
+                >
+                  {({ pressed }) => (
+                    <Ionicons
+                      name="settings-sharp"
+                      size={20}
+                      style={{
+                        color: pressed ? "#f2cece" : "#FFE6E6",
+                        paddingVertical: 5,
+                        paddingHorizontal: 5,
+                        textAlign: "center",
+                        borderRadius: 25,
+                        marginLeft: "5%",
+                      }}
+                    />
+                  )}
+                </Pressable>
+              ),
+              headerShadowVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="(screens)"
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack>
+      </SettingsContext.Provider>
+    )
   );
 };
 
