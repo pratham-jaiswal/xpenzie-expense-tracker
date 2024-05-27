@@ -90,12 +90,12 @@ const Language = ({
               }}
               data={languageList}
               dropdownPosition="top"
-              search={false}
+              // search={false}
               maxHeight={300}
               labelField="label"
               valueField="value"
               placeholder={i18nLang.t("language") + "..."}
-              searchPlaceholder={i18nLang.t("searchPlaceholder")}
+              // searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={currentLanguageValue}
               onChange={handleSelectLanguage}
               onChangeText={(query) => {
