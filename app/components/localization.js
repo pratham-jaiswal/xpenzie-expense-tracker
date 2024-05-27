@@ -42,6 +42,9 @@ const en = {
   pdfMonthlyTitle: "Monthly Transactions Summary",
   pdfYearlyTitle: "Yearly Transactions Summary",
   enableBiometric: "Enable Biometric Authentication:",
+  noBiometricSupported: "No biometric supported",
+  noBiometricEnrolled: "No biometrics enrolled",
+  alert: "Alert",
   appFooter: `Xpenzie ${appVersion}`,
 };
 
@@ -83,6 +86,9 @@ const hi = {
   pdfMonthlyTitle: "मासिक लेन-देन सारांश",
   pdfYearlyTitle: "वार्षिक लेन-देन सारांश",
   enableBiometric: "बायोमेट्रिक प्रमाणीकरण सक्षम करें:",
+  noBiometricSupported: "कोई बायोमैट्रिक समर्थित नहीं",
+  noBiometricEnrolled: "कोई बायोमेट्रिक नामांकित नहीं",
+  alert: "चेतावनी",
 };
 
 const bn = {
@@ -123,6 +129,9 @@ const bn = {
   pdfMonthlyTitle: "মাসিক লেনদেন সংক্ষেপ",
   pdfYearlyTitle: "বার্ষিক লেনদেন সংক্ষেপ",
   enableBiometric: "বায়োমেট্রিক প্রমাণীকরণ সক্ষম করুন:",
+  noBiometricSupported: "কোনো বায়োমেট্রিক সমর্থিত নয়",
+  noBiometricEnrolled: "কোনো বায়োমেট্রিক নামাংকিত নয়",
+  alert: "সতর্কতা",
 };
 
 const es = {
@@ -163,6 +172,9 @@ const es = {
   pdfMonthlyTitle: "Resumen mensual de transacciones",
   pdfYearlyTitle: "Resumen anual de transacciones",
   enableBiometric: "Habilitar Autenticación Biométrica:",
+  noBiometricSupported: "No se admite biometría",
+  noBiometricEnrolled: "No se han registrado biometrías",
+  alert: "Alerta",
 };
 
 const fr = {
@@ -203,6 +215,9 @@ const fr = {
   pdfMonthlyTitle: "Résumé mensuel des transactions",
   pdfYearlyTitle: "Résumé annuel des transactions",
   enableBiometric: "Activer l'authentification biométrique:",
+  noBiometricSupported: "Aucune biométrie prise en charge",
+  noBiometricEnrolled: "Aucune biométrie enregistrée",
+  alert: "Alerte",
 };
 
 const ru = {
@@ -243,6 +258,9 @@ const ru = {
   pdfMonthlyTitle: "Ежемесячный обзор транзакций",
   pdfYearlyTitle: "Ежегодный обзор транзакций",
   enableBiometric: "Включить биометрическую аутентификацию:",
+  noBiometricSupported: "Биометрия не поддерживается",
+  noBiometricEnrolled: "Биометрия не зарегистрирована",
+  alert: "Предупреждение",
 };
 
 const ja = {
@@ -283,6 +301,9 @@ const ja = {
   pdfMonthlyTitle: "月次取引の概要",
   pdfYearlyTitle: "年次取引の概要",
   enableBiometric: "生体認証を有効にする:",
+  noBiometricSupported: "生体認証がサポートされていません",
+  noBiometricEnrolled: "生体認証が登録されていません",
+  alert: "警告",
 };
 
 export { en, hi, bn, es, fr, ru, ja };
