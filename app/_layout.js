@@ -10,6 +10,9 @@ import { I18n } from "i18n-js";
 import { en, hi, bn, es, fr, ru, ja } from "./components/localization";
 import { createContext, useEffect, useRef, useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 const SettingsContext = createContext();
 
@@ -41,6 +44,20 @@ const RootLayout = () => {
   const [loading, setLoading] = useState(true);
 
   const currentAppState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
+  }, []);
 
   const authenticate = async () => {
     const hasHardware = await LocalAuthentication.hasHardwareAsync();
