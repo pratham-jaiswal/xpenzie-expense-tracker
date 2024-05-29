@@ -10,12 +10,12 @@ import {
 } from "react-native";
 
 const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, setLastName, i18nLang, save }) => {
-  const [currentFN, setcurrentFN] = useState(null);
+  const [currentFN, setCurrentFN] = useState(null);
   const [currentLN, setCurrentLN] = useState(null);
 
   const handleCloseClick = () => {
     setShowForm(false);
-    setcurrentFN(firstName);
+    setCurrentFN(firstName);
     setCurrentLN(lastName);
   };
 
@@ -29,7 +29,7 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
 
   useFocusEffect(
     useCallback(() => {
-      setcurrentFN(firstName);
+      setCurrentFN(firstName);
       setCurrentLN(lastName);
     }, [firstName, lastName])
   );
@@ -52,7 +52,7 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
               value={currentFN}
               placeholder={i18nLang.t("firstName")}
               placeholderTextColor="rgba(255, 230, 230, 0.7)"
-              onChangeText={(text) => setcurrentFN(text)}
+              onChangeText={(text) => setCurrentFN(text)}
             />
             <TextInput
               style={styles.nameInput}
@@ -71,7 +71,7 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
                     styles.closeButtonText,
                   ]}
                 >
-                  Close
+                  {i18nLang.t("closeBtn")}
                 </Text>
               )}
             </Pressable>
@@ -82,9 +82,9 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => saveAccount()}
+              onPress={saveAccount}
             >
-              <Text style={styles.confirmButtonText}>Save</Text>
+              <Text style={styles.confirmButtonText}>{i18nLang.t("saveBtn")}</Text>
             </Pressable>
           </View>
         </View>
@@ -107,12 +107,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     elevation: 7,
     borderRadius: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "7%",
   },
   inputContainer: {
     flexDirection: "row",

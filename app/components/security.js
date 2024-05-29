@@ -107,7 +107,7 @@ const Security = ({
                     styles.closeButtonText,
                   ]}
                 >
-                  Close
+                  {i18nLang.t("closeBtn")}
                 </Text>
               )}
             </Pressable>
@@ -118,9 +118,9 @@ const Security = ({
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => saveSetting()}
+              onPress={saveSetting}
             >
-              <Text style={styles.confirmButtonText}>Save</Text>
+              <Text style={styles.confirmButtonText}>{i18nLang.t("saveBtn")}</Text>
             </Pressable>
           </View>
         </View>
