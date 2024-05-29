@@ -7,6 +7,7 @@ import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
 import Account from "../components/account";
 import Security from "../components/security";
+import Feedback from "../components/feedback";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -37,6 +38,7 @@ const Settings = () => {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [showLanguageForm, setShowLanguageForm] = useState(false);
   const [showSecurityForm, setShowSecurityForm] = useState(false);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
   useEffect(() => {}, [i18nLang]);
 
@@ -88,25 +90,17 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
       </TouchableHighlight>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="#0000000d"
         style={styles.option}
-        onPress={() => handlePress("G")}
+        onPress={() => setShowFeedbackForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("feedback")}</Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
       <View style={styles.footer}>
         <Text style={styles.footerText}>{i18nLang.t("appFooter")}</Text>
       </View>
 
-      <Security
-        showForm={showSecurityForm}
-        setShowForm={setShowSecurityForm}
-        i18nLang={i18nLang}
-        save={save}
-        needsAuth={needsAuth}
-        setNeedsAuth={setNeedsAuth}
-      />
       <Account
         showForm={showAccountForm}
         setShowForm={setShowAccountForm}
@@ -137,15 +131,31 @@ const Settings = () => {
         setLanguageValue={setLanguageValue}
         i18nLang={i18nLang}
       />
+      <Security
+        showForm={showSecurityForm}
+        setShowForm={setShowSecurityForm}
+        i18nLang={i18nLang}
+        save={save}
+        needsAuth={needsAuth}
+        setNeedsAuth={setNeedsAuth}
+      />
+      <Feedback
+        showForm={showFeedbackForm}
+        setShowForm={setShowFeedbackForm}
+        i18nLang={i18nLang}
+        save={save}
+        firstName={firstName}
+        lastName={lastName}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
+      />
     </View>
 
     // TO-DO
-    // Priority 2 - Language
     // Priority 2 - Customed Categories
     // Priority 3 - Notification settings - Daily reminder to log transactions, daily recap, weekly recap, monthly recap, yearly recap, financial insights
     // Priority 3 - Backup to gdrive
     // Priority 3 - Restore from gdrive
-    // Priority 4 - Passcode or biometric authentication to access the app
     // Priority 5 - Feedback and support
   );
 };
