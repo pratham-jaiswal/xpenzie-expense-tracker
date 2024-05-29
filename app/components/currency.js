@@ -287,7 +287,7 @@ const Currency = ({
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => saveCurrency()}
+              onPress={saveCurrency}
             >
               <Text style={styles.confirmButtonText}>
                 {i18nLang.t("saveBtn")}

@@ -124,7 +124,7 @@ const Language = ({
                 },
                 styles.confirmButton,
               ]}
-              onPress={() => saveLanguage()}
+              onPress={saveLanguage}
             >
               <Text style={styles.confirmButtonText}>
                 {i18nLang.t("saveBtn")}
