@@ -13,7 +13,9 @@
       "resizeMode": "contain",
       "image": "./assets/splash.png"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -26,7 +28,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#5E4780"
       },
-      "package": "com.maxxdevs.xpenzie"
+      "package": "com.maxxdevs.xpenzie",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -52,6 +58,12 @@
         "projectId": "e7fa90ac-3bba-42a0-b4ea-8d824853bf0c"
       }
     },
-    "owner": "pratham-jaiswal"
+    "owner": "pratham-jaiswal",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e7fa90ac-3bba-42a0-b4ea-8d824853bf0c"
+    }
   }
 }
