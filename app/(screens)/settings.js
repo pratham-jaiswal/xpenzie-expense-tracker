@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import Currency from "../components/currency";
-// import Account from "../components/account";
 import Language from "../components/language";
 import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
