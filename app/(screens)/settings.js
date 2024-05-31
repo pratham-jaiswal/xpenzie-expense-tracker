@@ -142,11 +142,8 @@ const Settings = () => {
         showForm={showFeedbackForm}
         setShowForm={setShowFeedbackForm}
         i18nLang={i18nLang}
-        save={save}
         firstName={firstName}
         lastName={lastName}
-        setFirstName={setFirstName}
-        setLastName={setLastName}
       />
     </View>
 
