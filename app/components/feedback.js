@@ -1,5 +1,5 @@
 import { useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -9,7 +9,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { send, EmailJSResponseStatus } from '@emailjs/react-native';
+import emailjs from "@emailjs/react-native";
 
 const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
   const [currentName, setCurrentName] = useState(null);
@@ -18,20 +18,28 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
 
   const handleCloseClick = () => {
     setShowForm(false);
-    setCurrentName(firstName + " " + lastName);
+    if (firstName && lastName) {
+      setCurrentName(firstName + " " + lastName);
+    } else {
+      setCurrentName(null);
+    }
     setCurrentEmail(null);
     setCurrentMessage(null);
   };
 
   useFocusEffect(
     useCallback(() => {
-      setCurrentName(firstName + " " + lastName);
+      if (firstName && lastName) {
+        setCurrentName(firstName + " " + lastName);
+      } else {
+        setCurrentName(null);
+      }
     }, [firstName, lastName])
   );
 
-  const onSubmit = async () => {
-    try {
-      await send(
+  const onSubmit = () => {
+    emailjs
+      .send(
         process.env.EXPO_PUBLIC_EMAIL_SERVICE_KEY,
         process.env.EXPO_PUBLIC_EMAIL_TEMPLATE_ID,
         {
@@ -43,17 +51,21 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
         {
           publicKey: process.env.EXPO_PUBLIC_EMAIL_PUBLIC_KEY,
         }
+      )
+      .then(
+        (response) => {
+          if (response.status === 200) {
+            Alert.alert(i18nLang.t("alert"), i18nLang.t("feedbackSuccess"));
+          } else {
+            Alert.alert(i18nLang.t("alert"), i18nLang.t("feedbackError"));
+          }
+          handleCloseClick();
+        },
+        (err) => {
+          Alert.alert(i18nLang.t("alert"), i18nLang.t("feedbackError"));
+          handleCloseClick();
+        }
       );
-
-      Alert.alert(i18nLang.t("alert"), i18nLang.t("feedbackSuccess"));
-      handleCloseClick();
-    } catch (err) {
-      if (err instanceof EmailJSResponseStatus) {
-        Alert.alert(i18nLang.t("alert"), i18nLang.t("feedbackError"));
-      }
-
-      console.log("ERROR", err);
-    }
   };
 
   return (
