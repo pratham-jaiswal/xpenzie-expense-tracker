@@ -12,6 +12,7 @@
 - **Flexible Date Selection:** Add transactions dated from 2023 to the current date.
 - **Multi-Currency Support:** Select from 162 different currencies.
 - **Multi-Language Support:** Access the application in 7 different languages.
+- **Custom Themes:** Personalize your experience with a choice of 5 different themes to suit your preference.
 - **App Lock:** Secure your transactions by enabling the biometric app lock.
 - **View All Transactions:** Easily access a list of all transactions.
 - **View Monthly Transactions:** Filter transactions by month for better organization.
@@ -210,6 +211,14 @@
 
 ## Demo
 
+![](https://i.imgur.com/fM0hNJwl.jpg)
+![](https://i.imgur.com/I1N1Glgl.jpg)
+![](https://i.imgur.com/4gpGsril.jpg)
+![](https://i.imgur.com/MLZJKupl.jpg)
+![](https://i.imgur.com/7vvkcTnl.jpg)
+
+# Themes
+
 <table>
     <thead>
         <tr>
@@ -221,36 +230,36 @@
         <tr>
             <td>Royal Amethyst</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst1.png?raw=true" alt="Royal Amethyst Screenshot 1">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst2.png?raw=true" alt="Royal Amethyst Screenshot 2">
+                <img src="https://i.imgur.com/fM0hNJwl.jpg" alt="Royal Amethyst Screenshot 1">
+                <img src="https://i.imgur.com/7vvkcTnl.jpg" alt="Royal Amethyst Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Snow</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/snow1.png?raw=true" alt="Snow Screenshot 1">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/snow2.png?raw=true" alt="Snow Screenshot 2">
+                <img src="https://i.imgur.com/4qnYMFvl.jpg" alt="Snow Screenshot 1">
+                <img src="https://i.imgur.com/ThmSAmwl.jpg" alt="Snow Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Dracula</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/dracula1.png?raw=true" alt="Dracula Screenshot 1">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/dracula2.png?raw=true" alt="Dracula Screenshot 2">
+                <img src="https://i.imgur.com/EYZcnknl.jpg" alt="Dracula Screenshot 1">
+                <img src="https://i.imgur.com/JVsJudjl.jpg" alt="Dracula Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Sunlit Gold</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/sunlitgold1.png?raw=true" alt="Sunlit Gold Screenshot 1">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/sunlitgold2.png?raw=true" alt="Sunlit Gold Screenshot 2">
+                <img src="https://i.imgur.com/DpOhlF0l.jpg" alt="Sunlit Gold Screenshot 1">
+                <img src="https://i.imgur.com/ecPLLkNl.jpg" alt="Sunlit Gold Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Cherry Blossom</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/cherryblossom1.png?raw=true" alt="Cherry Blossom Screenshot 1">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/cherryblossom2.png?raw=true" alt="Cherry Blossom Screenshot 2">
+                <img src="https://i.imgur.com/1vF4fS4l.jpg" alt="Cherry Blossom Screenshot 1">
+                <img src="https://i.imgur.com/yS14KDKl.jpg" alt="Cherry Blossom Screenshot 2">
             </td>
         </tr>
     </tbody>
