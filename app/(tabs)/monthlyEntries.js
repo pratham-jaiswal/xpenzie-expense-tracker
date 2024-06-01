@@ -8,10 +8,10 @@ import {
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import MonthlyEntryList from "../components/monthlyEntryList";
+import MonthlyEntryList from "../components/tabs/monthlyEntryList";
 import { FontAwesome6 } from "@expo/vector-icons";
-import EntrySummary from "../components/entrySummary";
-import DownloadPDF from "../components/downloadPDF";
+import EntrySummary from "../components/functions/entrySummary";
+import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const MonthlyEntries = () => {
@@ -228,12 +228,6 @@ const MonthlyEntries = () => {
       )}
     </View>
   );
-
-  // TO-DO
-  // Show hide charts
-  // Priority 3 - Category pie chart/bar graph - expenditure
-  // Priority 3 - Category pie chart/bar graph - income
-  // Priority 3 - Income Expenditure Line graph
 };
 
 const styles = StyleSheet.create({

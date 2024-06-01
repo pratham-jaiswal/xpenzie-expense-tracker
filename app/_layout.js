@@ -7,7 +7,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import { I18n } from "i18n-js";
-import { en, hi, bn, es, fr, ru, ja } from "./components/localization";
+import { en, hi, bn, es, fr, ru, ja } from "./components/modals/localization";
 import { createContext, useEffect, useRef, useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SplashScreen from 'expo-splash-screen';

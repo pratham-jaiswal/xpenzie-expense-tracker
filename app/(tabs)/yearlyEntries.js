@@ -9,9 +9,9 @@ import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { FontAwesome6 } from "@expo/vector-icons";
-import EntrySummary from "../components/entrySummary";
-import YearlyEntryList from "../components/yearlyEntryList";
-import DownloadPDF from "../components/downloadPDF";
+import EntrySummary from "../components/functions/entrySummary";
+import YearlyEntryList from "../components/tabs/yearlyEntryList";
+import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const YearlyEntries = () => {
@@ -160,11 +160,6 @@ const YearlyEntries = () => {
       )}
     </View>
   );
-
-  // TO-DO
-  // Priority 3 - Category pie chart/bar graph - expenditure
-  // Priority 3 - Category pie chart/bar graph - income
-  // Priority 2 - Income Expenditure Line graph
 };
 
 const styles = StyleSheet.create({

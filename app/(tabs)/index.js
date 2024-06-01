@@ -7,11 +7,11 @@ import {
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import AddExpense from "../components/addExpense";
-import EntryList from "../components/entryList";
-import EntrySummary from "../components/entrySummary";
-import DeleteEntry from "../components/deleteEntry";
-import DownloadPDF from "../components/downloadPDF";
+import AddExpense from "../components/functions/addExpense";
+import EntryList from "../components/functions/entryList";
+import EntrySummary from "../components/functions/entrySummary";
+import DeleteEntry from "../components/functions/deleteEntry";
+import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
 
 const HomePage = () => {

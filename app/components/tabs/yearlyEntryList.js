@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import MonthSummary from "./yearlyMonthSummary";
+import MonthSummary from "../functions/yearlyMonthSummary";
 
 const Item = ({ item, currencySymbol, i18nLang }) => (
   <View style={styles.entryList}>

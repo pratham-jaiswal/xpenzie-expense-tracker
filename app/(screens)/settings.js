@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
-import Currency from "../components/currency";
-import Language from "../components/language";
+import Currency from "../components/modals/currency";
+import Language from "../components/modals/language";
 import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
-import Account from "../components/account";
-import Security from "../components/security";
-import Feedback from "../components/feedback";
+import Account from "../components/modals/account";
+import Security from "../components/modals/security";
+import Feedback from "../components/modals/feedback";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -146,13 +146,6 @@ const Settings = () => {
         lastName={lastName}
       />
     </View>
-
-    // TO-DO
-    // Priority 2 - Customed Categories
-    // Priority 3 - Notification settings - Daily reminder to log transactions, daily recap, weekly recap, monthly recap, yearly recap, financial insights
-    // Priority 3 - Backup to gdrive
-    // Priority 3 - Restore from gdrive
-    // Priority 5 - Feedback and support
   );
 };
 
