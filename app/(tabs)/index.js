@@ -16,7 +16,7 @@ import { SettingsContext } from "../_layout";
 import { themes } from "../components/functions/colorThemes";
 
 const HomePage = () => {
-  const { currencySymbol, i18nLang } = useContext(SettingsContext);
+  const { themeName, currencySymbol, i18nLang } = useContext(SettingsContext);
 
   const [showForm, setShowForm] = useState(false);
   const [entries, setEntries] = useState([]);
@@ -67,7 +67,7 @@ const HomePage = () => {
   );
 
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
+    return <ActivityIndicator size="large" color={themes[themeName].primarycolor1} />;
   }
 
   const handleDeleteClick = (id) => {
@@ -89,11 +89,12 @@ const HomePage = () => {
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
+          themeName={themeName}
         />
       </View>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />
+          <ActivityIndicator size="large" color={themes[themeName].primarycolor1} />
         </View>
       ) : (
         <>
@@ -103,6 +104,7 @@ const HomePage = () => {
               currencySymbol={currencySymbol}
               handleDeleteClick={handleDeleteClick}
               handleEditClick={handleEditClick}
+              themeName={themeName}
             />
           </View>
           <View>
@@ -119,6 +121,7 @@ const HomePage = () => {
               setShowDeletePrompt={setShowDeletePrompt}
               selectedEntryId={selectedEntryId}
               setSelectedEntryId={setSelectedEntryId}
+              themeName={themeName}
             />
           </View>
         </>
@@ -131,6 +134,7 @@ const HomePage = () => {
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           title={i18nLang.t("pdfAllTitle")}
+          themeName={themeName}
         />
         <AddExpense
           db={db}
@@ -146,6 +150,7 @@ const HomePage = () => {
           setSelectedEntryId={setSelectedEntryId}
           showForm={showForm}
           setShowForm={setShowForm}
+          themeName={themeName}
         />
       </View>
     </KeyboardAvoidingView>

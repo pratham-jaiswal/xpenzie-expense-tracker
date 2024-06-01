@@ -11,7 +11,6 @@ import {
 import * as Print from "expo-print";
 import { themes } from "./colorThemes";
 
-
 const DownloadPDF = ({
   entries,
   title,
@@ -19,7 +18,10 @@ const DownloadPDF = ({
   totalExpenditure,
   currencySymbol,
   i18nLang,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   var income = entries.filter((entry) => entry.type === "Income");
   var expenditure = entries.filter((entry) => entry.type === "Expenditure");
 
@@ -99,7 +101,7 @@ const DownloadPDF = ({
 
   return (
     <TouchableHighlight
-      underlayColor={themes["snow"].underlayColor1}
+      underlayColor={themes[themeName].underlayColor1}
       style={styles.addButton}
       onPress={print}
     >
@@ -108,27 +110,29 @@ const DownloadPDF = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 8,
-  },
-  addButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
-    elevation: 3,
-    backgroundColor: themes["snow"].bgColor1,
-    width: 50,
-    height: 50,
-  },
-  addButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: themes["snow"].primarycolor1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      flexDirection: "column",
+      padding: 8,
+    },
+    addButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 25,
+      elevation: 3,
+      backgroundColor: themes[themeName].bgColor1,
+      width: 50,
+      height: 50,
+    },
+    addButtonText: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: themes[themeName].primarycolor1,
+    },
+  });
+};
 
 export default DownloadPDF;

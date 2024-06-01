@@ -28,7 +28,10 @@ const AddExpense = ({
   setSelectedEntryId,
   showForm,
   setShowForm,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentEntryType, setCurrentEntryType] = useState("Expenditure");
   const [currentEntryName, setCurrentEntryName] = useState("");
@@ -239,7 +242,7 @@ const AddExpense = ({
   return (
     <View>
       <TouchableHighlight
-        underlayColor={themes["snow"].underlayColor1}
+        underlayColor={themes[themeName].underlayColor1}
         style={styles.addButton}
         onPress={handleAddClick}
       >
@@ -261,7 +264,7 @@ const AddExpense = ({
                 {
                   backgroundColor:
                     currentEntryType === "Expenditure"
-                      ? themes["snow"].underlayColor3
+                      ? themes[themeName].underlayColor3
                       : "transparent",
                   borderTopLeftRadius: 7,
                   borderBottomLeftRadius: 7,
@@ -269,7 +272,7 @@ const AddExpense = ({
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: themes["snow"].primarycolor1 }}>
+              <Text style={{ color: themes[themeName].primarycolor1 }}>
                 {i18nLang.t("expenditure")}
               </Text>
             </Pressable>
@@ -278,14 +281,18 @@ const AddExpense = ({
               style={[
                 {
                   backgroundColor:
-                    currentEntryType === "Income" ? themes["snow"].underlayColor3 : "transparent",
+                    currentEntryType === "Income"
+                      ? themes[themeName].underlayColor3
+                      : "transparent",
                   borderTopRightRadius: 7,
                   borderBottomRightRadius: 7,
                 },
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: themes["snow"].primarycolor1 }}>{i18nLang.t("income")}</Text>
+              <Text style={{ color: themes[themeName].primarycolor1 }}>
+                {i18nLang.t("income")}
+              </Text>
             </Pressable>
           </View>
           <View style={styles.inputContainer}>
@@ -297,7 +304,7 @@ const AddExpense = ({
                   ? i18nLang.t("expName")
                   : i18nLang.t("incName")
               }
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentEntryName(text)}
             />
             <View style={styles.amountContainer}>
@@ -306,7 +313,7 @@ const AddExpense = ({
                 style={styles.amountInput}
                 value={currentEntryAmount}
                 placeholder={i18nLang.t("amount")}
-                placeholderTextColor={themes["snow"].placeholderColor1}
+                placeholderTextColor={themes[themeName].placeholderColor1}
                 keyboardType="numeric"
                 onChangeText={(text) => setCurrentEntryAmount(text)}
               />
@@ -321,7 +328,11 @@ const AddExpense = ({
                 <View style={styles.datePickerContainer}>
                   <TextInput
                     style={[
-                      { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
+                      {
+                        color: pressed
+                          ? themes[themeName].underlayColor4
+                          : themes[themeName].primarycolor1,
+                      },
                       styles.dateInput,
                     ]}
                     editable={false}
@@ -331,7 +342,11 @@ const AddExpense = ({
                   <Ionicons
                     name="calendar-number"
                     size={24}
-                    style={{ color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 }}
+                    style={{
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    }}
                   />
                 </View>
               )}
@@ -353,7 +368,7 @@ const AddExpense = ({
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               containerStyle={{
-                backgroundColor: themes["snow"].primarycolor1,
+                backgroundColor: themes[themeName].primarycolor1,
                 borderRadius: 7,
                 elevation: 3,
               }}
@@ -382,7 +397,11 @@ const AddExpense = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
+                    {
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    },
                     styles.closeButtonText,
                   ]}
                 >
@@ -393,7 +412,9 @@ const AddExpense = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
+                  backgroundColor: pressed
+                    ? themes[themeName].underlayColor4
+                    : themes[themeName].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -419,158 +440,160 @@ const AddExpense = ({
   );
 };
 
-const styles = StyleSheet.create({
-  addButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
-    elevation: 3,
-    backgroundColor: themes["snow"].bgColor1,
-    width: 50,
-    height: 50,
-  },
-  addButtonText: {
-    fontSize: 30,
-    lineHeight: 34,
-    color: themes["snow"].primarycolor1,
-  },
-  formContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "93%",
-    marginLeft: "3.5%",
-    marginBottom: "2%",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: themes["snow"].bgColor1,
-    paddingVertical: "5%",
-    paddingHorizontal: "5%",
-    elevation: 7,
-    borderRadius: 10,
-  },
-  entryTypeContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: themes["snow"].optionColor1,
-    borderRadius: 7,
-    marginBottom: "3%",
-  },
-  entryTypeOption: {
-    fontSize: 16,
-    width: "50%",
-    paddingVertical: "5%",
-    alignItems: "center",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "2%",
-    marginBottom: "5%",
-  },
-  nameInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "60%",
-    borderBottomWidth: 0.2,
-    borderColor: "black",
-  },
-  amountContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "30%",
-  },
-  amountPrefix: {
-    color: themes["snow"].primarycolor1,
-    lineHeight: 30,
-    fontSize: 16,
-  },
-  amountInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "80%",
-    borderBottomWidth: 0.2,
-    borderColor: "black",
-  },
-  inputContainer2: {
-    width: "40%",
-  },
-  datePickerContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: "2%",
-    marginBottom: "5%",
-  },
-  dateInput: {
-    fontSize: 16,
-    borderBottomWidth: 0.2,
-    borderColor: "black",
-  },
-  formButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginVertical: "3%",
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingRight: "7%",
-  },
-  closeButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  confirmButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "7%",
-    borderRadius: 4,
-    elevation: 3,
-  },
-  confirmButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: themes["snow"].bgColor1,
-  },
-  dropdown: {
-    width: "50%",
-    height: "40%",
-    backgroundColor: themes["snow"].primarycolor1,
-    borderRadius: 12,
-    padding: 12,
-    elevation: 3,
-  },
-  item: {
-    padding: 17,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  textItem: {
-    flex: 1,
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-    borderColor: themes["snow"].bgColor1,
-    borderRadius: 7,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    addButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 25,
+      elevation: 3,
+      backgroundColor: themes[themeName].bgColor1,
+      width: 50,
+      height: 50,
+    },
+    addButtonText: {
+      fontSize: 30,
+      lineHeight: 34,
+      color: themes[themeName].primarycolor1,
+    },
+    formContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "93%",
+      marginLeft: "3.5%",
+      marginBottom: "2%",
+      flex: 1,
+      justifyContent: "space-around",
+      backgroundColor: themes[themeName].bgColor1,
+      paddingVertical: "5%",
+      paddingHorizontal: "5%",
+      elevation: 7,
+      borderRadius: 10,
+    },
+    entryTypeContainer: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: themes[themeName].optionColor1,
+      borderRadius: 7,
+      marginBottom: "3%",
+    },
+    entryTypeOption: {
+      fontSize: 16,
+      width: "50%",
+      paddingVertical: "5%",
+      alignItems: "center",
+    },
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginTop: "2%",
+      marginBottom: "5%",
+    },
+    nameInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "60%",
+      borderBottomWidth: 0.2,
+      borderColor: "black",
+    },
+    amountContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "30%",
+    },
+    amountPrefix: {
+      color: themes[themeName].primarycolor1,
+      lineHeight: 30,
+      fontSize: 16,
+    },
+    amountInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "80%",
+      borderBottomWidth: 0.2,
+      borderColor: "black",
+    },
+    inputContainer2: {
+      width: "40%",
+    },
+    datePickerContainer: {
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginTop: "2%",
+      marginBottom: "5%",
+    },
+    dateInput: {
+      fontSize: 16,
+      borderBottomWidth: 0.2,
+      borderColor: "black",
+    },
+    formButtonsContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginVertical: "3%",
+    },
+    closeButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingRight: "7%",
+    },
+    closeButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "right",
+    },
+    confirmButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingHorizontal: "7%",
+      borderRadius: 4,
+      elevation: 3,
+    },
+    confirmButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      color: themes[themeName].bgColor1,
+    },
+    dropdown: {
+      width: "50%",
+      height: "40%",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 12,
+      padding: 12,
+      elevation: 3,
+    },
+    item: {
+      padding: 17,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    textItem: {
+      flex: 1,
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+      borderColor: themes[themeName].bgColor1,
+      borderRadius: 7,
+    },
+  });
+};
 
 export default AddExpense;

@@ -21,7 +21,7 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator);
 
 export default function TabsLayout() {
-  const { i18nLang } = useContext(SettingsContext);
+  const { i18nLang, themeName } = useContext(SettingsContext);
 
   useEffect(() => {}, [i18nLang]);
 
@@ -39,12 +39,12 @@ export default function TabsLayout() {
         initialRouteName="index"
         backBehavior="history"
         screenOptions={{
-          tabBarActiveTintColor: themes["snow"].primarycolor1,
+          tabBarActiveTintColor: themes[themeName].primarycolor1,
           tabBarLabelStyle: { fontSize: 14, fontWeight: "bold" },
-          tabBarStyle: { backgroundColor: themes["snow"].bgColor1 },
-          tabBarIndicatorStyle: { backgroundColor: themes["snow"].primarycolor1 },
+          tabBarStyle: { backgroundColor: themes[themeName].bgColor1 },
+          tabBarIndicatorStyle: { backgroundColor: themes[themeName].primarycolor1 },
         }}
-        sceneContainerStyle={{ backgroundColor: themes["snow"].bgColor2 }}
+        sceneContainerStyle={{ backgroundColor: themes[themeName].bgColor2 }}
       >
         <MaterialTopTabs.Screen
           name="index"

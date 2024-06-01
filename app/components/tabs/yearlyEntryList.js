@@ -1,9 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import MonthSummary from "../functions/yearlyMonthSummary";
-import { themes } from "../functions/colorThemes";
 
-const Item = ({ item, currencySymbol, i18nLang }) => (
+const Item = ({ item, currencySymbol, i18nLang, themeName }) => (
   <View style={styles.entryList}>
     <MonthSummary
       month={item.monthName}
@@ -12,11 +11,12 @@ const Item = ({ item, currencySymbol, i18nLang }) => (
       totalIncome={item.income}
       totalExpenditure={item.expenditure}
       savings={item.income - item.expenditure}
+      themeName={themeName}
     />
   </View>
 );
 
-const YearlyEntryList = ({ yearlyEntries, currencySymbol, i18nLang }) => {
+const YearlyEntryList = ({ themeName, yearlyEntries, currencySymbol, i18nLang }) => {
   const months = {
     1: "January",
     2: "February",
@@ -62,7 +62,7 @@ const YearlyEntryList = ({ yearlyEntries, currencySymbol, i18nLang }) => {
     <FlashList
       data={monthStats}
       renderItem={({ item }) => (
-        <Item item={item} currencySymbol={currencySymbol} i18nLang={i18nLang} />
+        <Item item={item} currencySymbol={currencySymbol} i18nLang={i18nLang} themeName={themeName} />
       )}
       keyExtractor={(item) => item.month}
       estimatedItemSize={200}

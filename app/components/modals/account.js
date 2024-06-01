@@ -10,7 +10,19 @@ import {
 } from "react-native";
 import { themes } from "../functions/colorThemes";
 
-const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, setLastName, i18nLang, save }) => {
+const Account = ({
+  themeName,
+  showForm,
+  setShowForm,
+  firstName,
+  lastName,
+  setFirstName,
+  setLastName,
+  i18nLang,
+  save,
+}) => {
+  const styles = getStyles(themeName);
+
   const [currentFN, setCurrentFN] = useState(null);
   const [currentLN, setCurrentLN] = useState(null);
 
@@ -52,14 +64,14 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
               style={styles.nameInput}
               value={currentFN}
               placeholder={i18nLang.t("firstName")}
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentFN(text)}
             />
             <TextInput
               style={styles.nameInput}
               value={currentLN}
               placeholder={i18nLang.t("lastName")}
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentLN(text)}
             />
           </View>
@@ -68,7 +80,11 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
+                    {
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    },
                     styles.closeButtonText,
                   ]}
                 >
@@ -79,13 +95,17 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
+                  backgroundColor: pressed
+                    ? themes[themeName].underlayColor4
+                    : themes[themeName].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
               onPress={saveAccount}
             >
-              <Text style={styles.confirmButtonText}>{i18nLang.t("saveBtn")}</Text>
+              <Text style={styles.confirmButtonText}>
+                {i18nLang.t("saveBtn")}
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -94,63 +114,65 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
   );
 };
 
-const styles = StyleSheet.create({
-  formContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "93%",
-    marginLeft: "3.5%",
-    marginBottom: "2%",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: themes["snow"].bgColor1,
-    paddingVertical: "3%",
-    paddingHorizontal: "5%",
-    elevation: 7,
-    borderRadius: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "2%",
-    marginBottom: "5%",
-  },
-  nameInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "45%",
-    borderBottomWidth: 0.2,
-    borderColor: "black",
-  },
-  formButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginVertical: "3%",
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingRight: "7%",
-  },
-  closeButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  confirmButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "7%",
-    borderRadius: 4,
-    elevation: 3,
-  },
-  confirmButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: themes["snow"].bgColor1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    formContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "93%",
+      marginLeft: "3.5%",
+      marginBottom: "2%",
+      flex: 1,
+      justifyContent: "space-around",
+      backgroundColor: themes[themeName].bgColor1,
+      paddingVertical: "3%",
+      paddingHorizontal: "5%",
+      elevation: 7,
+      borderRadius: 10,
+    },
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginTop: "2%",
+      marginBottom: "5%",
+    },
+    nameInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "45%",
+      borderBottomWidth: 0.2,
+      borderColor: "black",
+    },
+    formButtonsContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginVertical: "3%",
+    },
+    closeButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingRight: "7%",
+    },
+    closeButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "right",
+    },
+    confirmButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingHorizontal: "7%",
+      borderRadius: 4,
+      elevation: 3,
+    },
+    confirmButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      color: themes[themeName].bgColor1,
+    },
+  });
+};
 
 export default Account;

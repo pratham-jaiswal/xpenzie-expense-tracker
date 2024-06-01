@@ -12,7 +12,16 @@ import {
 import emailjs from "@emailjs/react-native";
 import { themes } from "../functions/colorThemes";
 
-const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
+const Feedback = ({
+  showForm,
+  setShowForm,
+  firstName,
+  lastName,
+  i18nLang,
+  themeName,
+}) => {
+  const styles = getStyles(themeName);
+
   const [currentName, setCurrentName] = useState(null);
   const [currentEmail, setCurrentEmail] = useState(null);
   const [currentMessage, setCurrentMessage] = useState(null);
@@ -87,7 +96,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               style={styles.nameInput}
               value={currentName}
               placeholder={i18nLang.t("name")}
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentName(text)}
             />
             <TextInput
@@ -96,7 +105,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               style={styles.nameInput}
               value={currentEmail}
               placeholder={i18nLang.t("email")}
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentEmail(text)}
             />
             <TextInput
@@ -106,7 +115,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               numberOfLines={4}
               value={currentMessage}
               placeholder={i18nLang.t("message")}
-              placeholderTextColor={themes["snow"].placeholderColor1}
+              placeholderTextColor={themes[themeName].placeholderColor1}
               onChangeText={(text) => setCurrentMessage(text)}
             />
           </View>
@@ -115,7 +124,11 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
+                    {
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    },
                     styles.closeButtonText,
                   ]}
                 >
@@ -126,7 +139,9 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
+                  backgroundColor: pressed
+                    ? themes[themeName].underlayColor4
+                    : themes[themeName].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -142,75 +157,77 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  formContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "93%",
-    marginLeft: "3.5%",
-    marginBottom: "2%",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: themes["snow"].bgColor1,
-    paddingVertical: "3%",
-    paddingHorizontal: "5%",
-    elevation: 7,
-    borderRadius: 10,
-  },
-  inputContainer: {
-    justifyContent: "space-between",
-    marginTop: "2%",
-    marginBottom: "5%",
-  },
-  nameInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "100%",
-    borderColor: "black",
-    marginBottom: "5%",
-    padding: "2%",
-    borderBottomWidth: 0.2,
-  },
-  messageInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "100%",
-    borderWidth: 0.4,
-    borderRadius: 4,
-    borderColor: "black",
-    marginBottom: "5%",
-    padding: "2%",
-    textAlignVertical: "top",
-  },
-  formButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginVertical: "3%",
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingRight: "7%",
-  },
-  closeButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  confirmButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "7%",
-    borderRadius: 4,
-    elevation: 3,
-  },
-  confirmButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: themes["snow"].bgColor1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    formContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "93%",
+      marginLeft: "3.5%",
+      marginBottom: "2%",
+      flex: 1,
+      justifyContent: "space-around",
+      backgroundColor: themes[themeName].bgColor1,
+      paddingVertical: "3%",
+      paddingHorizontal: "5%",
+      elevation: 7,
+      borderRadius: 10,
+    },
+    inputContainer: {
+      justifyContent: "space-between",
+      marginTop: "2%",
+      marginBottom: "5%",
+    },
+    nameInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "100%",
+      borderColor: "black",
+      marginBottom: "5%",
+      padding: "2%",
+      borderBottomWidth: 0.2,
+    },
+    messageInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "100%",
+      borderWidth: 0.4,
+      borderRadius: 4,
+      borderColor: "black",
+      marginBottom: "5%",
+      padding: "2%",
+      textAlignVertical: "top",
+    },
+    formButtonsContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginVertical: "3%",
+    },
+    closeButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingRight: "7%",
+    },
+    closeButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "right",
+    },
+    confirmButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingHorizontal: "7%",
+      borderRadius: 4,
+      elevation: 3,
+    },
+    confirmButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      color: themes[themeName].bgColor1,
+    },
+  });
+};
 
 export default Feedback;

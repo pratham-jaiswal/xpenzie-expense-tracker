@@ -13,7 +13,10 @@ const Currency = ({
   setCurrencySymbol,
   setCurrencyValue,
   i18nLang,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   const [currentCurrencyValue, setCurrentCurrencyValue] =
     useState(currencyValue);
   const [currentCurrencySymbol, setCurrentCurrencySymbol] =
@@ -241,10 +244,11 @@ const Currency = ({
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               containerStyle={{
-                backgroundColor: themes["default"].primarycolor1,
-                borderRadius: 7,
+                backgroundColor: themes[themeName].primarycolor1,
+                borderRadius: 3,
                 elevation: 3,
               }}
+              activeColor={themes[themeName].secondaryColor1}
               data={
                 searchQuery
                   ? currencyList.filter((item) =>
@@ -260,7 +264,7 @@ const Currency = ({
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder={i18nLang.t("currency")+"..."}
+              placeholder={i18nLang.t("currency") + "..."}
               searchPlaceholder={i18nLang.t("searchPlaceholder")}
               value={String(currentCurrencyValue)}
               onChange={handleSelectCurrency}
@@ -273,7 +277,11 @@ const Currency = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? themes["default"].underlayColor4 : themes["default"].primarycolor1 },
+                    {
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    },
                     styles.closeButtonText,
                   ]}
                 >
@@ -284,7 +292,9 @@ const Currency = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? themes["default"].underlayColor4 : themes["default"].primarycolor1,
+                  backgroundColor: pressed
+                    ? themes[themeName].underlayColor4
+                    : themes[themeName].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -301,94 +311,96 @@ const Currency = ({
   );
 };
 
-const styles = StyleSheet.create({
-  formContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "93%",
-    marginLeft: "3.5%",
-    marginBottom: "2%",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: themes["default"].bgColor1,
-    paddingVertical: "3%",
-    paddingHorizontal: "5%",
-    elevation: 7,
-    borderRadius: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "7%",
-  },
-  selectCurrency: {
-    fontSize: 16,
-    color: themes["default"].primarycolor1,
-  },
-  dropdown: {
-    width: "50%",
-    height: "50%",
-    backgroundColor: themes["default"].primarycolor1,
-    borderRadius: 25,
-    padding: 12,
-    elevation: 3,
-  },
-  item: {
-    padding: 17,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  textItem: {
-    flex: 1,
-    fontSize: 16,
-    color: themes["default"].bgColor1,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    color: themes["default"].bgColor1,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-    color: themes["default"].bgColor1,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-    color: themes["default"].bgColor1,
-    borderColor: themes["default"].bgColor1,
-    borderRadius: 7,
-  },
-  formButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginVertical: "3%",
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingRight: "7%",
-  },
-  closeButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  confirmButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "7%",
-    borderRadius: 4,
-    elevation: 3,
-  },
-  confirmButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: themes["default"].bgColor1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    formContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "93%",
+      marginLeft: "3.5%",
+      marginBottom: "2%",
+      flex: 1,
+      justifyContent: "space-around",
+      backgroundColor: themes[themeName].bgColor1,
+      paddingVertical: "3%",
+      paddingHorizontal: "5%",
+      elevation: 7,
+      borderRadius: 10,
+    },
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "7%",
+    },
+    selectCurrency: {
+      fontSize: 16,
+      color: themes[themeName].primarycolor1,
+    },
+    dropdown: {
+      width: "50%",
+      height: "50%",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 25,
+      padding: 12,
+      elevation: 3,
+    },
+    item: {
+      padding: 17,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    textItem: {
+      flex: 1,
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+      borderColor: themes[themeName].bgColor1,
+      borderRadius: 7,
+    },
+    formButtonsContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginVertical: "3%",
+    },
+    closeButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingRight: "7%",
+    },
+    closeButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "right",
+    },
+    confirmButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingHorizontal: "7%",
+      borderRadius: 4,
+      elevation: 3,
+    },
+    confirmButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      color: themes[themeName].bgColor1,
+    },
+  });
+};
 
 export default Currency;

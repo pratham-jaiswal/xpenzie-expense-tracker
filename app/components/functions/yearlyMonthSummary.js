@@ -8,7 +8,10 @@ const MonthSummary = ({
   totalIncome,
   totalExpenditure,
   savings,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   return (
     <View style={styles.summary}>
       <View>
@@ -42,7 +45,11 @@ const MonthSummary = ({
               styles.summaryAmount,
               {
                 color:
-                  savings < 0 ? themes["snow"].expenditureColor : savings > 0 ? themes["snow"].incomeColor : themes["snow"].secondaryColor2,
+                  savings < 0
+                    ? themes[themeName].expenditureColor
+                    : savings > 0
+                    ? themes[themeName].incomeColor
+                    : themes[themeName].secondaryColor2,
               },
             ]}
           >
@@ -53,7 +60,11 @@ const MonthSummary = ({
               styles.summaryAmount,
               {
                 color:
-                  savings < 0 ? themes["snow"].expenditureColor : savings > 0 ? themes["snow"].incomeColor : themes["snow"].secondaryColor2,
+                  savings < 0
+                    ? themes[themeName].expenditureColor
+                    : savings > 0
+                    ? themes[themeName].incomeColor
+                    : themes[themeName].secondaryColor2,
               },
             ]}
           >
@@ -66,34 +77,36 @@ const MonthSummary = ({
   );
 };
 
-const styles = StyleSheet.create({
-  summary: {
-    backgroundColor: themes["snow"].summaryColor,
-    marginVertical: "3%",
-    padding: "5%",
-    borderRadius: 7,
-  },
-  monthName: {
-    fontSize: 18,
-    textAlign: "center",
-    fontStyle: "italic",
-    fontWeight: "bold",
-    color: themes["snow"].secondaryColor2,
-  },
-  summaryText: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  summaryTextDescription: {
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-  },
-  summaryAmount: {
-    fontSize: 16,
-    fontWeight: "600",
-    fontStyle: "italic",
-    color: themes["snow"].secondaryColor2,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    summary: {
+      backgroundColor: themes[themeName].summaryColor,
+      marginVertical: "3%",
+      padding: "5%",
+      borderRadius: 7,
+    },
+    monthName: {
+      fontSize: 18,
+      textAlign: "center",
+      fontStyle: "italic",
+      fontWeight: "bold",
+      color: themes[themeName].secondaryColor2,
+    },
+    summaryText: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    summaryTextDescription: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    summaryAmount: {
+      fontSize: 16,
+      fontWeight: "600",
+      fontStyle: "italic",
+      color: themes[themeName].secondaryColor2,
+    },
+  });
+};
 
 export default MonthSummary;

@@ -7,9 +7,14 @@ const EntrySummary = ({
   totalIncome,
   totalExpenditure,
   savings,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
+    return (
+      <ActivityIndicator size="large" color={themes[themeName].primarycolor1} />
+    );
   }
   return (
     <View style={styles.summary}>
@@ -46,10 +51,10 @@ const EntrySummary = ({
                 {
                   color:
                     savings < 0
-                      ? themes["snow"].expenditureColor
+                      ? themes[themeName].expenditureColor
                       : savings > 0
-                      ? themes["snow"].incomeColor
-                      : themes["snow"].secondaryColor2,
+                      ? themes[themeName].incomeColor
+                      : themes[themeName].secondaryColor2,
                 },
               ]}
             >
@@ -61,10 +66,10 @@ const EntrySummary = ({
                 {
                   color:
                     savings < 0
-                      ? themes["snow"].expenditureColor
+                      ? themes[themeName].expenditureColor
                       : savings > 0
-                      ? themes["snow"].incomeColor
-                      : themes["snow"].secondaryColor2,
+                      ? themes[themeName].incomeColor
+                      : themes[themeName].secondaryColor2,
                 },
               ]}
             >
@@ -78,34 +83,36 @@ const EntrySummary = ({
   );
 };
 
-const styles = StyleSheet.create({
-  summary: {
-    backgroundColor: themes["snow"].primarycolor1,
-    marginVertical: "3%",
-    padding: "5%",
-    borderRadius: 15,
-    elevation: 7,
-  },
-  charts: {
-    alignItems: "center",
-  },
-  summaryContainer: {
-    width: "100%",
-  },
-  summaryText: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  summaryTextDescription: {
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-  },
-  summaryAmount: {
-    fontSize: 16,
-    fontWeight: "600",
-    fontStyle: "italic",
-    color: themes["snow"].secondaryColor2,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    summary: {
+      backgroundColor: themes[themeName].primarycolor1,
+      marginVertical: "3%",
+      padding: "5%",
+      borderRadius: 15,
+      elevation: 7,
+    },
+    charts: {
+      alignItems: "center",
+    },
+    summaryContainer: {
+      width: "100%",
+    },
+    summaryText: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    summaryTextDescription: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+    },
+    summaryAmount: {
+      fontSize: 16,
+      fontWeight: "600",
+      fontStyle: "italic",
+      color: themes[themeName].secondaryColor2,
+    },
+  });
+};
 
 export default EntrySummary;

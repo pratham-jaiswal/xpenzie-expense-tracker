@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { themes } from "../functions/colorThemes";
 
-const Item = ({ item, currencySymbol }) => (
+const Item = ({ item, currencySymbol, styles, themeName }) => (
   <View style={styles.entryItemContainer}>
     <View style={styles.entryItem}>
       <View style={styles.entryLine1}>
@@ -10,7 +10,12 @@ const Item = ({ item, currencySymbol }) => (
         <View style={{ flexDirection: "row" }}>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
+              {
+                color:
+                  item.type === "Expenditure"
+                    ? themes[themeName].expenditureColor
+                    : themes[themeName].incomeColor,
+              },
               styles.entryAmount,
             ]}
           >
@@ -18,7 +23,12 @@ const Item = ({ item, currencySymbol }) => (
           </Text>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
+              {
+                color:
+                  item.type === "Expenditure"
+                    ? themes[themeName].expenditureColor
+                    : themes[themeName].incomeColor,
+              },
               styles.entryAmount,
             ]}
           >
@@ -34,12 +44,17 @@ const Item = ({ item, currencySymbol }) => (
   </View>
 );
 
-const EntryList = ({ entries, currencySymbol }) => {
+const EntryList = ({ entries, currencySymbol, styles, themeName }) => {
   return (
     <FlashList
       data={entries}
       renderItem={({ item }) => (
-        <Item item={item} currencySymbol={currencySymbol} />
+        <Item
+          item={item}
+          currencySymbol={currencySymbol}
+          styles={styles}
+          themeName={themeName}
+        />
       )}
       keyExtractor={(item) => item.id}
       estimatedItemSize={200}
@@ -47,7 +62,14 @@ const EntryList = ({ entries, currencySymbol }) => {
   );
 };
 
-const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
+const MonthlyEntryList = ({
+  themeName,
+  monthlyEntries,
+  currencySymbol,
+  i18nLang,
+}) => {
+  const styles = getStyles(themeName);
+
   let dates = {};
 
   monthlyEntries.forEach((entry) => {
@@ -106,10 +128,10 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       {
                         color:
                           savings < 0
-                            ? themes["snow"].expenditureColor
+                            ? themes[themeName].expenditureColor
                             : savings > 0
-                            ? themes["snow"].incomeColor
-                            : themes["snow"].secondaryColor2,
+                            ? themes[themeName].incomeColor
+                            : themes[themeName].secondaryColor2,
                       },
                       styles.entrySavingsAmount,
                     ]}
@@ -121,10 +143,10 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       {
                         color:
                           savings < 0
-                            ? themes["snow"].expenditureColor
+                            ? themes[themeName].expenditureColor
                             : savings > 0
-                            ? themes["snow"].incomeColor
-                            : themes["snow"].secondaryColor2,
+                            ? themes[themeName].incomeColor
+                            : themes[themeName].secondaryColor2,
                       },
                       styles.entrySavingsAmount,
                     ]}
@@ -139,6 +161,8 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
               {EntryList({
                 entries: item[1].slice().reverse(),
                 currencySymbol: currencySymbol,
+                styles: styles,
+                themeName: themeName,
               })}
             </View>
           </View>
@@ -150,96 +174,98 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: "90%",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  entryByDateContainer: {
-    flex: 1,
-    height: "100%",
-    justifyContent: "space-between",
-    marginVertical: "3%",
-    borderRadius: 7,
-  },
-  dateContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: themes["snow"].primarycolor1,
-    borderRadius: 15,
-    padding: "5%",
-    elevation: 1,
-  },
-  entryListContainer: {
-    width: "100%",
-    height: "100%",
-    marginTop: "1%",
-  },
-  entryItemContainer: {
-    flexDirection: "row",
-    backgroundColor: themes["snow"].summaryColor,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: "1%",
-    borderRadius: 7,
-  },
-  entryDate: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontStyle: "italic",
-    color: themes["snow"].secondaryColor2,
-  },
-  savingsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  entrySavingsLabel: {
-    fontSize: 16,
-    color: themes["snow"].bgColor1,
-    fontStyle: "italic",
-  },
-  entrySavingsAmount: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  entryItem: {
-    width: "100%",
-    justifyContent: "center",
-    padding: "5%",
-  },
-  entryLine1: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: "2%",
-  },
-  entryLine2: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: "2%",
-  },
-  entryName: {
-    fontSize: 18,
-    color: themes["snow"].bgColor1,
-  },
-  entryAmount: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontStyle: "italic",
-    elevation: 10,
-  },
-  entryCategory: {
-    fontSize: 14,
-    fontStyle: "italic",
-    color: themes["snow"].primarycolor1,
-    backgroundColor: themes["snow"].secondaryColor2,
-    borderRadius: 25,
-    paddingVertical: "2%",
-    paddingHorizontal: "5%",
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    container: {
+      width: "90%",
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    entryByDateContainer: {
+      flex: 1,
+      height: "100%",
+      justifyContent: "space-between",
+      marginVertical: "3%",
+      borderRadius: 7,
+    },
+    dateContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 15,
+      padding: "5%",
+      elevation: 1,
+    },
+    entryListContainer: {
+      width: "100%",
+      height: "100%",
+      marginTop: "1%",
+    },
+    entryItemContainer: {
+      flexDirection: "row",
+      backgroundColor: themes[themeName].summaryColor,
+      justifyContent: "center",
+      alignItems: "center",
+      marginVertical: "1%",
+      borderRadius: 7,
+    },
+    entryDate: {
+      fontSize: 18,
+      fontWeight: "bold",
+      fontStyle: "italic",
+      color: themes[themeName].secondaryColor2,
+    },
+    savingsContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    entrySavingsLabel: {
+      fontSize: 16,
+      color: themes[themeName].bgColor1,
+      fontStyle: "italic",
+    },
+    entrySavingsAmount: {
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    entryItem: {
+      width: "100%",
+      justifyContent: "center",
+      padding: "5%",
+    },
+    entryLine1: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: "2%",
+    },
+    entryLine2: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginVertical: "2%",
+    },
+    entryName: {
+      fontSize: 18,
+      color: themes[themeName].bgColor1,
+    },
+    entryAmount: {
+      fontSize: 18,
+      fontWeight: "bold",
+      fontStyle: "italic",
+      elevation: 10,
+    },
+    entryCategory: {
+      fontSize: 14,
+      fontStyle: "italic",
+      color: themes[themeName].primarycolor1,
+      backgroundColor: themes[themeName].secondaryColor2,
+      borderRadius: 25,
+      paddingVertical: "2%",
+      paddingHorizontal: "5%",
+    },
+  });
+};
 
 export default MonthlyEntryList;

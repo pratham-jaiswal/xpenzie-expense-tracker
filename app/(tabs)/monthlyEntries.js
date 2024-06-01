@@ -15,8 +15,9 @@ import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
 import { themes } from "../components/functions/colorThemes";
 
-const MonthlyEntries = () => {
-  const { currencySymbol, i18nLang } = useContext(SettingsContext);
+const MonthlyEntries = () => {  
+  const { themeName, currencySymbol, i18nLang } = useContext(SettingsContext);
+  const styles = getStyles(themeName);
 
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [monthString, setMonthString] = useState(
@@ -125,7 +126,9 @@ const MonthlyEntries = () => {
   };
 
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
+    return (
+      <ActivityIndicator size="large" color={themes[themeName].primarycolor1} />
+    );
   }
 
   return (
@@ -140,7 +143,9 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -154,7 +159,9 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -169,7 +176,9 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -183,7 +192,9 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -198,11 +209,15 @@ const MonthlyEntries = () => {
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
+          themeName={themeName}
         />
       </View>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />
+          <ActivityIndicator
+            size="large"
+            color={themes[themeName].primarycolor1}
+          />
         </View>
       ) : (
         <>
@@ -211,6 +226,7 @@ const MonthlyEntries = () => {
               monthlyEntries={monthlyEntries}
               i18nLang={i18nLang}
               currencySymbol={currencySymbol}
+              themeName={themeName}
             />
           </View>
           <View style={styles.pdfBtnContainer}>
@@ -223,6 +239,7 @@ const MonthlyEntries = () => {
               title={`${i18nLang.t("pdfMonthlyTitle")} - ${
                 months[month]
               } ${year}`}
+              themeName={themeName}
             />
           </View>
         </>
@@ -231,55 +248,57 @@ const MonthlyEntries = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    width: "100%",
-    flex: 1,
-    alignItems: "center",
-  },
-  pdfBtnContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 16,
-  },
-  dateSelector: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: "3%",
-  },
-  monthSelector: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "55%",
-    backgroundColor: themes["snow"].primarycolor1,
-    borderRadius: 25,
-    elevation: 7,
-  },
-  yearSelector: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "40%",
-    backgroundColor: themes["snow"].primarycolor1,
-    borderRadius: 25,
-    elevation: 7,
-  },
-  selectorText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: themes["snow"].secondaryColor2,
-  },
-  entrySummary: {
-    width: "90%",
-  },
-  entryList: {
-    width: "90%",
-    flex: 1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    container: {
+      flexDirection: "column",
+      width: "100%",
+      flex: 1,
+      alignItems: "center",
+    },
+    pdfBtnContainer: {
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      margin: 16,
+    },
+    dateSelector: {
+      width: "90%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: "3%",
+    },
+    monthSelector: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "55%",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 25,
+      elevation: 7,
+    },
+    yearSelector: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "40%",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 25,
+      elevation: 7,
+    },
+    selectorText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: themes[themeName].secondaryColor2,
+    },
+    entrySummary: {
+      width: "90%",
+    },
+    entryList: {
+      width: "90%",
+      flex: 1,
+    },
+  });
+};
 
 export default MonthlyEntries;

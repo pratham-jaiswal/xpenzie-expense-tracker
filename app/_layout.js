@@ -7,7 +7,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 import { I18n } from "i18n-js";
-import { en, hi, bn, es, fr, ru, ja } from "./components/modals/localization";
+import { en, hi, bn, es, fr, ru, ja } from "./components/functions/localization";
 import { createContext, useEffect, useRef, useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SplashScreen from 'expo-splash-screen';
@@ -41,6 +41,7 @@ const RootLayout = () => {
   const [lastName, setLastName] = useState();
   const [i18nLang, setI18nLang] = useState();
   const [needsAuth, setNeedsAuth] = useState(false);
+  const [themeName, setThemeName] = useState("default");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -129,6 +130,9 @@ const RootLayout = () => {
     if (needsAuth && !isAuthenticated) return;
 
     const fetchData = async () => {
+      let themeName = await getValueFor("themeName", false);
+      setThemeName(themeName || "default");
+
       let currVal = await getValueFor("currencyValue", false);
       if (!currVal) {
         await save("currencyValue", "65", false);
@@ -193,20 +197,20 @@ const RootLayout = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: themes["snow"].bgColor2,
+        backgroundColor: themes[themeName].bgColor2,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
       <Pressable
         onPress={authenticate}
-        underlayColor={themes["snow"].underlayColor1}
+        underlayColor={themes[themeName].underlayColor1}
         style={{
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 25,
           elevation: 3,
-          backgroundColor: themes["snow"].bgColor1,
+          backgroundColor: themes[themeName].bgColor1,
           width: 50,
           height: 50,
         }}
@@ -218,7 +222,7 @@ const RootLayout = () => {
             style={{
               fontSize: 24,
               lineHeight: 34,
-              color: themes["snow"].primarycolor1,
+              color: themes[themeName].primarycolor1,
             }}
           />
         )}
@@ -228,7 +232,7 @@ const RootLayout = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: themes["snow"].bgColor2,
+        backgroundColor: themes[themeName].bgColor2,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -246,6 +250,7 @@ const RootLayout = () => {
           lastName,
           i18nLang,
           needsAuth,
+          themeName,
           setCurrencySymbol,
           setCurrencyValue,
           setLanguageCode,
@@ -253,19 +258,20 @@ const RootLayout = () => {
           setFirstName,
           setLastName,
           setNeedsAuth,
+          setThemeName,
         }}
       >
         <Stack
           screenOptions={{
             headerStyle: {
-              backgroundColor: themes["snow"].bgColor1,
+              backgroundColor: themes[themeName].bgColor1,
             },
-            headerTintColor: themes["snow"].primarycolor1,
+            headerTintColor: themes[themeName].primarycolor1,
             headerTitleStyle: {
               fontSize: 20,
             },
             statusBarTranslucent: true,
-            statusBarStyle: "dark",
+            statusBarStyle: ["default", "snow"].includes(themeName) ? "dark" : "light",
           }}
         >
           <Stack.Screen
@@ -284,7 +290,7 @@ const RootLayout = () => {
                       name="settings-sharp"
                       size={20}
                       style={{
-                        color: pressed ? themes["snow"].secondaryColor1 : themes["snow"].primarycolor1,
+                        color: pressed ? themes[themeName].secondaryColor1 : themes[themeName].primarycolor1,
                         paddingVertical: 5,
                         paddingHorizontal: 5,
                         textAlign: "center",

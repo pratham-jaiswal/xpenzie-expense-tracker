@@ -1,6 +1,14 @@
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { StyleSheet, Pressable, Text, View, Modal, Switch, Alert } from "react-native";
+import {
+  StyleSheet,
+  Pressable,
+  Text,
+  View,
+  Modal,
+  Switch,
+  Alert,
+} from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { themes } from "../functions/colorThemes";
 
@@ -11,7 +19,10 @@ const Security = ({
   setNeedsAuth,
   i18nLang,
   save,
+  themeName,
 }) => {
+  const styles = getStyles(themeName);
+
   const [error, setError] = useState(null);
   const [isAuthEnabled, setIsAuthEnabled] = useState(false);
 
@@ -45,13 +56,11 @@ const Security = ({
       }
 
       checkDevice().then((result) => {
-        if(result == 1){
+        if (result == 1) {
           setError(i18nLang.t("noBiometricSupported"));
-        }
-        else if(result == 2){
+        } else if (result == 2) {
           setError(i18nLang.t("noBiometricEnrolled"));
-        }
-        else{
+        } else {
           setError(null);
         }
       });
@@ -92,9 +101,16 @@ const Security = ({
               {i18nLang.t("enableBiometric")}
             </Text>
             <Switch
-              trackColor={{ false: themes["snow"].trackFalse, true: themes["snow"].primarycolor1 }}
-              thumbColor={isAuthEnabled ? themes["snow"].thumbFalse : themes["snow"].thumbTrue}
-              ios_backgroundColor={themes["snow"].iosBackground}
+              trackColor={{
+                false: themes[themeName].trackFalse,
+                true: themes[themeName].primarycolor1,
+              }}
+              thumbColor={
+                isAuthEnabled
+                  ? themes[themeName].thumbFalse
+                  : themes[themeName].thumbTrue
+              }
+              ios_backgroundColor={themes[themeName].iosBackground}
               onValueChange={handleSwitchToggle}
               value={isAuthEnabled}
             />
@@ -104,7 +120,11 @@ const Security = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
+                    {
+                      color: pressed
+                        ? themes[themeName].underlayColor4
+                        : themes[themeName].primarycolor1,
+                    },
                     styles.closeButtonText,
                   ]}
                 >
@@ -115,13 +135,17 @@ const Security = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
+                  backgroundColor: pressed
+                    ? themes[themeName].underlayColor4
+                    : themes[themeName].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
               onPress={saveSetting}
             >
-              <Text style={styles.confirmButtonText}>{i18nLang.t("saveBtn")}</Text>
+              <Text style={styles.confirmButtonText}>
+                {i18nLang.t("saveBtn")}
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -130,68 +154,70 @@ const Security = ({
   );
 };
 
-const styles = StyleSheet.create({
-  formContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: "93%",
-    marginLeft: "3.5%",
-    marginBottom: "2%",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: themes["snow"].bgColor1,
-    paddingVertical: "3%",
-    paddingHorizontal: "5%",
-    elevation: 7,
-    borderRadius: 10,
-  },
-  selectSetting: {
-    fontSize: 16,
-    color: themes["snow"].primarycolor1,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: "2%",
-    marginBottom: "5%",
-  },
-  nameInput: {
-    color: themes["snow"].primarycolor1,
-    fontSize: 16,
-    width: "45%",
-    borderBottomWidth: 0.2,
-    borderColor: "black",
-  },
-  formButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginVertical: "3%",
-  },
-  closeButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingRight: "7%",
-  },
-  closeButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "right",
-  },
-  confirmButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "7%",
-    borderRadius: 4,
-    elevation: 3,
-  },
-  confirmButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: themes["snow"].bgColor1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    formContainer: {
+      position: "absolute",
+      bottom: 0,
+      width: "93%",
+      marginLeft: "3.5%",
+      marginBottom: "2%",
+      flex: 1,
+      justifyContent: "space-around",
+      backgroundColor: themes[themeName].bgColor1,
+      paddingVertical: "3%",
+      paddingHorizontal: "5%",
+      elevation: 7,
+      borderRadius: 10,
+    },
+    selectSetting: {
+      fontSize: 16,
+      color: themes[themeName].primarycolor1,
+    },
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginTop: "2%",
+      marginBottom: "5%",
+    },
+    nameInput: {
+      color: themes[themeName].primarycolor1,
+      fontSize: 16,
+      width: "45%",
+      borderBottomWidth: 0.2,
+      borderColor: "black",
+    },
+    formButtonsContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginVertical: "3%",
+    },
+    closeButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingRight: "7%",
+    },
+    closeButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "right",
+    },
+    confirmButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: "3%",
+      paddingHorizontal: "7%",
+      borderRadius: 4,
+      elevation: 3,
+    },
+    confirmButtonText: {
+      fontSize: 14,
+      fontWeight: "bold",
+      color: themes[themeName].bgColor1,
+    },
+  });
+};
 
 export default Security;

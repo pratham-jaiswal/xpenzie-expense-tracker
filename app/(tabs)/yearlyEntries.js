@@ -16,7 +16,10 @@ import { SettingsContext } from "../_layout";
 import { themes } from "../components/functions/colorThemes";
 
 const YearlyEntries = () => {
-  const { currencySymbol, i18nLang } = useContext(SettingsContext);
+  const { themeName, currencySymbol, i18nLang } = useContext(SettingsContext);
+
+  const styles = getStyles(themeName);
+
   const [year, setYear] = useState(new Date().getFullYear());
   const [yearList, setYearList] = useState([]);
   const [yearlyEntries, setYearlyEntries] = useState([]);
@@ -88,7 +91,9 @@ const YearlyEntries = () => {
   };
 
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
+    return (
+      <ActivityIndicator size="large" color={themes[themeName].primarycolor1} />
+    );
   }
 
   return (
@@ -103,7 +108,9 @@ const YearlyEntries = () => {
                 style={{
                   paddingVertical: "5%",
                   paddingHorizontal: "6%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -117,7 +124,9 @@ const YearlyEntries = () => {
                 style={{
                   paddingVertical: "5%",
                   paddingHorizontal: "6%",
-                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
+                  color: pressed
+                    ? themes[themeName].underlayColor2
+                    : themes[themeName].secondaryColor2,
                 }}
               />
             )}
@@ -132,11 +141,15 @@ const YearlyEntries = () => {
           totalIncome={totalIncome}
           totalExpenditure={totalExpenditure}
           savings={totalIncome - totalExpenditure}
+          themeName={themeName}
         />
       </View>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />
+          <ActivityIndicator
+            size="large"
+            color={themes[themeName].primarycolor1}
+          />
         </View>
       ) : (
         <>
@@ -145,6 +158,7 @@ const YearlyEntries = () => {
               yearlyEntries={yearlyEntries}
               currencySymbol={currencySymbol}
               i18nLang={i18nLang}
+              themeName={themeName}
             />
           </View>
           <View style={styles.pdfBtnContainer}>
@@ -155,6 +169,7 @@ const YearlyEntries = () => {
               totalIncome={totalIncome}
               totalExpenditure={totalExpenditure}
               title={`${i18nLang.t("pdfYearlyTitle")} - ${year}`}
+              themeName={themeName}
             />
           </View>
         </>
@@ -163,50 +178,52 @@ const YearlyEntries = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  loaderContainer: {
-    flex: 0.7,
-    justifyContent: "center",
-  },
-  container: {
-    flexDirection: "column",
-    width: "100%",
-    flex: 1,
-    alignItems: "center",
-  },
-  pdfBtnContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 16,
-  },
-  dateSelector: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: "3%",
-  },
-  yearSelector: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: themes["snow"].primarycolor1,
-    borderRadius: 25,
-    elevation: 7,
-  },
-  selectorText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: themes["snow"].secondaryColor2,
-  },
-  entrySummary: {
-    width: "90%",
-  },
-  entryList: {
-    width: "90%",
-    flex: 1,
-  },
-});
+const getStyles = (themeName) => {
+  return StyleSheet.create({
+    loaderContainer: {
+      flex: 0.7,
+      justifyContent: "center",
+    },
+    container: {
+      flexDirection: "column",
+      width: "100%",
+      flex: 1,
+      alignItems: "center",
+    },
+    pdfBtnContainer: {
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      margin: 16,
+    },
+    dateSelector: {
+      width: "90%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: "3%",
+    },
+    yearSelector: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+      backgroundColor: themes[themeName].primarycolor1,
+      borderRadius: 25,
+      elevation: 7,
+    },
+    selectorText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: themes[themeName].secondaryColor2,
+    },
+    entrySummary: {
+      width: "90%",
+    },
+    entryList: {
+      width: "90%",
+      flex: 1,
+    },
+  });
+};
 
 export default YearlyEntries;

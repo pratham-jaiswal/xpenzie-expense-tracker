@@ -4,7 +4,7 @@ import { SettingsContext } from "../_layout";
 import { themes } from "../components/functions/colorThemes";
 
 const RootLayout = () => {
-  const { i18nLang } = useContext(SettingsContext);
+  const { themeName, i18nLang } = useContext(SettingsContext);
 
   useEffect(() => {
   }, [i18nLang]);
@@ -13,9 +13,9 @@ const RootLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: themes["snow"].bgColor1,
+          backgroundColor: themes[themeName].bgColor1,
         },
-        headerTintColor: themes["snow"].primarycolor1,
+        headerTintColor: themes[themeName].primarycolor1,
         headerTitleStyle: {
           fontSize: 20,
         },
@@ -27,7 +27,7 @@ const RootLayout = () => {
           headerShown: true,
           headerTitle: i18nLang.t("tabSettings"),
           contentStyle: {
-            backgroundColor: themes["snow"].bgColor2,
+            backgroundColor: themes[themeName].bgColor2,
           },
         }}
       />
