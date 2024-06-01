@@ -271,7 +271,7 @@ const RootLayout = () => {
               fontSize: 20,
             },
             statusBarTranslucent: true,
-            statusBarStyle: ["default", "snow"].includes(themeName) ? "dark" : "light",
+            statusBarStyle: ["default", "snow", "cherryBlossom"].includes(themeName) ? "dark" : "light",
           }}
         >
           <Stack.Screen
