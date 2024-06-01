@@ -7,6 +7,7 @@ import { SettingsContext } from "../_layout";
 import Account from "../components/modals/account";
 import Security from "../components/modals/security";
 import Feedback from "../components/modals/feedback";
+import { themes } from "../components/functions/colorThemes";
 
 async function save(key, value, reqAuth) {
   await SecureStore.setItemAsync(key, value, {
@@ -48,49 +49,49 @@ const Settings = () => {
   return (
     <View style={styles.container}>
       <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => setShowAccountForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("account")}</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => setShowCurrencyForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("currency")}</Text>
       </TouchableHighlight>
       {/* <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => handlePress("C")}
       >
         <Text style={styles.optionText}>{i18nLang.t("bkpnrstr")}</Text>
       </TouchableHighlight> */}
       {/* <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => handlePress("D")}
       >
         <Text style={styles.optionText}>{i18nLang.t("notification")}</Text>
       </TouchableHighlight> */}
       <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => setShowLanguageForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("language")}</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => setShowSecurityForm(true)}
       >
         <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        underlayColor="#0000000d"
+        underlayColor={themes["snow"].underlayColor5}
         style={styles.option}
         onPress={() => setShowFeedbackForm(true)}
       >
@@ -130,6 +131,13 @@ const Settings = () => {
         setLanguageValue={setLanguageValue}
         i18nLang={i18nLang}
       />
+      {/* <Theme
+        showForm={showFeedbackForm}
+        setShowForm={setShowFeedbackForm}
+        i18nLang={i18nLang}
+        firstName={firstName}
+        lastName={lastName}
+      /> */}
       <Security
         showForm={showSecurityForm}
         setShowForm={setShowSecurityForm}
@@ -158,12 +166,12 @@ const styles = StyleSheet.create({
   option: {
     width: "100%",
     borderBottomWidth: 1,
-    borderBottomColor: "#f2cece",
+    borderBottomColor: themes["snow"].secondaryColor1,
     paddingVertical: 20,
   },
   optionText: {
     fontSize: 18,
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontWeight: "bold",
   },
   footer: {
@@ -172,7 +180,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
-    color: "#f2cece",
+    color: themes["snow"].secondaryColor1,
   },
 });
 

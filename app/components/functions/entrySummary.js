@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import { themes } from "./colorThemes";
 
 const EntrySummary = ({
   currencySymbol,
@@ -8,7 +9,7 @@ const EntrySummary = ({
   savings,
 }) => {
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color="#FFE6E6" />;
+    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
   }
   return (
     <View style={styles.summary}>
@@ -45,10 +46,10 @@ const EntrySummary = ({
                 {
                   color:
                     savings < 0
-                      ? "#E10000"
+                      ? themes["snow"].expenditureColor
                       : savings > 0
-                      ? "#00B900"
-                      : "#8953b1",
+                      ? themes["snow"].incomeColor
+                      : themes["snow"].secondaryColor2,
                 },
               ]}
             >
@@ -60,10 +61,10 @@ const EntrySummary = ({
                 {
                   color:
                     savings < 0
-                      ? "#E10000"
+                      ? themes["snow"].expenditureColor
                       : savings > 0
-                      ? "#00B900"
-                      : "#8953b1",
+                      ? themes["snow"].incomeColor
+                      : themes["snow"].secondaryColor2,
                 },
               ]}
             >
@@ -79,7 +80,7 @@ const EntrySummary = ({
 
 const styles = StyleSheet.create({
   summary: {
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["snow"].primarycolor1,
     marginVertical: "3%",
     padding: "5%",
     borderRadius: 15,
@@ -97,13 +98,13 @@ const styles = StyleSheet.create({
   },
   summaryTextDescription: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   summaryAmount: {
     fontSize: 16,
     fontWeight: "600",
     fontStyle: "italic",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
 });
 

@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import emailjs from "@emailjs/react-native";
+import { themes } from "../functions/colorThemes";
 
 const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
   const [currentName, setCurrentName] = useState(null);
@@ -86,7 +87,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               style={styles.nameInput}
               value={currentName}
               placeholder={i18nLang.t("name")}
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentName(text)}
             />
             <TextInput
@@ -95,7 +96,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               style={styles.nameInput}
               value={currentEmail}
               placeholder={i18nLang.t("email")}
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentEmail(text)}
             />
             <TextInput
@@ -105,7 +106,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               numberOfLines={4}
               value={currentMessage}
               placeholder={i18nLang.t("message")}
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentMessage(text)}
             />
           </View>
@@ -114,7 +115,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
                     styles.closeButtonText,
                   ]}
                 >
@@ -125,7 +126,7 @@ const Feedback = ({ showForm, setShowForm, firstName, lastName, i18nLang }) => {
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? "#f5d7d7" : "#FFE6E6",
+                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["snow"].bgColor1,
     paddingVertical: "3%",
     paddingHorizontal: "5%",
     elevation: 7,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   nameInput: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontSize: 16,
     width: "100%",
     borderColor: "black",
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.2,
   },
   messageInput: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontSize: 16,
     width: "100%",
     borderWidth: 0.4,
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
 });
 

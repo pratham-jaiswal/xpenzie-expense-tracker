@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet } from "react-native";
+import { themes } from "./colorThemes";
 
 const MonthSummary = ({
   month,
@@ -41,7 +42,7 @@ const MonthSummary = ({
               styles.summaryAmount,
               {
                 color:
-                  savings < 0 ? "#E10000" : savings > 0 ? "#00B900" : "#8953b1",
+                  savings < 0 ? themes["snow"].expenditureColor : savings > 0 ? themes["snow"].incomeColor : themes["snow"].secondaryColor2,
               },
             ]}
           >
@@ -52,7 +53,7 @@ const MonthSummary = ({
               styles.summaryAmount,
               {
                 color:
-                  savings < 0 ? "#E10000" : savings > 0 ? "#00B900" : "#8953b1",
+                  savings < 0 ? themes["snow"].expenditureColor : savings > 0 ? themes["snow"].incomeColor : themes["snow"].secondaryColor2,
               },
             ]}
           >
@@ -67,7 +68,7 @@ const MonthSummary = ({
 
 const styles = StyleSheet.create({
   summary: {
-    backgroundColor: "rgba(255, 230, 230, 0.8)",
+    backgroundColor: themes["snow"].summaryColor,
     marginVertical: "3%",
     padding: "5%",
     borderRadius: 7,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
     fontWeight: "bold",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
   summaryText: {
     flexDirection: "row",
@@ -85,13 +86,13 @@ const styles = StyleSheet.create({
   },
   summaryTextDescription: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   summaryAmount: {
     fontSize: 16,
     fontWeight: "600",
     fontStyle: "italic",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
 });
 

@@ -9,7 +9,8 @@ import {
   TouchableHighlight,
 } from "react-native";
 import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
+import { themes } from "./colorThemes";
+
 
 const DownloadPDF = ({
   entries,
@@ -98,7 +99,7 @@ const DownloadPDF = ({
 
   return (
     <TouchableHighlight
-      underlayColor="#5f52aa"
+      underlayColor={themes["snow"].underlayColor1}
       style={styles.addButton}
       onPress={print}
     >
@@ -119,14 +120,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 25,
     elevation: 3,
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["snow"].bgColor1,
     width: 50,
     height: 50,
   },
   addButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
   },
 });
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, Pressable, Text, View, Modal } from "react-native";
+import { themes } from "./colorThemes";
 
 const DeleteEntry = ({
   db,
@@ -65,7 +66,7 @@ const DeleteEntry = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? "#f5d7d7" : "#FFE6E6",
+                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
                 },
                 styles.deleteButton,
               ]}
@@ -79,7 +80,7 @@ const DeleteEntry = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
                     styles.cancelButtonText,
                   ]}
                 >
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     marginTop: "80%",
     height: "20%",
     justifyContent: "space-around",
-    backgroundColor: "rgba(116, 105, 182, 0.8)",
+    backgroundColor: themes["snow"].centerModal1,
     opacity: 0.99,
     paddingVertical: "5%",
     paddingHorizontal: "5%",
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
   },
   line1text: {
     fontSize: 18,
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     width: "100%",
     textAlign: "center",
   },
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
 });
 

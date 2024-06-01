@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { themes } from "./colorThemes";
 
 const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
   <View style={styles.entryItemContainer}>
@@ -11,7 +12,7 @@ const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
         <View style={{ flexDirection: "row" }}>
           <Text
             style={[
-              { color: item.type.toLowerCase() === "expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type.toLowerCase() === "expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
               styles.entryAmount,
             ]}
           >
@@ -19,7 +20,7 @@ const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
           </Text>
           <Text
             style={[
-              { color: item.type.toLowerCase() === "expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type.toLowerCase() === "expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
               styles.entryAmount,
             ]}
           >
@@ -40,7 +41,7 @@ const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
             name="trash-sharp"
             size={22}
             style={{
-              color: pressed ? "#C80000" : "#E10000",
+              color: pressed ? themes["snow"].trashColor1 : themes["snow"].expenditureColor,
               marginLeft: "5%",
             }}
           />
@@ -53,7 +54,7 @@ const Item = ({ item, currencySymbol, handleDeleteClick, handleEditClick }) => (
             name="pen"
             size={20}
             style={{
-              color: pressed ? "#7469B6" : "#8953b1",
+              color: pressed ? themes["snow"].bgColor1 : themes["snow"].secondaryColor2,
               marginLeft: "5%",
             }}
           />
@@ -89,7 +90,7 @@ const EntryList = ({
 const styles = StyleSheet.create({
   entryItemContainer: {
     flexDirection: "row",
-    backgroundColor: "rgba(255, 230, 230, 0.8)",
+    backgroundColor: themes["snow"].summaryColor,
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: "3%",
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   entryName: {
     fontSize: 18,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   entryAmount: {
     fontSize: 18,
@@ -124,13 +125,13 @@ const styles = StyleSheet.create({
   entryDate: {
     fontSize: 14,
     fontStyle: "italic",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
   entryCategory: {
     fontSize: 14,
     fontStyle: "italic",
-    color: "#FFE6E6",
-    backgroundColor: "#8953b1",
+    color: themes["snow"].primarycolor1,
+    backgroundColor: themes["snow"].secondaryColor2,
     borderRadius: 25,
     paddingVertical: "2%",
     paddingHorizontal: "5%",

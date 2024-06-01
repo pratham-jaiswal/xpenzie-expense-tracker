@@ -2,6 +2,7 @@ import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Pressable, Text, View, Modal } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import { themes } from "../functions/colorThemes";
 
 const Currency = ({
   showForm,
@@ -240,7 +241,7 @@ const Currency = ({
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               containerStyle={{
-                backgroundColor: "#FFE6E6",
+                backgroundColor: themes["default"].primarycolor1,
                 borderRadius: 7,
                 elevation: 3,
               }}
@@ -272,7 +273,7 @@ const Currency = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                    { color: pressed ? themes["default"].underlayColor4 : themes["default"].primarycolor1 },
                     styles.closeButtonText,
                   ]}
                 >
@@ -283,7 +284,7 @@ const Currency = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? "#f5d7d7" : "#FFE6E6",
+                  backgroundColor: pressed ? themes["default"].underlayColor4 : themes["default"].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -309,7 +310,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["default"].bgColor1,
     paddingVertical: "3%",
     paddingHorizontal: "5%",
     elevation: 7,
@@ -323,12 +324,12 @@ const styles = StyleSheet.create({
   },
   selectCurrency: {
     fontSize: 16,
-    color: "#FFE6E6",
+    color: themes["default"].primarycolor1,
   },
   dropdown: {
     width: "50%",
     height: "50%",
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["default"].primarycolor1,
     borderRadius: 25,
     padding: 12,
     elevation: 3,
@@ -342,21 +343,21 @@ const styles = StyleSheet.create({
   textItem: {
     flex: 1,
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["default"].bgColor1,
   },
   placeholderStyle: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["default"].bgColor1,
   },
   selectedTextStyle: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["default"].bgColor1,
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    color: "#7469B6",
-    borderColor: "#7469B6",
+    color: themes["default"].bgColor1,
+    borderColor: themes["default"].bgColor1,
     borderRadius: 7,
   },
   formButtonsContainer: {
@@ -386,7 +387,7 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#7469B6",
+    color: themes["default"].bgColor1,
   },
 });
 

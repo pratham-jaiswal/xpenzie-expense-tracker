@@ -12,6 +12,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { getCalendars } from "expo-localization";
 import { Ionicons } from "@expo/vector-icons";
 import { Dropdown } from "react-native-element-dropdown";
+import { themes } from "./colorThemes";
 
 const AddExpense = ({
   db,
@@ -238,7 +239,7 @@ const AddExpense = ({
   return (
     <View>
       <TouchableHighlight
-        underlayColor="#5f52aa"
+        underlayColor={themes["snow"].underlayColor1}
         style={styles.addButton}
         onPress={handleAddClick}
       >
@@ -260,7 +261,7 @@ const AddExpense = ({
                 {
                   backgroundColor:
                     currentEntryType === "Expenditure"
-                      ? "#594E94"
+                      ? themes["snow"].underlayColor3
                       : "transparent",
                   borderTopLeftRadius: 7,
                   borderBottomLeftRadius: 7,
@@ -268,7 +269,7 @@ const AddExpense = ({
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: "#FFE6E6" }}>
+              <Text style={{ color: themes["snow"].primarycolor1 }}>
                 {i18nLang.t("expenditure")}
               </Text>
             </Pressable>
@@ -277,14 +278,14 @@ const AddExpense = ({
               style={[
                 {
                   backgroundColor:
-                    currentEntryType === "Income" ? "#594E94" : "transparent",
+                    currentEntryType === "Income" ? themes["snow"].underlayColor3 : "transparent",
                   borderTopRightRadius: 7,
                   borderBottomRightRadius: 7,
                 },
                 styles.entryTypeOption,
               ]}
             >
-              <Text style={{ color: "#FFE6E6" }}>{i18nLang.t("income")}</Text>
+              <Text style={{ color: themes["snow"].primarycolor1 }}>{i18nLang.t("income")}</Text>
             </Pressable>
           </View>
           <View style={styles.inputContainer}>
@@ -296,7 +297,7 @@ const AddExpense = ({
                   ? i18nLang.t("expName")
                   : i18nLang.t("incName")
               }
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentEntryName(text)}
             />
             <View style={styles.amountContainer}>
@@ -305,7 +306,7 @@ const AddExpense = ({
                 style={styles.amountInput}
                 value={currentEntryAmount}
                 placeholder={i18nLang.t("amount")}
-                placeholderTextColor="rgba(255, 230, 230, 0.7)"
+                placeholderTextColor={themes["snow"].placeholderColor1}
                 keyboardType="numeric"
                 onChangeText={(text) => setCurrentEntryAmount(text)}
               />
@@ -320,7 +321,7 @@ const AddExpense = ({
                 <View style={styles.datePickerContainer}>
                   <TextInput
                     style={[
-                      { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                      { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
                       styles.dateInput,
                     ]}
                     editable={false}
@@ -330,7 +331,7 @@ const AddExpense = ({
                   <Ionicons
                     name="calendar-number"
                     size={24}
-                    style={{ color: pressed ? "#f5d7d7" : "#FFE6E6" }}
+                    style={{ color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 }}
                   />
                 </View>
               )}
@@ -352,7 +353,7 @@ const AddExpense = ({
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               containerStyle={{
-                backgroundColor: "#FFE6E6",
+                backgroundColor: themes["snow"].primarycolor1,
                 borderRadius: 7,
                 elevation: 3,
               }}
@@ -381,7 +382,7 @@ const AddExpense = ({
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
                     styles.closeButtonText,
                   ]}
                 >
@@ -392,7 +393,7 @@ const AddExpense = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? "#f5d7d7" : "#FFE6E6",
+                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -424,14 +425,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 25,
     elevation: 3,
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["snow"].bgColor1,
     width: 50,
     height: 50,
   },
   addButtonText: {
     fontSize: 30,
     lineHeight: 34,
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
   },
   formContainer: {
     position: "absolute",
@@ -441,7 +442,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["snow"].bgColor1,
     paddingVertical: "5%",
     paddingHorizontal: "5%",
     elevation: 7,
@@ -451,7 +452,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: themes["snow"].optionColor1,
     borderRadius: 7,
     marginBottom: "3%",
   },
@@ -468,7 +469,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   nameInput: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontSize: 16,
     width: "60%",
     borderBottomWidth: 0.2,
@@ -480,12 +481,12 @@ const styles = StyleSheet.create({
     width: "30%",
   },
   amountPrefix: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     lineHeight: 30,
     fontSize: 16,
   },
   amountInput: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontSize: 16,
     width: "80%",
     borderBottomWidth: 0.2,
@@ -534,12 +535,12 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   dropdown: {
     width: "50%",
     height: "40%",
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["snow"].primarycolor1,
     borderRadius: 12,
     padding: 12,
     elevation: 3,
@@ -553,21 +554,21 @@ const styles = StyleSheet.create({
   textItem: {
     flex: 1,
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   placeholderStyle: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   selectedTextStyle: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    color: "#7469B6",
-    borderColor: "#7469B6",
+    color: themes["snow"].bgColor1,
+    borderColor: themes["snow"].bgColor1,
     borderRadius: 7,
   },
 });

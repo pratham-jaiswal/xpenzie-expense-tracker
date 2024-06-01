@@ -9,6 +9,7 @@ import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import { useContext, useEffect } from "react";
 import { SettingsContext } from "../_layout";
 import { SQLiteProvider, type SQLiteDatabase } from "expo-sqlite";
+import { themes } from "../components/functions/colorThemes";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -38,12 +39,12 @@ export default function TabsLayout() {
         initialRouteName="index"
         backBehavior="history"
         screenOptions={{
-          tabBarActiveTintColor: "#FFE6E6",
+          tabBarActiveTintColor: themes["snow"].primarycolor1,
           tabBarLabelStyle: { fontSize: 14, fontWeight: "bold" },
-          tabBarStyle: { backgroundColor: "#7469B6" },
-          tabBarIndicatorStyle: { backgroundColor: "#FFE6E6" },
+          tabBarStyle: { backgroundColor: themes["snow"].bgColor1 },
+          tabBarIndicatorStyle: { backgroundColor: themes["snow"].primarycolor1 },
         }}
-        sceneContainerStyle={{ backgroundColor: "#AD88C6" }}
+        sceneContainerStyle={{ backgroundColor: themes["snow"].bgColor2 }}
       >
         <MaterialTopTabs.Screen
           name="index"
@@ -87,14 +88,6 @@ async function migrateDbIfNeeded(db: SQLiteDatabase) {
 PRAGMA journal_mode = 'wal';
 CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);
 `);
-    await db.runAsync(
-      "INSERT INTO transaction_entries (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?)",
-      "income",
-      "Salary",
-      1000,
-      "2021-08-01",
-      "Salary"
-    );
     currentDbVersion = 1;
   }
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);

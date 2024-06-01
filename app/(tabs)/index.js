@@ -13,6 +13,7 @@ import EntrySummary from "../components/functions/entrySummary";
 import DeleteEntry from "../components/functions/deleteEntry";
 import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
+import { themes } from "../components/functions/colorThemes";
 
 const HomePage = () => {
   const { currencySymbol, i18nLang } = useContext(SettingsContext);
@@ -66,7 +67,7 @@ const HomePage = () => {
   );
 
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color="#FFE6E6" />;
+    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
   }
 
   const handleDeleteClick = (id) => {
@@ -92,7 +93,7 @@ const HomePage = () => {
       </View>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#FFE6E6" />
+          <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />
         </View>
       ) : (
         <>

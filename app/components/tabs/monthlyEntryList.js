@@ -1,5 +1,6 @@
-import { StyleSheet, View, Text, Pressable, Dimensions } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import { themes } from "../functions/colorThemes";
 
 const Item = ({ item, currencySymbol }) => (
   <View style={styles.entryItemContainer}>
@@ -9,7 +10,7 @@ const Item = ({ item, currencySymbol }) => (
         <View style={{ flexDirection: "row" }}>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type === "Expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
               styles.entryAmount,
             ]}
           >
@@ -17,7 +18,7 @@ const Item = ({ item, currencySymbol }) => (
           </Text>
           <Text
             style={[
-              { color: item.type === "Expenditure" ? "#E10000" : "#00B900" },
+              { color: item.type === "Expenditure" ? themes["snow"].expenditureColor : themes["snow"].incomeColor },
               styles.entryAmount,
             ]}
           >
@@ -105,10 +106,10 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       {
                         color:
                           savings < 0
-                            ? "#E10000"
+                            ? themes["snow"].expenditureColor
                             : savings > 0
-                            ? "#00B900"
-                            : "#8953b1",
+                            ? themes["snow"].incomeColor
+                            : themes["snow"].secondaryColor2,
                       },
                       styles.entrySavingsAmount,
                     ]}
@@ -120,10 +121,10 @@ const MonthlyEntryList = ({ monthlyEntries, currencySymbol, i18nLang }) => {
                       {
                         color:
                           savings < 0
-                            ? "#E10000"
+                            ? themes["snow"].expenditureColor
                             : savings > 0
-                            ? "#00B900"
-                            : "#8953b1",
+                            ? themes["snow"].incomeColor
+                            : themes["snow"].secondaryColor2,
                       },
                       styles.entrySavingsAmount,
                     ]}
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["snow"].primarycolor1,
     borderRadius: 15,
     padding: "5%",
     elevation: 1,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
   },
   entryItemContainer: {
     flexDirection: "row",
-    backgroundColor: "rgba(255, 230, 230, 0.8)",
+    backgroundColor: themes["snow"].summaryColor,
     justifyContent: "center",
     alignItems: "center",
     marginVertical: "1%",
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     fontStyle: "italic",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
   savingsContainer: {
     flexDirection: "row",
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
   },
   entrySavingsLabel: {
     fontSize: 16,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
     fontStyle: "italic",
   },
   entrySavingsAmount: {
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
   },
   entryName: {
     fontSize: 18,
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
   entryAmount: {
     fontSize: 18,
@@ -233,8 +234,8 @@ const styles = StyleSheet.create({
   entryCategory: {
     fontSize: 14,
     fontStyle: "italic",
-    color: "#FFE6E6",
-    backgroundColor: "#8953b1",
+    color: themes["snow"].primarycolor1,
+    backgroundColor: themes["snow"].secondaryColor2,
     borderRadius: 25,
     paddingVertical: "2%",
     paddingHorizontal: "5%",

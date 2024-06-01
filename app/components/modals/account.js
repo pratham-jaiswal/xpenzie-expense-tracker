@@ -8,6 +8,7 @@ import {
   Modal,
   TextInput,
 } from "react-native";
+import { themes } from "../functions/colorThemes";
 
 const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, setLastName, i18nLang, save }) => {
   const [currentFN, setCurrentFN] = useState(null);
@@ -51,14 +52,14 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
               style={styles.nameInput}
               value={currentFN}
               placeholder={i18nLang.t("firstName")}
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentFN(text)}
             />
             <TextInput
               style={styles.nameInput}
               value={currentLN}
               placeholder={i18nLang.t("lastName")}
-              placeholderTextColor="rgba(255, 230, 230, 0.7)"
+              placeholderTextColor={themes["snow"].placeholderColor1}
               onChangeText={(text) => setCurrentLN(text)}
             />
           </View>
@@ -67,7 +68,7 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
               {({ pressed }) => (
                 <Text
                   style={[
-                    { color: pressed ? "#f5d7d7" : "#FFE6E6" },
+                    { color: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1 },
                     styles.closeButtonText,
                   ]}
                 >
@@ -78,7 +79,7 @@ const Account = ({ showForm, setShowForm, firstName, lastName, setFirstName, set
             <Pressable
               style={({ pressed }) => [
                 {
-                  backgroundColor: pressed ? "#f5d7d7" : "#FFE6E6",
+                  backgroundColor: pressed ? themes["snow"].underlayColor4 : themes["snow"].primarycolor1,
                 },
                 styles.confirmButton,
               ]}
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: "#7469B6",
+    backgroundColor: themes["snow"].bgColor1,
     paddingVertical: "3%",
     paddingHorizontal: "5%",
     elevation: 7,
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   nameInput: {
-    color: "#FFE6E6",
+    color: themes["snow"].primarycolor1,
     fontSize: 16,
     width: "45%",
     borderBottomWidth: 0.2,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#7469B6",
+    color: themes["snow"].bgColor1,
   },
 });
 

@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { useContext, useEffect } from "react";
 import { SettingsContext } from "../_layout";
+import { themes } from "../components/functions/colorThemes";
 
 const RootLayout = () => {
   const { i18nLang } = useContext(SettingsContext);
@@ -12,9 +13,9 @@ const RootLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#7469B6",
+          backgroundColor: themes["snow"].bgColor1,
         },
-        headerTintColor: "#FFE6E6",
+        headerTintColor: themes["snow"].primarycolor1,
         headerTitleStyle: {
           fontSize: 20,
         },
@@ -26,7 +27,7 @@ const RootLayout = () => {
           headerShown: true,
           headerTitle: i18nLang.t("tabSettings"),
           contentStyle: {
-            backgroundColor: "#AD88C6",
+            backgroundColor: themes["snow"].bgColor2,
           },
         }}
       />

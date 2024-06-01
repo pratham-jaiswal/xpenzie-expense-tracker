@@ -11,6 +11,7 @@ import { en, hi, bn, es, fr, ru, ja } from "./components/modals/localization";
 import { createContext, useEffect, useRef, useState } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SplashScreen from 'expo-splash-screen';
+import { themes } from "./components/functions/colorThemes";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -192,20 +193,20 @@ const RootLayout = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#AD88C6",
+        backgroundColor: themes["snow"].bgColor2,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
       <Pressable
         onPress={authenticate}
-        underlayColor="#5f52aa"
+        underlayColor={themes["snow"].underlayColor1}
         style={{
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 25,
           elevation: 3,
-          backgroundColor: "#7469B6",
+          backgroundColor: themes["snow"].bgColor1,
           width: 50,
           height: 50,
         }}
@@ -217,7 +218,7 @@ const RootLayout = () => {
             style={{
               fontSize: 24,
               lineHeight: 34,
-              color: "#FFE6E6",
+              color: themes["snow"].primarycolor1,
             }}
           />
         )}
@@ -227,7 +228,7 @@ const RootLayout = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#AD88C6",
+        backgroundColor: themes["snow"].bgColor2,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -257,12 +258,14 @@ const RootLayout = () => {
         <Stack
           screenOptions={{
             headerStyle: {
-              backgroundColor: "#7469B6",
+              backgroundColor: themes["snow"].bgColor1,
             },
-            headerTintColor: "#FFE6E6",
+            headerTintColor: themes["snow"].primarycolor1,
             headerTitleStyle: {
               fontSize: 20,
             },
+            statusBarTranslucent: true,
+            statusBarStyle: "dark",
           }}
         >
           <Stack.Screen
@@ -281,7 +284,7 @@ const RootLayout = () => {
                       name="settings-sharp"
                       size={20}
                       style={{
-                        color: pressed ? "#f2cece" : "#FFE6E6",
+                        color: pressed ? themes["snow"].secondaryColor1 : themes["snow"].primarycolor1,
                         paddingVertical: 5,
                         paddingHorizontal: 5,
                         textAlign: "center",

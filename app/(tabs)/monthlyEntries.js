@@ -13,6 +13,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import EntrySummary from "../components/functions/entrySummary";
 import DownloadPDF from "../components/functions/downloadPDF";
 import { SettingsContext } from "../_layout";
+import { themes } from "../components/functions/colorThemes";
 
 const MonthlyEntries = () => {
   const { currencySymbol, i18nLang } = useContext(SettingsContext);
@@ -124,7 +125,7 @@ const MonthlyEntries = () => {
   };
 
   if (!i18nLang) {
-    return <ActivityIndicator size="large" color="#FFE6E6" />;
+    return <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />;
   }
 
   return (
@@ -139,7 +140,7 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? "#2b1938" : "#8953b1",
+                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
                 }}
               />
             )}
@@ -153,7 +154,7 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? "#2b1938" : "#8953b1",
+                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
                 }}
               />
             )}
@@ -168,7 +169,7 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? "#2b1938" : "#8953b1",
+                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
                 }}
               />
             )}
@@ -182,7 +183,7 @@ const MonthlyEntries = () => {
                 style={{
                   paddingVertical: "7%",
                   paddingHorizontal: "8%",
-                  color: pressed ? "#2b1938" : "#8953b1",
+                  color: pressed ? themes["snow"].underlayColor2 : themes["snow"].secondaryColor2,
                 }}
               />
             )}
@@ -201,7 +202,7 @@ const MonthlyEntries = () => {
       </View>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#FFE6E6" />
+          <ActivityIndicator size="large" color={themes["snow"].primarycolor1} />
         </View>
       ) : (
         <>
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "55%",
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["snow"].primarycolor1,
     borderRadius: 25,
     elevation: 7,
   },
@@ -263,14 +264,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "40%",
-    backgroundColor: "#FFE6E6",
+    backgroundColor: themes["snow"].primarycolor1,
     borderRadius: 25,
     elevation: 7,
   },
   selectorText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#8953b1",
+    color: themes["snow"].secondaryColor2,
   },
   entrySummary: {
     width: "90%",
