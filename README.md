@@ -209,6 +209,7 @@
 </details>
 
 ## Demo
+
 <table>
     <thead>
         <tr>
@@ -220,12 +221,43 @@
         <tr>
             <td>Royal Amethyst</td>
             <td>
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst1.jpg?raw=true" alt="Royal Amethyst Screenshot 1" style="max-width: 200px;">
-                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst2.jpg?raw=true" alt="Royal Amethyst Screenshot 2" style="max-width: 200px;">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst1.png?raw=true" alt="Royal Amethyst Screenshot 1">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst2.png?raw=true" alt="Royal Amethyst Screenshot 2">
+            </td>
+        </tr>
+        <tr>
+            <td>Snow</td>
+            <td>
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/snow1.png?raw=true" alt="Snow Screenshot 1">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/snow2.png?raw=true" alt="Snow Screenshot 2">
+            </td>
+        </tr>
+        <tr>
+            <td>Dracula</td>
+            <td>
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/dracula1.png?raw=true" alt="Dracula Screenshot 1">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/dracula2.png?raw=true" alt="Dracula Screenshot 2">
+            </td>
+        </tr>
+        <tr>
+            <td>Sunlit Gold</td>
+            <td>
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/sunlitgold1.png?raw=true" alt="Sunlit Gold Screenshot 1">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/sunlitgold2.png?raw=true" alt="Sunlit Gold Screenshot 2">
+            </td>
+        </tr>
+        <tr>
+            <td>Cherry Blossom</td>
+            <td>
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/cherryblossom1.png?raw=true" alt="Cherry Blossom Screenshot 1">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/cherryblossom2.png?raw=true" alt="Cherry Blossom Screenshot 2">
             </td>
         </tr>
     </tbody>
 </table>
+
+
+
 
 ## Just an idea, for now:
 
