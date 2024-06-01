@@ -4,7 +4,7 @@
     "slug": "xpenzie-expense-tracker",
     "scheme": "xpenzie-expense-tracker",
     "description": "Easily track daily expenses in multiple languages and currencies.",
-    "version": "0.9.5",
+    "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
