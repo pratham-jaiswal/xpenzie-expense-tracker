@@ -68,7 +68,7 @@ export const themes = {
     thumbTrue: "#f8f8f2",
     iosBackground: "#3e3e3e",
   },
-  goldenSunrise: {
+  sunlitGold: {
     bgColor1: "#FFD700",
     bgColor2: "#FFECB3",
     underlayColor1: "#FFC300",
