@@ -210,11 +210,7 @@
 
 ## Demo
 
-![](https://i.imgur.com/XBZXEsrl.jpg)
-![](https://i.imgur.com/l7O37xfl.jpg)
-![](https://i.imgur.com/EPUdQ37l.jpg)
-![](https://i.imgur.com/JrxdrLkl.jpg)
-![](https://i.imgur.com/kd7LjxTl.jpg)
+
 
 ## Just an idea, for now:
 
