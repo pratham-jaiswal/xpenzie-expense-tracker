@@ -209,8 +209,23 @@
 </details>
 
 ## Demo
-
-
+<table>
+    <thead>
+        <tr>
+            <th>Theme</th>
+            <th>Screenshots</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Royal Amethyst</td>
+            <td>
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst1.jpg?raw=true" alt="Royal Amethyst Screenshot 1" style="max-width: 200px;">
+                <img src="https://github.com/pratham-jaiswal/xpenzie-expense-tracker/blob/main/Images/Themes/royalamethyst2.jpg?raw=true" alt="Royal Amethyst Screenshot 2" style="max-width: 200px;">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ## Just an idea, for now:
 
