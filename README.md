@@ -1,3 +1,5 @@
+![](https://i.imgur.com/dIELrZD.png)
+
 # Xpenzie - The Expense Tracker
 
 ***Xpenzie*** is an intuitive application built to streamline your daily expense tracking. With its user-friendly interface, you can effortlessly input and categorize expenses. It offers a wide selection of approximately 162 currencies and supports 7 languages, ensuring flexibility and convenience for users worldwide. Additionally, it offers 5 themes to customize the appearance according to your preference.
