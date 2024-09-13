@@ -28,7 +28,7 @@ const EntrySummary = ({
           </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
-            {totalIncome}
+            {totalIncome.toFixed(2)}
           </Text>
         </View>
         <View style={styles.summaryText}>
@@ -37,7 +37,7 @@ const EntrySummary = ({
           </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
-            {totalExpenditure}
+            {totalExpenditure.toFixed(2)}
           </Text>
         </View>
         <View style={styles.summaryText}>
@@ -74,7 +74,7 @@ const EntrySummary = ({
               ]}
             >
               {currencySymbol}
-              {Math.abs(savings)}
+              {Math.abs(savings).toFixed(2)}
             </Text>
           </View>
         </View>

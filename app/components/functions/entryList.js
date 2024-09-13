@@ -44,7 +44,7 @@ const Item = ({
               ]}
             >
               {currencySymbol}
-              {item.amount}
+              {item.amount.toFixed(2)}
             </Text>
           </View>
         </View>
