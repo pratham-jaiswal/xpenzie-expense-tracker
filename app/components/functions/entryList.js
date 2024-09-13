@@ -18,7 +18,7 @@ const Item = ({
       <View style={styles.entryItem}>
         <View style={styles.entryLine1}>
           <Text style={styles.entryName}>{item.name}</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", width: "40%", justifyContent: "flex-end" }}>
             <Text
               style={[
                 {
@@ -47,42 +47,37 @@ const Item = ({
               {item.amount.toFixed(2)}
             </Text>
           </View>
+          <Pressable onPress={() => handleDeleteClick(item.id)} style={{ width: "15%", alignItems: "center" }}>
+            {({ pressed }) => (
+              <Ionicons
+                name="trash-sharp"
+                size={22}
+                style={{
+                  color: pressed
+                    ? themes[themeName].trashColor1
+                    : themes[themeName].expenditureColor,
+                }}
+              />
+            )}
+          </Pressable>
         </View>
         <View style={styles.entryLine2}>
           <Text style={styles.entryDate}>{item.date}</Text>
-          <Text style={styles.entryCategory}>{item.category}</Text>
+          <View style={{ flexDirection: "row", height: "100%", width: "40%", justifyContent: "flex-end" }}><Text style={styles.entryCategory}>{item.category}</Text></View>
+          <Pressable onPress={() => handleEditClick(item.id)} style={{ width: "15%", alignItems: "center" }}>
+            {({ pressed }) => (
+              <FontAwesome6
+                name="pen"
+                size={20}
+                style={{
+                  color: pressed
+                    ? themes[themeName].bgColor1
+                    : themes[themeName].secondaryColor2,
+                }}
+              />
+            )}
+          </Pressable>
         </View>
-      </View>
-      <View style={styles.icons}>
-        <Pressable onPress={() => handleDeleteClick(item.id)}>
-          {({ pressed }) => (
-            <Ionicons
-              name="trash-sharp"
-              size={22}
-              style={{
-                color: pressed
-                  ? themes[themeName].trashColor1
-                  : themes[themeName].expenditureColor,
-                marginLeft: "5%",
-              }}
-            />
-          )}
-        </Pressable>
-
-        <Pressable onPress={() => handleEditClick(item.id)}>
-          {({ pressed }) => (
-            <FontAwesome6
-              name="pen"
-              size={20}
-              style={{
-                color: pressed
-                  ? themes[themeName].bgColor1
-                  : themes[themeName].secondaryColor2,
-                marginLeft: "5%",
-              }}
-            />
-          )}
-        </Pressable>
       </View>
     </View>
   );
@@ -124,7 +119,7 @@ const getStyles = (themeName) => {
       borderRadius: 7,
     },
     entryItem: {
-      width: "85%",
+      width: "100%",
       justifyContent: "center",
       padding: "5%",
     },
@@ -140,6 +135,8 @@ const getStyles = (themeName) => {
       marginVertical: "2%",
     },
     entryName: {
+      width: "50%",
+      flexWrap: "wrap",
       fontSize: 18,
       color: themes[themeName].bgColor1,
     },
@@ -153,6 +150,7 @@ const getStyles = (themeName) => {
       fontSize: 14,
       fontStyle: "italic",
       color: themes[themeName].secondaryColor2,
+      width: "50%",
     },
     entryCategory: {
       fontSize: 14,
@@ -160,14 +158,8 @@ const getStyles = (themeName) => {
       color: themes[themeName].primarycolor1,
       backgroundColor: themes[themeName].secondaryColor2,
       borderRadius: 25,
-      paddingVertical: "2%",
-      paddingHorizontal: "5%",
-    },
-    icons: {
-      justifyContent: "space-between",
-      alignItems: "center",
-      flex: 1,
-      height: "50%",
+      paddingVertical: 5,
+      paddingHorizontal: 10,
     },
   });
 };
