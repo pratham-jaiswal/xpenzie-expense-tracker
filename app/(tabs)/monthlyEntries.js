@@ -21,7 +21,7 @@ const MonthlyEntries = () => {
 
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [monthString, setMonthString] = useState(
-    month < 9 ? `0${month}` : String(month)
+    month < 10 ? `0${month}` : String(month)
   );
   const [year, setYear] = useState(new Date().getFullYear());
   const [yearList, setYearList] = useState([]);
