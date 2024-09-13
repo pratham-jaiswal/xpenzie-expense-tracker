@@ -95,7 +95,7 @@ const MonthlyEntries = () => {
 
   const handleMonthChange = (newMonth) => {
     setMonth(newMonth);
-    const newMonthString = newMonth < 9 ? `0${newMonth}` : String(newMonth);
+    const newMonthString = newMonth < 10 ? `0${newMonth}` : String(newMonth);
     setMonthString(newMonthString);
   };
 
