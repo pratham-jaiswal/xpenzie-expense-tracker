@@ -165,15 +165,6 @@ const FuturePayments = () => {
         </>
       )}
       <View style={styles.entryField}>
-        <DownloadPDF
-          entries={entries}
-          currencySymbol={currencySymbol}
-          i18nLang={i18nLang}
-          totalIncome={totalIncome}
-          totalExpenditure={totalExpenditure}
-          title={i18nLang.t("pdfAllTitle")}
-          themeName={themeName}
-        />
         <AddExpense
           db={db}
           entries={entries}
@@ -213,7 +204,7 @@ const styles = StyleSheet.create({
   entryField: {
     flexDirection: "row",
     width: "30%",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "space-between",
     position: "absolute",
     bottom: 0,
