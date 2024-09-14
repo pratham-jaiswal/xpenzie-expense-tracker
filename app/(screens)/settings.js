@@ -48,10 +48,6 @@ const Settings = () => {
 
   useEffect(() => {}, [i18nLang]);
 
-  const handlePress = (option) => {
-    console.log(option);
-  };
-
   return (
     <View style={styles.container}>
       <TouchableHighlight
