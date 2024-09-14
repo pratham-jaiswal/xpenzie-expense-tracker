@@ -38,7 +38,7 @@ const FuturePayments = () => {
         await db.withTransactionAsync(async () => {
 
           try {
-            resultSet = await db.getAllAsync("SELECT * FROM pending_transaction_entries ORDER BY date DESC");
+            resultSet = await db.getAllAsync("SELECT * FROM pending_transaction_entries");
             setEntries(resultSet || []);
   
             resultSet = await db.getFirstAsync(
@@ -160,6 +160,7 @@ const FuturePayments = () => {
               selectedEntryId={selectedEntryId}
               setSelectedEntryId={setSelectedEntryId}
               themeName={themeName}
+              tableName="pending_transaction_entries"
             />
           </View>
         </>

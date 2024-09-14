@@ -122,6 +122,7 @@ const HomePage = () => {
               selectedEntryId={selectedEntryId}
               setSelectedEntryId={setSelectedEntryId}
               themeName={themeName}
+              tableName="transaction_entries"
             />
           </View>
         </>
