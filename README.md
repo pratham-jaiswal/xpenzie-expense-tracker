@@ -10,8 +10,9 @@
 
 - **Add Expenses:** Easily input your expenses.
 - **Add Income Transactions:** Record your income effortlessly.
-- **Category Selection:** Choose from 13 categories for expenses and 10 for income transactions.
-- **Flexible Date Selection:** Add transactions dated from 2023 to the current date.
+- **Category Selection:** Choose from 20 categories each for expenses and income.
+- **Flexible Date Selection:** Add completed transactions dated from 2023 to the current date, and set pending transactions with due dates extending to the future
+- **Pending Transactions:** Set transactions to pay or receive with due dates, and mark them as complete once done. Completed transactions will move to the main list with the current date.
 - **Multi-Currency Support:** Select from 162 different currencies.
 - **Multi-Language Support:** Access the application in 7 different languages.
 - **Custom Themes:** Personalize your experience with a choice of 5 different themes to suit your preference.
@@ -213,11 +214,12 @@
 
 ## Demo
 
-![](https://i.imgur.com/fM0hNJwl.jpg)
-![](https://i.imgur.com/I1N1Glgl.jpg)
-![](https://i.imgur.com/4gpGsril.jpg)
-![](https://i.imgur.com/MLZJKupl.jpg)
-![](https://i.imgur.com/7vvkcTnl.jpg)
+![](https://i.imgur.com/ocq7fE0l.jpg)
+![](https://i.imgur.com/BKg680Vl.jpg)
+![](https://i.imgur.com/1GQ8Up3l.jpg)
+![](https://i.imgur.com/ocq7fE0l.jpg)
+![](https://i.imgur.com/9C8s184l.jpg)
+![](https://i.imgur.com/nQHJqAzl.jpg)
 
 # Themes
 
@@ -232,36 +234,36 @@
         <tr>
             <td>Royal Amethyst</td>
             <td>
-                <img src="https://i.imgur.com/fM0hNJwl.jpg" alt="Royal Amethyst Screenshot 1">
-                <img src="https://i.imgur.com/7vvkcTnl.jpg" alt="Royal Amethyst Screenshot 2">
+                <img src="https://i.imgur.com/ocq7fE0l.jpg" alt="Royal Amethyst Screenshot 1">
+                <img src="https://i.imgur.com/nQHJqAzl.jpg" alt="Royal Amethyst Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Snow</td>
             <td>
-                <img src="https://i.imgur.com/4qnYMFvl.jpg" alt="Snow Screenshot 1">
-                <img src="https://i.imgur.com/ThmSAmwl.jpg" alt="Snow Screenshot 2">
+                <img src="https://i.imgur.com/ChU6Bx5l.jpg" alt="Snow Screenshot 1">
+                <img src="https://i.imgur.com/nyEg0U9l.jpg" alt="Snow Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Dracula</td>
             <td>
-                <img src="https://i.imgur.com/EYZcnknl.jpg" alt="Dracula Screenshot 1">
-                <img src="https://i.imgur.com/JVsJudjl.jpg" alt="Dracula Screenshot 2">
+                <img src="https://i.imgur.com/UzmXAmYl.jpg" alt="Dracula Screenshot 1">
+                <img src="https://i.imgur.com/U1yuSexl.jpg" alt="Dracula Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Sunlit Gold</td>
             <td>
-                <img src="https://i.imgur.com/DpOhlF0l.jpg" alt="Sunlit Gold Screenshot 1">
-                <img src="https://i.imgur.com/ecPLLkNl.jpg" alt="Sunlit Gold Screenshot 2">
+                <img src="https://i.imgur.com/5EY7P7Gl.jpg" alt="Sunlit Gold Screenshot 1">
+                <img src="https://i.imgur.com/ipbks59l.jpg" alt="Sunlit Gold Screenshot 2">
             </td>
         </tr>
         <tr>
             <td>Cherry Blossom</td>
             <td>
-                <img src="https://i.imgur.com/1vF4fS4l.jpg" alt="Cherry Blossom Screenshot 1">
-                <img src="https://i.imgur.com/yS14KDKl.jpg" alt="Cherry Blossom Screenshot 2">
+                <img src="https://i.imgur.com/rkTvgKGl.jpg" alt="Cherry Blossom Screenshot 1">
+                <img src="https://i.imgur.com/cYKJ72yl.jpg" alt="Cherry Blossom Screenshot 2">
             </td>
         </tr>
     </tbody>
