@@ -216,7 +216,7 @@
 
 ![](https://i.imgur.com/ocq7fE0l.jpg)
 ![](https://i.imgur.com/BKg680Vl.jpg)
-![](https://i.imgur.com/1GQ8Up3l.jpg)
+![](https://i.imgur.com/sXJtolcl.jpg)
 ![](https://i.imgur.com/ocq7fE0l.jpg)
 ![](https://i.imgur.com/9C8s184l.jpg)
 ![](https://i.imgur.com/nQHJqAzl.jpg)
