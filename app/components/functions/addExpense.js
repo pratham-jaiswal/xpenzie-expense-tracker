@@ -54,7 +54,14 @@ const AddExpense = ({
     { label: "Investments", value: "10" },
     { label: "Insurance", value: "11" },
     { label: "Debt", value: "12" },
-    { label: "Miscellaneous", value: "13" },
+    { label: "Pay Later/Credit Bill", value: "13" },
+    { label: "Grocery", value: "14" },
+    { label: "Subscriptions", value: "15" },
+    { label: "Gifts", value: "16" },
+    { label: "Shopping", value: "17" },
+    { label: "Professional Services", value: "18" },
+    { label: "Charity/Donations", value: "19" },
+    { label: "Miscellaneous", value: "20" },
   ];
 
   const incomeCategories = [
@@ -67,7 +74,17 @@ const AddExpense = ({
     { label: "Gifts", value: "7" },
     { label: "Scholarship", value: "8" },
     { label: "Royalties", value: "9" },
-    { label: "Miscellaneous", value: "10" },
+    { label: "Freelance Income", value: "10" },
+    { label: "Side Hustle", value: "11" },
+    { label: "Consulting", value: "12" },
+    { label: "Commission", value: "13" },
+    { label: "Dividend Income", value: "14" },
+    { label: "Interest Income", value: "15" },
+    { label: "Refunds", value: "16" },
+    { label: "Affiliate Earnings", value: "17" },
+    { label: "Crowdfunding", value: "18" },
+    { label: "Prize Money", value: "19" },
+    { label: "Miscellaneous", value: "20" }
   ];
 
   useEffect(() => {
