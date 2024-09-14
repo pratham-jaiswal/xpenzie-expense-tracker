@@ -56,7 +56,7 @@ const HomePage = () => {
           resultSet = await db.getFirstAsync(
             "SELECT SUM(amount) AS totalIncome FROM transaction_entries WHERE LOWER(type) = 'income'"
           );
-          // console.log(resultSet.totalIncome);
+          
           setTotalIncome(resultSet.totalIncome || 0);
           setLoading(false);
         });
@@ -151,6 +151,7 @@ const HomePage = () => {
           showForm={showForm}
           setShowForm={setShowForm}
           themeName={themeName}
+          tableName="transaction_entries"
         />
       </View>
     </KeyboardAvoidingView>
