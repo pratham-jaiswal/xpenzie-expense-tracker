@@ -16,6 +16,7 @@ const DeleteEntry = ({
   selectedEntryId,
   setSelectedEntryId,
   themeName,
+  tableName
 }) => {
   
   const styles = getStyles(themeName);
@@ -23,7 +24,7 @@ const DeleteEntry = ({
   async function deleteEntry() {
     await db.withTransactionAsync(async () => {
       resultSet = await db.runAsync(
-        "DELETE FROM transaction_entries WHERE id = ?",
+        "DELETE FROM " + tableName + " WHERE id = ?",
         [selectedEntryId]
       );
 
