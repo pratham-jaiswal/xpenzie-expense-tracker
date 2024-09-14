@@ -26,7 +26,6 @@ const DeleteEntry = ({
         "DELETE FROM transaction_entries WHERE id = ?",
         [selectedEntryId]
       );
-      console.log(resultSet);
 
       if (resultSet.changes > 0) {
         let entry = entries.find((entry) => entry.id === selectedEntryId);
