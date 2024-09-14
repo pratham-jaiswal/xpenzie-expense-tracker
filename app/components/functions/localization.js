@@ -63,6 +63,8 @@ const en = {
   noBiometricSupported: "No biometric supported",
   noBiometricEnrolled: "No biometrics enrolled",
   alert: "Alert",
+  paid: "PAID?",
+  received: "RECEIVED?",
   appFooter: `Xpenzie ${appVersion}`,
 };
 
@@ -125,6 +127,8 @@ const hi = {
   noBiometricSupported: "कोई बायोमैट्रिक समर्थित नहीं",
   noBiometricEnrolled: "कोई बायोमेट्रिक नामांकित नहीं",
   alert: "चेतावनी",
+  paid: "भुगतान किया गया?",
+  received: "प्राप्त हुआ?",
 };
 
 const bn = {
@@ -186,6 +190,8 @@ const bn = {
   noBiometricSupported: "কোনো বায়োমেট্রিক সমর্থিত নয়",
   noBiometricEnrolled: "কোনো বায়োমেট্রিক নামাংকিত নয়",
   alert: "সতর্কতা",
+  paid: "পরিশোধিত?",
+  received: "প্রাপ্ত?",
 };
 
 const es = {
@@ -247,6 +253,8 @@ const es = {
   noBiometricSupported: "No se admite biometría",
   noBiometricEnrolled: "No se han registrado biometrías",
   alert: "Alerta",
+  paid: "¿PAGADO?",
+  received: "¿RECIBIDO?",
 };
 
 const fr = {
@@ -308,6 +316,8 @@ const fr = {
   noBiometricSupported: "Aucune biométrie prise en charge",
   noBiometricEnrolled: "Aucune biométrie enregistrée",
   alert: "Alerte",
+  paid: "PAYÉ ?",
+  received: "REÇU ?",
 };
 
 const ru = {
@@ -369,6 +379,8 @@ const ru = {
   noBiometricSupported: "Биометрия не поддерживается",
   noBiometricEnrolled: "Биометрия не зарегистрирована",
   alert: "Предупреждение",
+  paid: "ОПЛАЧЕНО?",
+  received: "ПОЛУЧЕНО?",
 };
 
 const ja = {
@@ -430,6 +442,8 @@ const ja = {
   noBiometricSupported: "生体認証がサポートされていません",
   noBiometricEnrolled: "生体認証が登録されていません",
   alert: "警告",
+  paid: "支払い済み？",
+  received: "受領済み？",
 };
 
 export { en, hi, bn, es, fr, ru, ja };
