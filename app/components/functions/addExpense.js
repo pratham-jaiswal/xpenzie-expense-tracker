@@ -29,6 +29,7 @@ const AddExpense = ({
   showForm,
   setShowForm,
   themeName,
+  tableName
 }) => {
   const styles = getStyles(themeName);
 
@@ -115,7 +116,7 @@ const AddExpense = ({
   async function addEntry() {
     await db.withTransactionAsync(async () => {
       resultSet = await db.runAsync(
-        "INSERT INTO transaction_entries (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO " + tableName + " (type, name, amount, date, category) VALUES (?, ?, ?, ?, ?)",
         [
           currentEntryType,
           currentEntryName,
@@ -151,7 +152,7 @@ const AddExpense = ({
   async function editEntry() {
     await db.withTransactionAsync(async () => {
       resultSet = await db.runAsync(
-        "UPDATE transaction_entries SET type = ?, name = ?, amount = ?, date = ?, category = ? WHERE id = ?;",
+        "UPDATE " + tableName + " SET type = ?, name = ?, amount = ?, date = ?, category = ? WHERE id = ?;",
         [
           currentEntryType,
           currentEntryName,
@@ -161,7 +162,6 @@ const AddExpense = ({
           selectedEntryId,
         ]
       );
-      console.log(resultSet);
 
       if (resultSet.changes > 0) {
         let existingEntries = [...entries];
@@ -356,8 +356,8 @@ const AddExpense = ({
                 testID="dateTimePicker"
                 value={currentEntryDate}
                 mode="date"
-                minimumDate={new Date(2023, 0, 1)}
-                maximumDate={new Date()}
+                minimumDate={tableName == "transaction_entries" ? new Date(2023, 0, 1) : new Date()}
+                maximumDate={tableName == "transaction_entries" ? new Date() : null}
                 timeZoneName={timeZone}
                 onChange={handleSelectDate}
               />
