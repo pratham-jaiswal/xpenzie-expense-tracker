@@ -12,10 +12,18 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { themes } from "./colorThemes";
 import { useEffect, useRef } from "react";
 
+const parseDate = (dateString) => {
+  const [day, month, year] = dateString.split("/").map(Number);
+  return new Date(year, month - 1, day + 1);
+};
+
+const sortEntriesByDate = (entries) => {
+  return entries.slice().sort((a, b) => parseDate(a.date) - parseDate(b.date));
+};
+
 const calculateDaysLeft = (dueDateString) => {
   const now = new Date();
-  const [day, month, year] = dueDateString.split("/").map(Number);
-  const dueDate = new Date(year, month - 1, day + 1);
+  const dueDate = parseDate(dueDateString);
   const deadline = new Date(dueDate.getTime());
   const diffTime = deadline - now;
   return diffTime;
@@ -207,9 +215,11 @@ const PendingEntryList = ({
   handleMarkAsComplete,
   i18nLang
 }) => {
+  const sortedEntries = sortEntriesByDate(entries);
+
   return (
     <FlashList
-      data={entries.slice().reverse()}
+      data={sortedEntries}
       renderItem={({ item }) => (
         <Item
           item={item}
