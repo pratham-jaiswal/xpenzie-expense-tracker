@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
-import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { useContext, useEffect } from "react";
 import { SettingsContext } from "../_layout";
 import { SQLiteProvider, type SQLiteDatabase } from "expo-sqlite";
@@ -43,9 +43,17 @@ export default function TabsLayout() {
           tabBarLabelStyle: { fontSize: 14, fontWeight: "bold" },
           tabBarStyle: { backgroundColor: themes[themeName].bgColor1 },
           tabBarIndicatorStyle: { backgroundColor: themes[themeName].primarycolor1 },
+          tabBarItemStyle: { width: Dimensions.get('window').width / 3, flex: 1 },
+          tabBarScrollEnabled: true,
         }}
         sceneContainerStyle={{ backgroundColor: themes[themeName].bgColor2 }}
       >
+        <MaterialTopTabs.Screen
+          name="futurePayments"
+          options={{
+            tabBarLabel: i18nLang.t("tabPending"),
+          }}
+        />
         <MaterialTopTabs.Screen
           name="index"
           options={{
@@ -87,6 +95,7 @@ async function migrateDbIfNeeded(db: SQLiteDatabase) {
     await db.execAsync(`
 PRAGMA journal_mode = 'wal';
 CREATE TABLE IF NOT EXISTS transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS pending_transaction_entries (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type TEXT NOT NULL, name TEXT NOT NULL, amount REAL NOT NULL, date TEXT NOT NULL, category TEXT NOT NULL);
 `);
     currentDbVersion = 1;
   }
