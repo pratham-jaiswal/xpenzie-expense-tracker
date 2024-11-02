@@ -64,24 +64,19 @@ const RootLayout = () => {
   const authenticate = async () => {
     const hasHardware = await LocalAuthentication.hasHardwareAsync();
     if (!hasHardware) {
-      console.log("No biometric supported");
       setIsAuthenticated(true);
       return;
     }
 
     const isEnrolled = await LocalAuthentication.isEnrolledAsync();
     if (!isEnrolled) {
-      console.log("No biometrics enrolled");
       setIsAuthenticated(true);
       return;
     }
 
     const result = await LocalAuthentication.authenticateAsync();
     if (result.success) {
-      console.log("Biometric authentication successful");
       setIsAuthenticated(true);
-    } else {
-      console.log("Biometric authentication failed");
     }
   };
 

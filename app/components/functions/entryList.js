@@ -44,7 +44,7 @@ const Item = ({
               ]}
             >
               {currencySymbol}
-              {Number(item.amount).toFixed(2)}
+              {Number(item.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </Text>
           </View>
           <Pressable onPress={() => handleDeleteClick(item.id)} style={{ width: "15%", alignItems: "center" }}>

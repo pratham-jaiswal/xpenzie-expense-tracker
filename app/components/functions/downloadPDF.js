@@ -59,8 +59,8 @@ const DownloadPDF = ({
       tableHtml +=
         "<td>" +
         expenditure[i].name +
-        "</td><td>" +
-        expenditure[i].amount +
+        "</td><td>" + 
+        expenditure[i].amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
         "</td>";
     } else {
       tableHtml += "<td></td><td></td>";
@@ -68,7 +68,7 @@ const DownloadPDF = ({
 
     if (income[i]) {
       tableHtml +=
-        "<td>" + income[i].name + "</td><td>" + income[i].amount + "</td>";
+        "<td>" + income[i].name + "</td><td>" + income[i].amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "</td>";
     } else {
       tableHtml += "<td></td><td></td>";
     }
@@ -77,7 +77,7 @@ const DownloadPDF = ({
 
   var savings = totalIncome - totalExpenditure;
   var savingsText =
-    (savings < 0 ? "- " : "") + currencySymbol + Math.abs(savings);
+    (savings < 0 ? "- " : "") + currencySymbol + Math.abs(savings).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
   tableHtml += `<tr><td>${i18nLang
     .t("totIncome")

@@ -33,7 +33,7 @@ const Item = ({ item, currencySymbol, styles, themeName }) => (
             ]}
           >
             {currencySymbol}
-            {item.amount.toFixed(2)}
+            {item.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Text>
         </View>
       </View>
@@ -152,7 +152,7 @@ const MonthlyEntryList = ({
                     ]}
                   >
                     {currencySymbol}
-                    {String(Math.abs(savings).toFixed(2))}
+                    {String(Math.abs(savings).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }))}
                   </Text>
                 </View>
               </View>

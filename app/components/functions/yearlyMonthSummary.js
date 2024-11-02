@@ -23,7 +23,7 @@ const MonthSummary = ({
         </Text>
         <Text style={styles.summaryAmount}>
           {currencySymbol}
-          {totalIncome.toFixed(2)}
+          {totalIncome.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </Text>
       </View>
       <View style={styles.summaryText}>
@@ -32,7 +32,7 @@ const MonthSummary = ({
         </Text>
         <Text style={styles.summaryAmount}>
           {currencySymbol}
-          {totalExpenditure.toFixed(2)}
+          {totalExpenditure.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </Text>
       </View>
       <View style={styles.summaryText}>
@@ -69,7 +69,7 @@ const MonthSummary = ({
             ]}
           >
             {currencySymbol}
-            {Math.abs(savings).toFixed(2)}
+            {Math.abs(savings).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Text>
         </View>
       </View>

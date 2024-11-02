@@ -28,7 +28,7 @@ const EntrySummary = ({
           </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
-            {totalIncome.toFixed(2)}
+            {Math.abs(totalIncome).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Text>
         </View>
         <View style={styles.summaryText}>
@@ -37,7 +37,7 @@ const EntrySummary = ({
           </Text>
           <Text style={styles.summaryAmount}>
             {currencySymbol}
-            {totalExpenditure.toFixed(2)}
+            {Math.abs(totalExpenditure).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </Text>
         </View>
         <View style={styles.summaryText}>
@@ -74,7 +74,7 @@ const EntrySummary = ({
               ]}
             >
               {currencySymbol}
-              {Math.abs(savings).toFixed(2)}
+              {Math.abs(savings).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </Text>
           </View>
         </View>
