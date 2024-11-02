@@ -6,7 +6,6 @@ import * as SecureStore from "expo-secure-store";
 import { SettingsContext } from "../_layout";
 import Account from "../components/modals/account";
 import Security from "../components/modals/security";
-import Feedback from "../components/modals/feedback";
 import { themes } from "../components/functions/colorThemes";
 import Theme from "../components/modals/theme";
 
@@ -43,7 +42,6 @@ const Settings = () => {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [showLanguageForm, setShowLanguageForm] = useState(false);
   const [showSecurityForm, setShowSecurityForm] = useState(false);
-  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [showThemeForm, setShowThemeForm] = useState(false);
 
   useEffect(() => {}, [i18nLang]);
@@ -99,13 +97,6 @@ const Settings = () => {
       >
         <Text style={styles.optionText}>{i18nLang.t("security")}</Text>
       </TouchableHighlight>
-      <TouchableHighlight
-        underlayColor={themes[themeName].underlayColor5}
-        style={styles.option}
-        onPress={() => setShowFeedbackForm(true)}
-      >
-        <Text style={styles.optionText}>{i18nLang.t("feedback")}</Text>
-      </TouchableHighlight>
       <View style={styles.footer}>
         <Text style={styles.footerText}>{i18nLang.t("appFooter")}</Text>
       </View>
@@ -158,14 +149,6 @@ const Settings = () => {
         save={save}
         needsAuth={needsAuth}
         setNeedsAuth={setNeedsAuth}
-        themeName={themeName}
-      />
-      <Feedback
-        showForm={showFeedbackForm}
-        setShowForm={setShowFeedbackForm}
-        i18nLang={i18nLang}
-        firstName={firstName}
-        lastName={lastName}
         themeName={themeName}
       />
     </View>

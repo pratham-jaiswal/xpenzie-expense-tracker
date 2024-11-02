@@ -21,7 +21,6 @@
 - **View Monthly Transactions:** Filter transactions by month for better organization.
 - **View Yearly Transactions:** Review transactions grouped by year for a broader perspective.
 - **Download PDF Statements:** Generate PDF statements for all transactions, monthly, or yearly.
-- **Feedback & Support:** Send any feedback or ask any questions.
 
 ## List of Currencies Supported
 
